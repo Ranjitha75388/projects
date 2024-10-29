@@ -1,0 +1,16 @@
+
+#!/bin/bash
+
+
+
+
+
+
+
+echo "print disk space:"
+df
+echo "print disk usage:"
+du
+echo "print memory usage:"
+free
+
