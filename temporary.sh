@@ -1,4 +1,0 @@
-echho
-print
-type
-
