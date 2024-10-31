@@ -1,0 +1,4 @@
+echho
+print
+type
+
