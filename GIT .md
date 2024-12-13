@@ -52,33 +52,12 @@
 
 - git push           -         Pushes local commits to the remote repository.
 
+                                                                                                                
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                                                                            
-
-
-
-
-                                                                 )
+                                                                 
   
     
 
