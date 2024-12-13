@@ -52,7 +52,10 @@
 
 - git push           -         Pushes local commits to the remote repository.
 
-                                                                                                                
+
+ ### Some sample example
+ 
+![image](https://github.com/user-attachments/assets/91bf1145-859f-432a-bffd-264a5553bb4a)
 
 
 
