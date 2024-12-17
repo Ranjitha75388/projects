@@ -40,3 +40,9 @@ A protocol is a set of rules that defines how data is transmitted and received b
     - This address is represented by a hexadecimal value.
 
     ### Classes of IP address (mainly for IPv4) :
+
+   ![image](https://github.com/user-attachments/assets/274f71dc-12fe-4c14-86d0-3c1c8dfdac64)
+
+
+
+
