@@ -18,6 +18,9 @@ A protocol is a set of rules that defines how data is transmitted and received b
 
 - Functionality: It sends data without establishing a connection, providing low latency communication. However, it doesn’t guarantee delivery or order, making it suitable for real-time applications like video streaming or online gaming.
 
+  ![image](https://github.com/user-attachments/assets/9ba6be38-b091-4653-be6f-983849d6eb45)
+
+
 
 ### IP (Internet Protocol):
 
