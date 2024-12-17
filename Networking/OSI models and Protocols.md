@@ -72,7 +72,7 @@ There are mainly two types of network model
     - So it is not reliable since it does not take care of any acknowledgement.  - Retransmission is not possible with this protocol. 
     - It takes 8 bytes to add UDP information on each segment. These 8 bytes contain port number, same like TCP.
 
-![image](https://github.com/user-attachments/assets/3e8cb1e6-2e92-43f6-bf07-b70dbba0288e)
+ ![image](https://github.com/user-attachments/assets/3e8cb1e6-2e92-43f6-bf07-b70dbba0288e)
 
 
 
@@ -98,5 +98,7 @@ There are mainly two types of network model
      - Transport Layer
      - Network Layer
      - Network Interface Layer = (Data Link Layer + Physical Layer) of OSI model
+
+![image](https://github.com/user-attachments/assets/fb869b78-dca2-4208-a8f8-b00bdc5d974c)
 
 
