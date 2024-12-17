@@ -47,4 +47,7 @@ A protocol is a set of rules that defines how data is transmitted and received b
 
    ![image](https://github.com/user-attachments/assets/28c60af8-9d46-4d2e-82fc-e290753ccb2e)
 
+Example:
 
+There are two parts to an IP address - Network ID and Host ID (Any device which gets the IP address is called a Host).
+To connect device A with device B we have to check just the network ID only for both the devices. Suppose device A (17.0.0.1) and device B (17.0.4.2), so both are class A IP address because their first octet under the range 0-126. For class A the network ID is first octet and remaining three octets for Host ID and for class B the first two octets are network ID and remaining Host ID and for class C the first three octets are network ID and the last octet is Host ID. So here the net ID of both the device is 17, so they can connect with each other easily and both devices are in a same network. But If the network ID is different, then we have to use a Router to connect them because a Router is used to connect two or more different networks.
