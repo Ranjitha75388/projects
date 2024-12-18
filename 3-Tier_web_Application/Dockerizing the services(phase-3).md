@@ -2,7 +2,7 @@
 
 This phase guides to Dockerizing the frontend and backend services .
 
-Before Dockerizing refer the 'phase 1' (https://github.com/Ranjitha75388/Jumisa-Technology/blob/main/3-Tier%20web%20Application/Build%20and%20deploy%20application(phase-1).md)
+Before Dockerizing refer the [phase 1](https://github.com/Ranjitha75388/Jumisa-Technology/blob/main/3-Tier%20web%20Application/Build%20and%20deploy%20application(phase-1).md)
 
 ## 1.React Frontend
 
