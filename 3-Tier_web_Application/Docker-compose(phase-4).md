@@ -5,7 +5,7 @@ Docker Compose is a tool that define and run multiple Docker containers using a 
 
 This phase guides to compose frontend,backend and MYSQL services.
 
-Before composing refer phase-3 (https://github.com/Ranjitha75388/Jumisa-Technology/blob/main/3-Tier%20web%20Application/Dockeerizing%20the%20services(phase-3).md)
+Before composing refer [phase-3](https://github.com/Ranjitha75388/Jumisa-Technology/blob/main/3-Tier%20web%20Application/Dockeerizing%20the%20services(phase-3).md)
 
 ### Step1 : Navigate to Directory
 ```
