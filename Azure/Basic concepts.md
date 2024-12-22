@@ -41,7 +41,7 @@
 
 ### 1.4. Creating an Azure Account
 
-- Azure create account (https://azure.microsoft.com/en-in/pricing/purchase-options/azure-account?msockid=2c32100c31c467461a6800da30bb6655)
+- Create Azure account (https://azure.microsoft.com/en-in/pricing/purchase-options/azure-account?msockid=2c32100c31c467461a6800da30bb6655)
 - Click "Try Azure for free"
 - Sign in with your mail-id
 - Create password and then enter the verify email code send to mail id
