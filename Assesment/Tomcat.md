@@ -1,5 +1,5 @@
 - Install and Daemonise Apache Tomcat
-- install the apache tomcat of version 8.5.100
+- - install the apache tomcat of version 8.5.100
 - manually run and observe the homepage from your browser
 - enable the startup procedure as service (daemonize)
 - make sure the service starts automatically when the linux server restarts
