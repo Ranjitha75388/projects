@@ -19,4 +19,7 @@ Recommendation:
 - draw an architecture and flowchart / flow diagram with all the possibilities, and develop one-by-one
 - track all your action in a github repo (try to use maximum git concepts)
 
-(ems-ops-phase-0)
+[ems-ops-phase-0](https://jumisaio-my.sharepoint.com/:u:/g/personal/prabhu_jumisa_io/EbzjKkfCi9JNgvKPlWLpvfYBDFU7aaXn8qbUTWpePwQ0mA?e=ENpGbO)
+
+daemonizing the services
+[ems-ops-phase-1](https://jumisaio-my.sharepoint.com/:u:/g/personal/nithya_jumisa_io/ETqpAGnZxI1NmRV6V4_IqbMBmHFhOKtR6VRlQBp80wl_AQ?e=cOa3MT)
