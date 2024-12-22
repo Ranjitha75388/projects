@@ -24,17 +24,13 @@ The CD part of a CI/CD pipeline refers to Delivery and Deployment (CI/CDD anyone
 
 ### Set Up GitHub Secrets
 
-GitHub Actions will need access to your Docker Hub account. To avoid hardcoding credentials, we will store them as GitHub secrets.
-
-Go to your GitHub repository and navigate to Settings > Secrets and variables > Actions > New repository secret.Add the following details.
-
-### Create the following secrets:
-
-DOCKERHUB_USERNAME: DockerHub username.(ranjithalogesh)
-
-DOCKERHUB_TOKEN: A personal access token from Docker Hub (You can create this in Docker Hub under Account Settings > Security).or
-
-DOCKERHUB_PASSWORD: Dockerhub password(tharshik123)
+- GitHub Actions will need access to your Docker Hub account. To avoid hardcoding credentials, we will store them as GitHub secrets.
+- Go to your GitHub repository and navigate to Settings > Secrets and variables > Actions > New repository secret.Add the following details.
+- #### Create the following secrets:
+  - DOCKERHUB_USERNAME: DockerHub username.(ranjithalogesh)
+  - DOCKERHUB_TOKEN: A personal access token from Docker Hub (You can create this in Docker Hub under Account Settings > Security).
+    or
+   - DOCKERHUB_PASSWORD: Dockerhub password(tharshik123)
 
 
 
