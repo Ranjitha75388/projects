@@ -25,7 +25,10 @@
 
 ![Screenshot from 2024-12-22 17-19-40](https://github.com/user-attachments/assets/50278c42-25b7-4310-98c9-402d622a0631)
 
-
+### Remove the runner
+- click remove runner option
+- Enter password
+- Run the command given that orelse click Force remove the runner 
 ### Run the workflow file
 ``` 
 name: Build and Push Docker Frontend Image
