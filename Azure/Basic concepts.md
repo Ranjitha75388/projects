@@ -33,11 +33,11 @@
 
 ### 2.4. Creating An account with default tenant
 
-- Azure create account (Link)[https://azure.microsoft.com/en-in/pricing/purchase-options/azure-account/search?icid=free-search&ef_id=_k_CjwKCAiA65m7BhAwEiwAAgu4JGjtynMFqlF2qY97bSMYApM47aWRKLjbtw8TkuEAw_E0uysHP8qitBoC9RYQAvD_BwE_k_&OCID=AIDcmm86ncqk20_SEM__k_CjwKCAiA65m7BhAwEiwAAgu4JGjtynMFqlF2qY97bSMYApM47aWRKLjbtw8TkuEAw_E0uysHP8qitBoC9RYQAvD_BwE_k_&gad_source=1&gclid=CjwKCAiA65m7BhAwEiwAAgu4JGjtynMFqlF2qY97bSMYApM47aWRKLjbtw8TkuEAw_E0uysHP8qitBoC9RYQAvD_BwE]
+- Azure create account (https://azure.microsoft.com/en-in/pricing/purchase-options/azure-account?msockid=2c32100c31c467461a6800da30bb6655)
 - Click "Try Azure for free"
-- Sign in with your own mail-id
+- Sign in with your mail-id
 - Create password and then enter the verify email code send to mail id
-- After sign in, fill the detaills
+- After sign in, fill the details
 - Click "Next", for 'Identify by card'.
 - Fill the card details, Only VISA/MASTERO credit or Debit cards accepted.
 - After successful transcation, Account will be created.
@@ -56,7 +56,7 @@
 
 - In Default Directory page , the right side menu bar shows 'manage'.
 - In that we can see 'users'.By clicking that we can create new user.
-- Fill the deatils,Domain name will be taken from default directory created above and auto set password had given for that new user.copy it and click create.
+- Fill the details,Domain name will be taken from default directory created above and auto set password had given for that new user.copy it and click create.
 - User name wil be added in 'All users'.
 
  ![Screenshot from 2024-12-22 13-25-32](https://github.com/user-attachments/assets/84f64d53-367f-404a-ab13-1feeca1ebfaa)
