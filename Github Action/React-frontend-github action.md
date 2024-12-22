@@ -2,16 +2,16 @@
 
 ### create react-hooks-frontend folder from ranjitha/github-actions
 
-Step1: cd ranjitha/github-actions/react-hooks-frontend
+Step 1: cd ranjitha/github-actions/react-hooks-frontend
 
-Step2:Copy reacthooks files given by team from local machine to Github directory
+Step 2 :Copy reacthooks files given by team from local machine to Github directory
 ```
  cp -r /home/logi/Downloads/old-files/ems-ops-phase-0/react-hooks-frontend .
 ```
    
-Step3: touch Dockerfile
+Step 3: touch Dockerfile
 
-Step4: nano Dockerfile
+Step 4: nano Dockerfile
 
 ```bash  
 
@@ -39,11 +39,11 @@ CMD ["npm", "start"]
 ```
 ### create workflow file from ranjitha/github-actions
 
-Step5: cd .github/workflows
+Step 5: cd .github/workflows
 
-Step6: touch docker-publish.yml
+Step 6: touch docker-publish.yml
 
-Step7: nano docker-publish.yml
+Step 7: nano docker-publish.yml
 
 ```bash
 name: Build and Push Docker Image
@@ -99,9 +99,16 @@ Step11: check github Action in github account.
 
    
   
-   After process completed image added in dockkerhub account.
+   After process completed image added in dockerhub account.
    
    ![Screenshot from 2024-12-04 22-52-27](https://github.com/user-attachments/assets/4d8a4a36-8c0d-47f7-bc71-c0dda9e07720)
 
 
+Step12:create a docker container and pull the docker image from dockerhub created above 
+ ```
+    docker run -d --name react1 -p 3001:3000 ranjithalogesh/my-react-app
+```
+Step13:check localhost:3011
+
+![Screenshot from 2024-12-12 22-27-40](https://github.com/user-attachments/assets/a0cca9cc-4f2a-41fb-b4d2-c6e42479d612)
 
