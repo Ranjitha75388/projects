@@ -1,10 +1,17 @@
-# React frontend github action
+# React frontend 
 
-Step1: cd ranjitha/Jumisa technology
+### create react-hooks-frontend folder from ranjitha/github-actions
 
-Step2: touch Dockerfile
+Step1: cd ranjitha/github-actions/react-hooks-frontend
 
-Step3: nano Dockerfile
+Step2:Copy reacthooks files given by team from local machine to Github directory
+```
+ cp -r /home/logi/Downloads/old-files/ems-ops-phase-0/react-hooks-frontend .
+```
+   
+Step3: touch Dockerfile
+
+Step4: nano Dockerfile
 
 ```bash  
 
@@ -30,11 +37,13 @@ EXPOSE 3000
 CMD ["npm", "start"]
 
 ```
-Step4: cd .github/workflows
+### create workflow file from ranjitha/github-actions
 
-Step5: touch docker-publish.yml
+Step5: cd .github/workflows
 
-Step6: nano docker-publish.yml
+Step6: touch docker-publish.yml
+
+Step7: nano docker-publish.yml
 
 ```bash
 name: Build and Push Docker Image
@@ -76,13 +85,13 @@ jobs:
 
 ```
 
-Step7: git add .
+Step8: git add .
 
-Step8: git commit -m "Added react yml"
+Step9: git commit -m "Added react yml"
 
-Step9: git push origin main
+Step10: git push origin main
 
-Step10: check github Action.
+Step11: check github Action in github account.
 
    Added react yml workflow starts running
    
