@@ -7,7 +7,7 @@
 ```  
 ### Step 2: copy backend files from local machine to github repo
 ```
- cp -r ranjitha/github-actions/springboot-backend/home/logi/Downloads/old-files/ems-ops-phase-0/springboot-backend .
+ cp -r /home/logi/Downloads/old-files/ems-ops-phase-0/springboot-backend .
  ```
 Step 3 :touch Dockerfile in springboot-backend directory
 
