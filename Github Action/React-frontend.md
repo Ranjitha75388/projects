@@ -1,14 +1,14 @@
 # React frontend 
 
-### change to github repo named as github-actions 
+### Step 1:change to github repo named as github-actions 
 ```
   cd ranjitha/github-actions
  ```
-### create react-hooks-frontend folder from ranjitha/github-actions
-
-Step 1: cd ranjitha/github-actions/react-hooks-frontend
-
-Step 2 :Copy reacthooks files given by team from local machine to Github directory
+### Step 2: create react-hooks-frontend folder from ranjitha/github-actions
+```
+cd ranjitha/github-actions/react-hooks-frontend
+```
+### Step 3:Copy reacthooks files given by team from local machine to Github directory
 ```
  cp -r /home/logi/Downloads/old-files/ems-ops-phase-0/react-hooks-frontend .
 ```
