@@ -1,5 +1,9 @@
 # React frontend 
 
+### change to github repo named as github-actions 
+```
+  cd ranjitha/github-actions
+ ```
 ### create react-hooks-frontend folder from ranjitha/github-actions
 
 Step 1: cd ranjitha/github-actions/react-hooks-frontend
