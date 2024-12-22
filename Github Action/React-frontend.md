@@ -13,10 +13,8 @@ cd ranjitha/github-actions/react-hooks-frontend
  cp -r /home/logi/Downloads/old-files/ems-ops-phase-0/react-hooks-frontend .
 ```
    
-Step 3: touch Dockerfile
-
-Step 4: nano Dockerfile
-
+### Step 4:create Dockerfile 
+nano Dockerfile
 ```bash  
 
 # Use the official Node.js image as a base
@@ -41,13 +39,13 @@ EXPOSE 3000
 CMD ["npm", "start"]
 
 ```
-### create workflow file from ranjitha/github-actions
+### Step 5 : create workflow file from ranjitha/github-actions
 
-Step 5: cd .github/workflows
+cd .github/workflows
 
-Step 6: touch docker-publish.yml
+touch docker-publish.yml
 
-Step 7: nano docker-publish.yml
+nano docker-publish.yml
 
 ```bash
 name: Build and Push Docker Image
@@ -85,36 +83,37 @@ jobs:
       # Step 5: Push the Docker image to Docker Hub
       - name: Push the Docker image
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-react-app:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/front-app:latest
 
 ```
-### Add to github account
+### Step 6 : Add to github account
 
-Step8: git add .
+git add .
 
-Step9: git commit -m "Added react yml"
+git commit -m "Added react yml"
 
-Step10: git push origin main
+git push origin main
 
-Step11: check github Action in github account.
+### Step 7 : check Actions in github account.
 
    Added react yml workflow starts running
    
    ![Screenshot from 2024-12-04 22-46-25](https://github.com/user-attachments/assets/967ec3ad-f3c1-469b-b2c8-030456a084ad)
 
- ### Image added in dockerhub account  
+ ### Step 9 :Image added in dockerhub account  
   
    After process completed image added in dockerhub account.
    
-   ![Screenshot from 2024-12-04 22-52-27](https://github.com/user-attachments/assets/4d8a4a36-8c0d-47f7-bc71-c0dda9e07720)
+  ![Screenshot from 2024-12-22 16-14-01](https://github.com/user-attachments/assets/68147456-787b-49b9-b90f-f8c8428a346f)
 
-### create a container
 
-Step12:create a docker container and pull the docker image from dockerhub created above 
+### Step10 :create a container
+
+create a docker container and pull the docker image from dockerhub created above 
  ```
     docker run -d --name react1 -p 3001:3000 ranjithalogesh/my-react-app
 ```
-Step13:check localhost:3011
+### Step11:check localhost:3011
 
 ![Screenshot from 2024-12-12 22-27-40](https://github.com/user-attachments/assets/a0cca9cc-4f2a-41fb-b4d2-c6e42479d612)
 
