@@ -84,6 +84,7 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-react-app:latest
 
 ```
+### Add to github account
 
 Step8: git add .
 
@@ -97,12 +98,13 @@ Step11: check github Action in github account.
    
    ![Screenshot from 2024-12-04 22-46-25](https://github.com/user-attachments/assets/967ec3ad-f3c1-469b-b2c8-030456a084ad)
 
-   
+ ### Image added in dockerhub account  
   
    After process completed image added in dockerhub account.
    
    ![Screenshot from 2024-12-04 22-52-27](https://github.com/user-attachments/assets/4d8a4a36-8c0d-47f7-bc71-c0dda9e07720)
 
+### create a container
 
 Step12:create a docker container and pull the docker image from dockerhub created above 
  ```
