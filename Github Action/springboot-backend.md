@@ -121,7 +121,7 @@ build and push springboot- backend.yml start running
 
 ### Step 9:Create docker container with springboot image
 ```
-docker run -d --name spring1 -p 8082:8080 my-springboot-app
+docker run -d --name spring1 -p 8082:8080 ranjithalogesh/my-springboot-app
 ```
 
 
