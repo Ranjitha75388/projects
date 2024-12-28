@@ -1,11 +1,11 @@
 
 # Connecting Virtual Machine's through Bastion 
 
-Architecture Diagram
+### Architecture Diagram
 
   ![image](https://github.com/user-attachments/assets/87eba901-dee3-4a47-a53a-651f93ef5aaf)
 
-
+Refer [Task-1]
 ### Roadmap:
 
 - Create resource group
