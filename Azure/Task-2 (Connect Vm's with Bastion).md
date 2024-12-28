@@ -5,7 +5,7 @@
 
   ![image](https://github.com/user-attachments/assets/87eba901-dee3-4a47-a53a-651f93ef5aaf)
 
-Refer [Task-1]
+Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%20(Connect%20vm%20-%20SSH).md)
 ### Roadmap:
 
 - Create resource group
