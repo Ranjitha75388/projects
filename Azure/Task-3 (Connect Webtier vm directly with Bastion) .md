@@ -8,6 +8,13 @@
 
 Note: Refer [Task-2](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-2%20(Connect%20Vm's%20with%20Bastion).md)
 
+### Road map
+- Create Bastion
+- Create webtier  virtual machine
+- Connect webtier virtual machine to BAstion service
+
+### Step by step Process
+
 - Step 1 :Open Webtier Virtual Machine
 - Step 2 : Connect via BAstion
 - Step 3 : Automatically terminal opened connecting with webtier virtual Machine
