@@ -3,7 +3,9 @@
 
 ### Architecture diagram
 
-![image](https://github.com/user-attachments/assets/5678e02f-81fe-4597-94f8-9f85b5f64fc0)
+![image](https://github.com/user-attachments/assets/5678e02f-81fe-4597-94f8-9f85b5f64fc0) ![Screenshot from 2024-12-29 20-10-16](https://github.com/user-attachments/assets/0f21eea4-3de8-444f-9ba9-e4a94411cdbe)
+
+
 
 
 Note: Refer [Task-2](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-2%20(Connect%20Vm's%20with%20Bastion).md)
