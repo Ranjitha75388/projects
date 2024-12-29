@@ -4,7 +4,7 @@
 
 ![Screenshot from 2024-12-29 21-02-54](https://github.com/user-attachments/assets/4d90e795-b58c-46ab-ad07-1c1d423cfa0a)
 
-
+[Basic Information](https://github.com/Ranjitha75388/projects/blob/main/Azure/Subscription%2CResourse%20Group%2CResources.md)
 ## Roadmap:
 - Create Resourse group
 - Create virtual Network
