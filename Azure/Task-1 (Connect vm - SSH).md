@@ -2,7 +2,8 @@
 
 ## Architecture Diagram
 
-![image](https://github.com/user-attachments/assets/57d3ff5d-812e-4d48-9f38-9e056a9aec51)
+![Screenshot from 2024-12-29 21-02-54](https://github.com/user-attachments/assets/4d90e795-b58c-46ab-ad07-1c1d423cfa0a)
+
 
 ## Roadmap:
 - Create Resourse group
