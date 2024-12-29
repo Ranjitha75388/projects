@@ -55,7 +55,7 @@
 
 ### Step 6:Review and create --> DOWNLOAD PRIVATEKEY.
 
-## ACCESS VIRTUAL MACHINE FROM LOCAL TERMINAL
+## ACCESS VIRTUAL MACHINE FROM TERMINAL
 
 - Check (vm-keypair.pem) file in Downloads
 - Copy .pem file to home/logi directory
