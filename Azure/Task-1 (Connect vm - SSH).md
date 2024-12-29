@@ -10,7 +10,7 @@
 - Create virtual Network
 - Create subnet with NSG inside Virtual Network
 - create virtual machine,Disk,NSG inside subnet
-- Access virtual machine from local machine in terminal
+- Access virtual machine from terminal
 - User connected to web vm-1 through port 22 with virtual machines public id.
 
 ## Step by step process
