@@ -52,36 +52,36 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
 - #### Basics
   - ProjectDetails
     
-    Subscription:Free Trail
+     - Subscription:Free Trail
     
-    Resource Group:rg-ranjitha-Bastion
+    -   Resource Group:rg-ranjitha-Bastion
 
   - Instance Details
     
-     Virtual Machine Name: Bastion-virtual-Machine
+      - Virtual Machine Name: Bastion-virtual-Machine
 
   - Administrator account
 
-     Password type --> Username(ranjitha) --> Password(Tharshik@123)
+       - Password type --> Username(ranjitha) --> Password(Tharshik@123)
 
 - #### Networking
 
     - Virtual network(Vnet-bastion) --> Subnet(Bastionmachine-subnet) --> Public IP (Need to connect from User) ---> NIC NSG(Basic) --> ports(Allow)
 
-- review and Create
+- #### Review and Create
 
 
 ### Step4: Create virtual machine_2 (Webtier machine)
 
-   - Instance details
+   - #### Instance details
 
      Virtual machine name:Webtier-virtual machine
 
-  - Networking
+  - #### Networking
 
      subnet(Webmachine-subnet) --> Public IP:NONE(need to connect privately only to bastion machine)
 
-  - Review and Create
+  - #### Review and Create
 
 ### Step5 : Connect Bastion
 
