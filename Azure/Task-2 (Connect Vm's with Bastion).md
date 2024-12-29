@@ -3,7 +3,8 @@
 
 ### Architecture Diagram
 
-  ![image](https://github.com/user-attachments/assets/87eba901-dee3-4a47-a53a-651f93ef5aaf)
+  ![image](https://github.com/user-attachments/assets/87eba901-dee3-4a47-a53a-651f93ef5aaf)  ![Screenshot from 2024-12-29 19-48-32](https://github.com/user-attachments/assets/2e5c674d-8a81-4d5e-ba87-4e8296eea575)
+
 
 Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%20(Connect%20vm%20-%20SSH).md)
 ### Roadmap:
