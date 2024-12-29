@@ -2,7 +2,8 @@
 # Connecting Virtual Machine's through Bastion 
 
 ### Architecture Diagram
-![Screenshot from 2024-12-29 20-23-47](https://github.com/user-attachments/assets/88e1d1b1-13dc-42e8-ae3b-6fabd6386e81)
+![Screenshot from 2024-12-29 20-48-57](https://github.com/user-attachments/assets/4bcd2f0a-3fad-4236-b3fd-835df3fe045b)
+
 
 
 
