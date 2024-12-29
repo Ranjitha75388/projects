@@ -12,9 +12,11 @@
 Note: Refer [Task-2](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-2%20(Connect%20Vm's%20with%20Bastion).md)
 
 ### Road map
+- Create Resourse group
 - Create Bastion
+- Create Virtual network
 - Create webtier  virtual machine
-- Connect webtier virtual machine to BAstion service
+- Connect webtier virtual machine via BAstion service
 
 ### Step by step Process
 
