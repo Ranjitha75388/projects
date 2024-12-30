@@ -11,7 +11,6 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
 ### Roadmap:
 
 - Create resource group
-- Create Bastion host,Vnet,subnet,NSG
 - Create Bastion-virtual machine,Disk
 - Create webtier-virtual machine,Disk
 - connect Bastion virtualmachine via Bastion 
@@ -23,15 +22,7 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
 
   -  Resource group Name:rg-ranjitha-Bastion
 
-### Step2 : Create Bastion
 
-- ### Project Details
-    
-    Create --> Subscription (Free Trail) --> resourse group(rg-ranjitha-Bastion) 
-
-- ### Instance details
-  
-    Name(Bastion-host) --> Region(central india)
 
 - ### Configure Virtual network
 
