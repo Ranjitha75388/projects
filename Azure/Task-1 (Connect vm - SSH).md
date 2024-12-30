@@ -75,11 +75,13 @@
 ### Step 5:Create Networking
 
  - Default vnet,subnet added (created above step:2)
- - Need Public key (ip address)
+ - Need Public key (ip address) ## Create new → vm-1-ip
  - NSG (Basic)
  - Delete public-ip and NIC when VM is deleted(Tick)
 
-![Screenshot from 2024-12-30 21-18-57](https://github.com/user-attachments/assets/a0dd2a6f-6f2d-4e1e-b171-3aa9980baf03)
+![Screenshot from 2024-12-30 22-10-02](https://github.com/user-attachments/assets/60120de3-1b1f-4f4a-9904-306ed22a36da)
+![Screenshot from 2024-12-30 22-11-45](https://github.com/user-attachments/assets/6ff95c0c-4be2-44af-afc9-0739de7da14a)
+
 
 ### Step 6:Review and create --> DOWNLOAD PRIVATEKEY.
 
