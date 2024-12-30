@@ -15,24 +15,35 @@
 
 ## Step by step process
 
-### Step 1:Create resource Group
+## Step 1:Create resource Group
      
-- Resourse group name:rg Ranjitha
+   ![Screenshot from 2024-12-30 12-06-12](https://github.com/user-attachments/assets/31db56ea-7237-4380-9392-48794973621c)
 
-### Step 2: Create Virtual Network
+   Review+create
 
-- Subscription(Free trail) --> Resourse group(rg Ranjitha) --> Virtual network name (vnet1) --> region(Central india)
+## Step 2: Create Virtual Network
 
-- IP address -->10.10.0.0/16 -->Add subnet(CIDR Calculator) --> NSG(add name) --> Review and create.
+  ![Screenshot from 2024-12-30 12-35-14](https://github.com/user-attachments/assets/4156d79f-389a-4fa8-9db0-50f9d2414055)
+
+  ### Next
+
+- ### IP address  --> Add subnet(CIDR Calculator) -->  Review and create.
+
+  ![Screenshot from 2024-12-30 12-40-40](https://github.com/user-attachments/assets/f1058e57-3c5b-4fb9-af50-6204b346be7e)
+
+- ### In Add subnet --> Security -->Network security group
+
+   ![Screenshot from 2024-12-30 13-17-02](https://github.com/user-attachments/assets/9260d70a-e1a4-441b-a0ab-670176de736b)
+
 
   ![Screenshot from 2024-12-28 21-50-22](https://github.com/user-attachments/assets/0158b57b-8266-41ff-93fd-fcf155c8cba6)
 
+- #### To Check NSG --> Right corner settings --> Inbound security rules --> Add --> port(22),protocol(TCP),Action(Allow),priority(lessnumber).
+
+    ![Screenshot from 2024-12-30 12-53-17](https://github.com/user-attachments/assets/fb4014d9-0dd5-421d-b3b1-949e3630c573)
 
 
-- Virtual Network and NSG creted.
-
-  - NSG --> Right corner settings --> Inbound security rules --> Add --> port(22),protocol(TCP),Action(Allow),priority(lessnumber).
-  - Check in Overview --subnet(1) --> Network Interfaces --> subnets.
+  - #### Check in Overview --subnet(1) --> Network Interfaces --> subnets.
 
 ### Step 3:Create Virtual Machine
 
