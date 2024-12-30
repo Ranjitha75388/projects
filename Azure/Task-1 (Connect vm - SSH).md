@@ -88,7 +88,9 @@
 - Check (vm-keypair.pem) file in Downloads
 - Copy .pem file to home/logi directory
 - Give read and write permissions only
-
+    ```
+       sudo chmod 600 vm-1-keypair.pem
+    ```
     ```bash
       ssh -i vm-1-keypair.pem ranjitha@(public ip-address of virtual machine)
      ```
