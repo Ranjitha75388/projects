@@ -20,15 +20,13 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
 
 ### Step1 : Create resource group
 
-  -  Resource group Name:rg-ranjitha-Bastion
+  -  **Resource group Name**:rg-ranjitha-Bastion
 
 
 ### Step2 : Create Virtual network
 
-- #### Create New --> Vnet Name(vnet-Bastion)
 
-![Screenshot from 2024-12-30 22-14-48](https://github.com/user-attachments/assets/2a1104c0-35b2-4ab7-8de8-d17a632e8875)
-
+![Screenshot from 2024-12-30 22-40-52](https://github.com/user-attachments/assets/b2b80dc6-b079-42f3-936e-33f06db95d3f)
 
 - #### Vnet Address range --> Subnets(1.Bastionmachine-subnet,2.Webmachine-subnet)
 
@@ -47,17 +45,16 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
 
 - #### Networking
 
-    - Virtual network(Vnet-bastion) --> Subnet(Bastionmachine-subnet) --> Public IP (Need to connect from User) ---> NIC NSG(Basic) --> ports(Allow)
-   ![Screenshot from 2024-12-30 22-34-24](https://github.com/user-attachments/assets/2bea4191-2efb-49cd-a7bd-f8446958d072)
+    - Virtual network(bastion-service) --> Create 2 Subnets(Bastionmachine-subnet) --> Public IP (Need to connect from User) ---> NIC NSG(Basic) --> ports(Allow)
+
+    ![Screenshot from 2024-12-30 22-34-24](https://github.com/user-attachments/assets/2bea4191-2efb-49cd-a7bd-f8446958d072)
 
 - #### Review and Create
 
 
 ### Step4: Create virtual machine_2 (Webtier machine)
 
-   - #### Instance details
-
-     Virtual machine name:Webtier-virtual machine
+  ![Screenshot from 2024-12-30 22-44-14](https://github.com/user-attachments/assets/ba66f207-d1a8-473e-a663-2ec50ae136e6)
 
   - #### Networking
 
