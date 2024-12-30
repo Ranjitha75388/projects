@@ -23,41 +23,32 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
   -  Resource group Name:rg-ranjitha-Bastion
 
 
+### Step2 : Create Virtual network
 
-- ### Configure Virtual network
+- #### Create New --> Vnet Name(vnet-Bastion)
 
-   Create New -->Vnet Name(vnet-Bastion) --> Vnet Address range --> Subnets(1.Azurebastionsubnet,2.Bastionmachine-subnet,3.Webmachine-subnet)
+![Screenshot from 2024-12-30 22-14-48](https://github.com/user-attachments/assets/2a1104c0-35b2-4ab7-8de8-d17a632e8875)
 
-- ### Configure IP Address   
-   
-    Public ip address 
 
-  - ###  Public IP address
-   
-     Create new --> IP address Name
+- #### Vnet Address range --> Subnets(1.Bastionmachine-subnet,2.Webmachine-subnet)
+
+![Screenshot from 2024-12-30 22-27-37](https://github.com/user-attachments/assets/490d6345-06e7-48e1-ae8e-b5f1aa4f0689)
 
 - ### Review and Create
 
 ### Step3 : Create Virtual Machine_1 (Bastion machine)
 
-- #### Basics
-  - ProjectDetails
-    
-     - Subscription:Free Trail
-    
-    -   Resource Group:rg-ranjitha-Bastion
-
-  - Instance Details
-    
-      - Virtual Machine Name: Bastion-virtual-Machine
+![Screenshot from 2024-12-30 22-30-58](https://github.com/user-attachments/assets/57d3adbe-d867-4e27-bf8c-ef3d9c0c140e)
 
   - Administrator account
 
-       - Password type --> Username(ranjitha) --> Password(Tharshik@123)
+![Screenshot from 2024-12-30 22-32-07](https://github.com/user-attachments/assets/2bff5bbd-3daf-478a-9eac-52c9f6e8f42c)
+
 
 - #### Networking
 
     - Virtual network(Vnet-bastion) --> Subnet(Bastionmachine-subnet) --> Public IP (Need to connect from User) ---> NIC NSG(Basic) --> ports(Allow)
+   ![Screenshot from 2024-12-30 22-34-24](https://github.com/user-attachments/assets/2bea4191-2efb-49cd-a7bd-f8446958d072)
 
 - #### Review and Create
 
@@ -70,7 +61,8 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
 
   - #### Networking
 
-     subnet(Webmachine-subnet) --> Public IP:NONE(need to connect privately only to bastion machine)
+     subnet(Webmachine-subnet) --> Public IP:**NONE**(need to connect privately only to bastion machine)
+   ![Screenshot from 2024-12-30 22-35-23](https://github.com/user-attachments/assets/1d94cadb-9d52-48ca-ad62-33dbaefcbe06)
 
   - #### Review and Create
 
