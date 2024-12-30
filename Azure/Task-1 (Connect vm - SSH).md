@@ -19,7 +19,7 @@
      
    ![Screenshot from 2024-12-30 12-06-12](https://github.com/user-attachments/assets/31db56ea-7237-4380-9392-48794973621c)
 
-   Review+create
+  #### Review+create
 
 ## Step 2: Create Virtual Network
 
@@ -38,25 +38,39 @@
 
   ![Screenshot from 2024-12-28 21-50-22](https://github.com/user-attachments/assets/0158b57b-8266-41ff-93fd-fcf155c8cba6)
 
-- #### To Check NSG --> Right corner settings --> Inbound security rules --> Add --> port(22),protocol(TCP),Action(Allow),priority(lessnumber).
+- ### To Check NSG
+- #### Right corner settings --> Inbound security rules --> Add --> port(22),protocol(TCP),Action(Allow),priority(lessnumber).
 
-    ![Screenshot from 2024-12-30 12-53-17](https://github.com/user-attachments/assets/fb4014d9-0dd5-421d-b3b1-949e3630c573)
+  ![Screenshot from 2024-12-30 12-53-17](https://github.com/user-attachments/assets/fb4014d9-0dd5-421d-b3b1-949e3630c573)
 
 
-  - #### Check in Overview --subnet(1) --> Network Interfaces --> subnets.
+  ## Step 3:Create Virtual Machine
 
-### Step 3:Create Virtual Machine
+- #### virtualmachine --> create -->subscription(Free Trail) -->Resourse group(rg ranjitha) -->vm name(vm-1)
 
--    virtualmachine --> create -->subscription(Free Trail) -->Resourse group(rg ranjitha) -->vm name(vm-1) --> Image(Ubuntu22) -->VM Architecture(X64) -->Size(1vcpu,1Bitmemory)
+   ![Screenshot from 2024-12-30 21-10-47](https://github.com/user-attachments/assets/e5d3046b-acec-47bc-9ae4-9a9bea39faf4)
 
--   Authentication type
-      - Username:ranjitha
-      - SSH Publickey -->Username ,Generate new keypair,keypair name(vm-1-keypair)
-      - port --> SSH(22)
+- #### Image(Ubuntu22) -->VM Architecture(X64) -->Size(1vcpu,1Bitmemory)
+
+    ![Screenshot from 2024-12-30 21-30-46](https://github.com/user-attachments/assets/df76d841-f762-4aa4-b682-796e823a08db)
+
+
+- #### Authentication type
+
+    ![Screenshot from 2024-12-30 21-13-16](https://github.com/user-attachments/assets/3f35e99d-6d9c-4f24-8cb3-b66e49da8955)
+
+-  #### (or)password type
+
+    ![Screenshot from 2024-12-30 21-14-35](https://github.com/user-attachments/assets/3d3015d4-b884-412b-b509-4c6d277e3de2)
+
+ - #### port
+ 
+    ![Screenshot from 2024-12-30 21-15-32](https://github.com/user-attachments/assets/486a6033-c27f-4a16-bf0d-b93c7be21a14)
+
 
 ### Step 4:Create Disk
 
- -  For image Ubuntu(22) Default Size(30Gib) added
+-  For image Ubuntu(22) Default Size(30Gib) added
 
 ### Step 5:Create Networking
 
@@ -64,6 +78,8 @@
  - Need Public key (ip address)
  - NSG (Basic)
  - Delete public-ip and NIC when VM is deleted(Tick)
+
+![Screenshot from 2024-12-30 21-18-57](https://github.com/user-attachments/assets/a0dd2a6f-6f2d-4e1e-b171-3aa9980baf03)
 
 ### Step 6:Review and create --> DOWNLOAD PRIVATEKEY.
 
@@ -76,7 +92,7 @@
     ```bash
       ssh -i vm-1-keypair.pem ranjitha@(public ip-address of virtual machine)
      ```
-- Connected to Virtual machine
+- #### Connected to Virtual machine
 
   ![Screenshot from 2024-12-27 16-59-00](https://github.com/user-attachments/assets/25862e04-b38e-43c2-93e0-be7296e34857)
 
