@@ -29,7 +29,9 @@ Note: Refer [Task-2](https://github.com/Ranjitha75388/projects/blob/main/Azure/T
  ![Screenshot from 2024-12-31 11-00-33](https://github.com/user-attachments/assets/d06d0471-1f4d-4823-90c0-c701b9b9fdd6)
   
 - Step 3 :Open Webtier Virtual Machine
-    [Task-2]() 
+
+   [Task-2](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-2%20(Connect%20Vm's%20with%20Bastion).md) 
+
 - Step 4 : Connect via BAstion
 
  ![Screenshot from 2024-12-30 22-50-31](https://github.com/user-attachments/assets/805c78a7-bfb8-4809-ba06-f46ea6ff3f2d)
