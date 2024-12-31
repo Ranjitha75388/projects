@@ -28,7 +28,7 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
 
 ![Screenshot from 2024-12-30 22-40-52](https://github.com/user-attachments/assets/b2b80dc6-b079-42f3-936e-33f06db95d3f)
 
-- #### Vnet Address range --> Subnets(1.Bastionmachine-subnet,2.Webmachine-subnet)
+- #### Vnet Address range --> Add Subnet
 
 ![Screenshot from 2024-12-30 22-27-37](https://github.com/user-attachments/assets/490d6345-06e7-48e1-ae8e-b5f1aa4f0689)
 
