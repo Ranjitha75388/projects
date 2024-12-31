@@ -17,7 +17,7 @@
 
 ## Step 1:Create resource Group
      
-   ![Screenshot from 2024-12-30 12-06-12](https://github.com/user-attachments/assets/31db56ea-7237-4380-9392-48794973621c)
+  ![Screenshot from 2024-12-31 12-06-50](https://github.com/user-attachments/assets/2e898073-8361-44bf-a0f9-05375cfdbddf)
 
   #### Review+create
 
@@ -77,7 +77,7 @@
 ### Step 5:Create Networking
 
  - Default vnet,subnet added (created above step:2)
- - Need Public key (ip address) ## Create new → vm-1-ip
+ - Need Public key (ip address)  **Create new → vm-1-ip**
  - NSG (Basic)
  - Delete public-ip and NIC when VM is deleted(Tick)
 
@@ -96,7 +96,7 @@
        sudo chmod 600 vm-1-keypair.pem
     ```
 ![Screenshot from 2024-12-31 11-58-55](https://github.com/user-attachments/assets/1ae62a09-af3b-4082-a5aa-ad45ff9a1e7c)
-![Screenshot from 2024-12-31 12-01-34](https://github.com/user-attachments/assets/5377abde-2fa9-4783-8e53-ab95feea6272)
+![Screenshot from 2024-12-31 12-17-09](https://github.com/user-attachments/assets/ca33df2c-632b-4dd9-a54b-5a6292d34e82)
 
    ```bash
   
