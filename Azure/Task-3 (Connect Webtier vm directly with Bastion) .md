@@ -28,19 +28,19 @@ Note: Refer [Task-2](https://github.com/Ranjitha75388/projects/blob/main/Azure/T
 
  ![Screenshot from 2024-12-31 11-00-33](https://github.com/user-attachments/assets/d06d0471-1f4d-4823-90c0-c701b9b9fdd6)
   
-- Step 3 :Open Webtier Virtual Machine
+- ### Step 3 :Create and Open Webtier Virtual Machine
 
-   [Task-2](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-2%20(Connect%20Vm's%20with%20Bastion).md) 
+  **Refer** [Task-2](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-2%20(Connect%20Vm's%20with%20Bastion).md) 
 
    ![Screenshot from 2024-12-31 11-10-35](https://github.com/user-attachments/assets/92cf542d-5ce7-455f-a12c-74a7b72f24d4)
 
-- Step 4 : Connect via BAstion
+- ### Step 4 : Connect via BAstion
 
  ![Screenshot from 2024-12-30 22-50-31](https://github.com/user-attachments/assets/805c78a7-bfb8-4809-ba06-f46ea6ff3f2d)
 
   ![Screenshot from 2024-12-30 22-54-49](https://github.com/user-attachments/assets/ff8f8233-befd-4864-9abf-90fdffad3f32)
   
-- Step 3 : Automatically terminal opened connecting with webtier virtual Machine
+- ### Step 5: Automatically terminal opened connecting with webtier virtual Machine
 
 ![Screenshot from 2024-12-28 23-09-39](https://github.com/user-attachments/assets/bff3a133-e81f-465a-8633-bcb199712bb0)
 
