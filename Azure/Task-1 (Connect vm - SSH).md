@@ -38,6 +38,8 @@
 
   ![Screenshot from 2024-12-28 21-50-22](https://github.com/user-attachments/assets/0158b57b-8266-41ff-93fd-fcf155c8cba6)
 
+  **Review+create**
+
 - ### To Check NSG
 - #### Right corner settings --> Inbound security rules --> Add --> port(22),protocol(TCP),Action(Allow),priority(lessnumber).
 
@@ -46,8 +48,8 @@
 
   ## Step 3:Create Virtual Machine
 
-- #### virtualmachine --> create -->subscription(Free Trail) -->Resourse group(rg ranjitha) -->vm name(vm-1)
-
+- #### virtualmachine --> create
+  
    ![Screenshot from 2024-12-30 21-10-47](https://github.com/user-attachments/assets/e5d3046b-acec-47bc-9ae4-9a9bea39faf4)
 
 - #### Image(Ubuntu22) -->VM Architecture(X64) -->Size(1vcpu,1Bitmemory)
@@ -90,12 +92,16 @@
 - Check (vm-keypair.pem) file in Downloads
 - Copy .pem file to home/logi directory
 - Give read and write permissions only
-    ```
+   ```
        sudo chmod 600 vm-1-keypair.pem
     ```
-    ```bash
+![Screenshot from 2024-12-31 11-58-55](https://github.com/user-attachments/assets/1ae62a09-af3b-4082-a5aa-ad45ff9a1e7c)
+![Screenshot from 2024-12-31 12-01-34](https://github.com/user-attachments/assets/5377abde-2fa9-4783-8e53-ab95feea6272)
+
+   ```bash
+  
       ssh -i vm-1-keypair.pem ranjitha@(public ip-address of virtual machine)
-     ```
+   ```
 - #### Connected to Virtual machine
 
   ![Screenshot from 2024-12-27 16-59-00](https://github.com/user-attachments/assets/25862e04-b38e-43c2-93e0-be7296e34857)
