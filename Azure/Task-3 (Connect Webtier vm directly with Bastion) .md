@@ -13,14 +13,24 @@ Note: Refer [Task-2](https://github.com/Ranjitha75388/projects/blob/main/Azure/T
 
 ### Road map
 - Create Resourse group
-- Create Virtual network
+- Create Bastion
 - Create webtier  virtual machine
 - Connect webtier virtual machine via BAstion service
 
 ### Step by step Process
 
-- Step 1 :Open Webtier Virtual Machine
-- Step 2 : Connect via BAstion
+- ### Step 1:Create resourse group
+    **Resourcegroup name:** rg-ranjitha-Bastion
+  
+- ### Step 2:Create Bastion
+
+   ![Screenshot from 2024-12-31 10-59-06](https://github.com/user-attachments/assets/28dc8148-081d-4cb8-9205-8a0489a0a857)
+
+ ![Screenshot from 2024-12-31 11-00-33](https://github.com/user-attachments/assets/d06d0471-1f4d-4823-90c0-c701b9b9fdd6)
+  
+- Step 3 :Open Webtier Virtual Machine
+    [Task-2]() 
+- Step 4 : Connect via BAstion
 
  ![Screenshot from 2024-12-30 22-50-31](https://github.com/user-attachments/assets/805c78a7-bfb8-4809-ba06-f46ea6ff3f2d)
 
