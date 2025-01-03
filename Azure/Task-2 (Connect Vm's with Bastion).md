@@ -30,6 +30,8 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
 
  #### Next :  IP Address 
 
+ - Create two subnets(Bastionmachine subnet and webmachine subnet)
+
 ![Screenshot from 2024-12-30 22-27-37](https://github.com/user-attachments/assets/490d6345-06e7-48e1-ae8e-b5f1aa4f0689)
 
 - #### Review and Create
@@ -43,7 +45,7 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
 
 #### Next: Networking
 
-- Virtual network(bastion-service) --> Subnets(Bastionmachine-subnet) --> Public IP (Need to connect from User)
+- Virtual network(bastion-service) --> Subnets(Bastionmachine-subnet) --> **Public IP** (Need to connect from User)
  --> NIC NSG(Basic) --> ports(Allow)
 
  ![Screenshot from 2024-12-30 22-34-24](https://github.com/user-attachments/assets/2bea4191-2efb-49cd-a7bd-f8446958d072)
@@ -79,3 +81,33 @@ Refer [Task-1](https://github.com/Ranjitha75388/projects/blob/main/Azure/Task-1%
        ssh ranjitha@(Private IP of webtier-vm)
      ```
    ![Screenshot from 2024-12-28 15-23-29](https://github.com/user-attachments/assets/0e7605e8-4d15-486b-8153-c3f4137aa069)
+
+- ###  Another method to enter to web vm
+
+- Create BAstion vm using Generate new key pair
+![Screenshot from 2025-01-03 22-03-28](https://github.com/user-attachments/assets/683f0401-cda6-40d1-8776-5d46db378e07)
+
+  
+- Create web vm --> SSH type keypair --> In Networking - subnet - enable **private subnet**
+![Screenshot from 2025-01-03 22-04-26](https://github.com/user-attachments/assets/cff410ea-b0a5-4a16-bbae-6c4c18585e30)
+
+![Screenshot from 2025-01-03 22-05-36](https://github.com/user-attachments/assets/4f59657e-6474-4159-911a-03e57af2b575)
+
+- Run the below command in terminal 
+
+   eval "$(ssh-agent -s)"
+
+  ssh-add /path/to/your/private-key
+
+  ssh -A azureuser@<BastionPublicIP>
+
+   ssh azureuser@<WebVMPrivateIP>
+ 
+
+
+   ![Screenshot from 2025-01-03 21-48-23](https://github.com/user-attachments/assets/6845bd79-b232-4286-9acd-fa8755b4fba5)
+
+   ![Screenshot from 2025-01-03 21-50-20](https://github.com/user-attachments/assets/13034ea9-f138-4813-8e43-ca56afb7abe8)
+
+
+   ![Screenshot from 2025-01-03 21-50-57](https://github.com/user-attachments/assets/91058ea5-26ea-40d8-9789-17ea47e102d8)
