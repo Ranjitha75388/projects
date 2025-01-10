@@ -1,43 +1,105 @@
 
 # Deploy Frontend vm
 
-#### Step1 :Create Resourse group
+## Step1 :Create Resourse group
 
 ![Screenshot from 2025-01-10 14-08-06](https://github.com/user-attachments/assets/58c1b951-56da-4d54-9a40-acf803a45b0f)
 
 
-#### Step2 :Create Vnet
+## Step2 :Create Vnet
 
 ![image](https://github.com/user-attachments/assets/39e9618a-ae0a-4be2-8138-48cf13ca151c)
 
-#### Step3 :Create subnet with NSG
+## Step3 :Create subnet with NSG
 
 ![image](https://github.com/user-attachments/assets/a0123b3e-1ec7-48d5-8936-4f697e94ab0b)
 
-- #### NSG
+- ### NSG
 
  ![image](https://github.com/user-attachments/assets/79da2233-8427-4b53-a1be-528a5301ba9b)
 
-#### Step4 :Create Virtual machine
+- ### Add inbound NSG Rules
+  ![Screenshot from 2025-01-09 16-16-55](https://github.com/user-attachments/assets/7e47e2e3-ee54-461c-b7f4-85d173d6ca78)
+
+## Step4 :Create Virtual machine
+
+![image](https://github.com/user-attachments/assets/825422d3-1fac-413b-9f49-acf6ed1803e6)
+![image](https://github.com/user-attachments/assets/82de9bca-88b3-4468-a066-b2431c2bb5a8)
+
+- ### Networking:Need public ip
+
+  ![image](https://github.com/user-attachments/assets/a2d1dbe8-986d-44cb-a223-7ab99e18a39d)
+
+- Review and create
 
 #### Step5 :Copy ems-phase from local to vm
-
-#### Step6 :NAvigate to frontend vm with public ip Address
-
-#### Step7 :Check copy files added
-
-#### Step8 :Install npm for node modules and package.json
 ```
-   npm Install
-```   
+   scp -r /home/logi/Downloads/old-files/ems-ops-phase/react-hooks-frontend ranjitha@20.198.23.54:/home/ranjitha
+```
+#### Step6 :NAvigate to frontend vm with public ip Address,username and passsword
 
+![image](https://github.com/user-attachments/assets/31046edb-8e79-4a28-bce2-9f258dd089da)
+
+```
+   ssh ranjitha@20.198.23.54
+```
+
+#### Step7 :After login to vm Check copy files added
+
+![image](https://github.com/user-attachments/assets/69a68496-0cf3-4a01-b169-0c6d6311558c)
+
+
+#### Step8 :Install Dependencies
+
+```
+   cd React-hooks-frontend
+```
+- verify the npm version:
+```
+     npm -v
+```
+- Install Node Version Manager
+```
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+   source ~/.bashrc
+```
+- Install a Newer Node.js Version
+```
+   nvm install 20
+```
+- Use the New Node.js Version:
+```
+   nvm use 20
+```
+- Verify the Node and npm versions:
+```
+   node -v
+   npm -v
+```
+- Reinstall npm
+```
+   rm -rf node_modules package-lock.json
+   npm install
+```   
+#### STep9 :Verify Installation
+
+After running npm install, verify that the node_modules directory is created and contains react-scripts:
+```
+   ls -l node_modules/react-scripts
+```
 #### Step9 :Run the Application
  
 ```
    npm start
 ```    
-#### Step10 :Run the Application in browser with public ip Address
+![Screenshot from 2025-01-09 13-03-01](https://github.com/user-attachments/assets/18c3d80e-d04b-4c32-af18-4d6a76f9dd9d)
+
+
+
+#### Step10 :Run the Application in browser using public ip Address
+
 ```
-   http:/public-ip:3000
+   http:/frontend-vm-public-ip:3000
 ```   
+![Screenshot from 2025-01-09 16-34-32](https://github.com/user-attachments/assets/17242804-a242-40f8-a7b0-704078cc38ed)
 
