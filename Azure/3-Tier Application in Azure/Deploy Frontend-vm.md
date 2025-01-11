@@ -103,3 +103,9 @@ After running npm install, verify that the node_modules directory is created and
 ```   
 ![Screenshot from 2025-01-09 16-34-32](https://github.com/user-attachments/assets/17242804-a242-40f8-a7b0-704078cc38ed)
 
+## ERROR
+If error occcurs after npm start as below,use
+```
+export NODE_OPTIONS=--openssl-legacy-provider
+```
+![Screenshot from 2025-01-11 20-15-31](https://github.com/user-attachments/assets/a955c818-3c21-4979-b2bd-9b9636be32b4)
