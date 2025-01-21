@@ -1,7 +1,9 @@
 
 # Deploy Backend vm
 
-### Step1: Select resourse group(rg-ranjitha-3tier-app) create in frontend
+### Step1: Select resourse group created in frontend
+
+(rg-ranjitha-3tier-app)
 
 ### Step2 :Create NAT (network address translation) gateways
 
@@ -18,8 +20,23 @@
 
 ![image](https://github.com/user-attachments/assets/907a9ea3-edfa-4cfd-91b6-0faafe1a025c)
 
+### Add inbound rules:frontend public-ip to backend private-ip
+
+![image](https://github.com/user-attachments/assets/ef2ae659-af00-4712-a194-50d72057073a)
+
+### Add inbound rule : backend private-ip to database private-ip
+
+![image](https://github.com/user-attachments/assets/57c15c6c-d1c2-4c38-8cd0-2d99bb8fca93)
+
 
 ### Step5 :Create virtual machine
+
+![image](https://github.com/user-attachments/assets/7f5d946b-7a22-4b80-8f5d-f5160772cb3f)
+
+**Next:Networking:no need public ip,no need NSG for vm**
+
+![image](https://github.com/user-attachments/assets/c996e095-1606-46e1-afdc-5ed30cf92a15)
+
 
 ### Step6 :Copy ems-phase backend folder from local to frontend vm
 
@@ -48,9 +65,14 @@ Next copy springboot folder from frontend vm to backend vm
 ```
 ### Step9 :Add Database vm private ip
 ```
-   cd /src/main/resourse/application properties
-
-
+   nano/src/main/resourse/application properties
+```
+```
+spring.datasource.url=jdbc:mysql://10.0.3.4:3306/mynewdatabase?useSSL=false&allowPublicKeyRetrieval=true
+spring.datasource.username=ranjitha
+spring.datasource.password=123
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+spring.jpa.hibernate.ddl-auto=update
 
 ```   
 ### step10 :Clean and build the application
