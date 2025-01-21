@@ -48,7 +48,7 @@ sudo nano  /etc/systemd/system/reactapp_ems.service
         RestartSec=10
 
         WorkingDirectory=/home/ranjitha/opt/react-frontend/
-        ExecStart=serve -s build -l 3000
+        ExecStart=serve -s build -l tcp://0.0.0.0:3000
         ExecStop=/bin/kill -15 $MAINPID
 
     [Install]
