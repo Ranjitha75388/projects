@@ -92,4 +92,5 @@ spring.jpa.hibernate.ddl-auto=update
 ```
 ![image](https://github.com/user-attachments/assets/fb4bdebd-d207-459d-b804-0421abc8b97c)
 
-
+# NOTE:
+By using this requirement submit button will not work in browser.we need to add load balancer between frontend subnet and backend subnet.
