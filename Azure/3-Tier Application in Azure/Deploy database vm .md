@@ -61,4 +61,5 @@ mysql -h 10.0.3.4 -u root -p
 #### Edit the MySQL configuration file (/etc/mysql/mysql.conf.d/mysqld.cnf or /etc/my.cnf) and verify that the bind-address is set to either 0.0.0.0 (to accept connections from any IP address) or 10.0.3.4 
 
 bind-address = 0.0.0.0
-
+### NOTE:
+In this project data will not enter in table.bacause submit button will not work,bacause of backend vm doesnot connect with loadbalancer.
