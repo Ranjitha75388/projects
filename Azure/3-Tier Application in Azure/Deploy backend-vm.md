@@ -7,6 +7,8 @@
 
 ### Step2 :Create NAT (network address translation) gateways
 
+Backend subnet is private.so for network connection we are using NAT Gateway.By using NAT's public ip we can connect to internet.
+
 ![image](https://github.com/user-attachments/assets/042ab913-9ed5-4e9b-95db-376580341b4d)
 
 **Next:outboundIP**
