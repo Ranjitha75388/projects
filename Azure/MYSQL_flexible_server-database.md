@@ -52,15 +52,15 @@ sudo mysqldump -u root -p mynewdatabase(db-name) > mynewdatabase.sql(newfilename
 ```
 ![image](https://github.com/user-attachments/assets/ebe41635-e9e0-4930-8321-5b620f1fc8ca)
 
-#### Step6: Login to flexible server
+#### Step6: Login to flexible-server
 ```
 mysql -h mysql-db-demo.mysql.database.azure.com -P 3306 -u ranjitha -p
 ```
-#### Step7 :Creating new database in flexible server as "new-flexible-db"
+#### Step7 :Creating new database in flexible-server as "new-flexible-db"
 
 ![image](https://github.com/user-attachments/assets/fc56ba5e-948c-4f18-80cd-c7d6fa2fddfb)
 
-#### step8: Importing(copying) from database vm to flexible server db
+#### step8: Migrating(copying) from database-vm to flexible-server-db
 
 ```
 mysql -h mysql-db-demo.mysql.database.azure.com -u ranjitha -p new_flexible_db < mynewdatabase.sql
