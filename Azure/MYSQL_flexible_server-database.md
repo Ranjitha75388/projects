@@ -1,44 +1,80 @@
+
+# Creating azure flexible server in azure portal
+
+- Login to Azure portal
+- Search for Azure database for MYSQL
+- Select create
+
+  ![image](https://github.com/user-attachments/assets/58f413cc-7ba1-43df-af12-65120b2e4bbd)
+
+- Choose Flexiblex server -----> Advanced create
+
 ![Screenshot from 2025-01-29 13-09-00](https://github.com/user-attachments/assets/2ab14d77-7d95-4677-8f65-070d2d78651f)
 ![image](https://github.com/user-attachments/assets/31fe3dec-ff19-4a50-922e-07b54a9e072f)
 ![image](https://github.com/user-attachments/assets/36d29e28-4f15-48fa-aaa2-3133eb7372b2)
 
 
-manuall insert data in vm
-Step1: Before inserting data, confirm the column names and data types:
+## - Manuall insert data in vm
+
+#### Step1: To create table
+```
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+);
+```
+#### Step2: Before inserting data, confirm the column names and data types:
 ```
 DESC employees;
 ```
 
 ![image](https://github.com/user-attachments/assets/ee25686c-d9c9-4376-84a2-da47520413dd)
 
-Step2 : Insert Data Manually
+#### Step3 : Insert Data Manually
 ```
-INSERT INTO employees (name, age, department, salary)
-VALUES ('John Doe', 30, 'IT', 60000.00);
+INSERT INTO employees ( email_id,  first_name, last_name)
+VALUES 
+(ranji.punitha94@gmail.com, Ranjitha, B)
+(logeshk89@gmail.com, Logesh, K)
+(tharshik123@gmail.com, Tharshik, L)```
 ```
-Step3:After inserting, check the table again for verification
+#### Step4 :After inserting, check the table again for verification
 ```
 SELECT * FROM employees;
 ```
 ![image](https://github.com/user-attachments/assets/50a834b9-1637-49a7-b7fe-dbba863b2e81)
 
-Export command
+#### step5 :Export command to copy data's from database-vm to dumpfile
 ```
 sudo mysqldump -u root -p mynewdatabase(db-name) > mynewdatabase.sql(newfilename)
 ```
 ![image](https://github.com/user-attachments/assets/ebe41635-e9e0-4930-8321-5b620f1fc8ca)
 
+#### Step6: Login to flexible server
+```
+mysql -h mysql-db-demo.mysql.database.azure.com -P 3306 -u ranjitha -p
+```
+#### Step7 :Creating new database in flexible server as "new-flexible-db"
 
-creating new databse in flexible server
 ![image](https://github.com/user-attachments/assets/fc56ba5e-948c-4f18-80cd-c7d6fa2fddfb)
 
-importing(copying) from database vm to flexible server db
-```
-mysql -h mysql-db-demo.mysql.database.azure.com(server-name) -u ranjitha(admin-name) -p new_flexible_db(database-name in flexible-server) < mynewdatabase.sql(dumpfile)
-```
-mysql-db-demo.mysql.database.azure.com(server-name)
-ranjitha(admin-name)
-new_flexible_db(database-name in flexible-server)
-mynewdatabase.sql(dumpfile created during export)
+#### step8: Importing(copying) from database vm to flexible server db
 
+```
+mysql -h mysql-db-demo.mysql.database.azure.com -u ranjitha -p new_flexible_db < mynewdatabase.sql
+```
+- mysql-db-demo.mysql.database.azure.com(server-name)
+
+- ranjitha(admin-name)
+
+- new_flexible_db(database-name in flexible-server)
+
+- mynewdatabase.sql(dumpfile created during export)
+
+![image](https://github.com/user-attachments/assets/84f94e36-1f7d-427b-b88c-10704f5daae2)
+
+#### Step9 :Check the data's that copied from database-vm
+![image](https://github.com/user-attachments/assets/70964409-23e8-4e02-b217-084e117b4f58)
 
