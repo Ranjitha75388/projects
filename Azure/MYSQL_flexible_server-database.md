@@ -27,3 +27,18 @@ Export command
 sudo mysqldump -u root -p mynewdatabase(db-name) > mynewdatabase.sql(newfilename)
 ```
 ![image](https://github.com/user-attachments/assets/ebe41635-e9e0-4930-8321-5b620f1fc8ca)
+
+
+creating new databse in flexible server
+![image](https://github.com/user-attachments/assets/fc56ba5e-948c-4f18-80cd-c7d6fa2fddfb)
+
+importing(copying) from database vm to flexible server db
+```
+mysql -h mysql-db-demo.mysql.database.azure.com(server-name) -u ranjitha(admin-name) -p new_flexible_db(database-name in flexible-server) < mynewdatabase.sql(dumpfile)
+```
+mysql-db-demo.mysql.database.azure.com(server-name)
+ranjitha(admin-name)
+new_flexible_db(database-name in flexible-server)
+mynewdatabase.sql(dumpfile created during export)
+
+
