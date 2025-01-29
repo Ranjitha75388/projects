@@ -22,3 +22,8 @@ SELECT * FROM employees;
 ```
 ![image](https://github.com/user-attachments/assets/50a834b9-1637-49a7-b7fe-dbba863b2e81)
 
+Export command
+```
+sudo mysqldump -u root -p mynewdatabase(db-name) > mynewdatabase.sql(newfilename)
+```
+![image](https://github.com/user-attachments/assets/ebe41635-e9e0-4930-8321-5b620f1fc8ca)
