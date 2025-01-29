@@ -14,7 +14,7 @@
 ![image](https://github.com/user-attachments/assets/36d29e28-4f15-48fa-aaa2-3133eb7372b2)
 
 
-## - Manuall insert data in vm
+- ## Manuall insert data in vm
 
 #### Step1: To create table
 ```
