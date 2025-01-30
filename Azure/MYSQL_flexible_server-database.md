@@ -78,3 +78,35 @@ mysql -h mysql-db-demo.mysql.database.azure.com -u ranjitha -p new_flexible_db <
 #### Step9 :Check the data's that copied from database-vm
 ![image](https://github.com/user-attachments/assets/70964409-23e8-4e02-b217-084e117b4f58)
 
+
+# Connecting backend-vm to azure flexible server db
+
+### Allow ip address
+
+- Go to Azure portal
+- Go to Azure flexible server created above(mysql-db-demo)
+- Go to settings ---> Networking ---> Allow firewall rules -->  Add 0.0.0.0 - 255.255.255.255  or allow backend-vm ip address    
+   --->save
+
+  ![image](https://github.com/user-attachments/assets/84ff58a5-061b-40b4-b67b-4d25f335089d)
+
+## Change in backend-vm
+```
+nano src/main/resources/application.properties
+```
+```
+spring.datasource.url=jdbc:mysql://mysql-db-demo.mysql.database.azure.com:3306/new_flexible_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+spring.datasource.username=ranjitha
+spring.datasource.password=tharshik@123
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+spring.jpa.hibernate.ddl-auto=update
+
+```
+### Restart the application
+```
+java -jar springboot-backend-0.0.1-SNAPSHOT.jar 
+
+```
+
+
+
