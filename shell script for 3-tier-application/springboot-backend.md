@@ -2,7 +2,7 @@
 #!/bin/bash
 
 # Variables
-GIT_REPO="https://github.com/Ranjitha75388/ranjitha_assesment"
+GIT_REPO="https://github.com/Ranjitha75388/ranjitha_assesment"       ### It's public repo.when it's a private repo need to authenticate with password
 APP_DIR="/home/ranjitha/ranjitha_assesment"
 SPRING_BOOT_DIR="$APP_DIR/ems-ops-phase/springboot-backend"  # Adjust path if needed
 JAVA_VERSION="11"  # Change to your desired Java version
@@ -52,3 +52,6 @@ java -jar $JAR_FILE
 
 echo "Spring Boot backend setup completed successfully!"
 ```
+
+
+- ### Change the application properties manually.
