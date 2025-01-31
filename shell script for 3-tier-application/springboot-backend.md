@@ -2,10 +2,10 @@
 #!/bin/bash
 
 # Variables
-GIT_REPO="https://github.com/Ranjitha75388/ranjitha_assesment"       ### It's public repo.when it's a private repo need to authenticate with password
+GIT_REPO="https://github.com/Ranjitha75388/ranjitha_assesment"
 APP_DIR="/home/ranjitha/ranjitha_assesment"
-SPRING_BOOT_DIR="$APP_DIR/ems-ops-phase/springboot-backend"  # Adjust path if needed
-JAVA_VERSION="11"  # Change to your desired Java version
+SPRING_BOOT_DIR="$APP_DIR/ems-ops-phase/springboot-backend"
+JAVA_VERSION="11"
 
 
 # Update system packages
@@ -19,17 +19,7 @@ java -version
 
 # Clone the backend application from GitHub (if not already cloned)
 echo "Cloning backend repository..."
-if [ ! -d "$SPRING_BOOT_DIR" ]; then
-    git clone --depth 1 $GIT_REPO $APP_DIR
-else
-    echo "$SPRING_BOOT_DIR already exists. Skipping clone."
-fi
-
-# Check if Spring Boot directory exists and contains pom.xml
-if [ ! -d "$SPRING_BOOT_DIR" ] || [ ! -f "$SPRING_BOOT_DIR/pom.xml" ]; then
-    echo "Error: Spring Boot directory or pom.xml not found. Exiting."
-    exit 1
-fi
+git clone --depth 1 $GIT_REPO $APP_DIR
 
 # Navigate to Spring Boot backend directory
 cd $SPRING_BOOT_DIR
@@ -38,13 +28,9 @@ cd $SPRING_BOOT_DIR
 echo "Building Spring Boot application using Maven..."
 mvn clean install -DskipTests
 
+
 # Check if the JAR file exists in the target directory
 JAR_FILE=$(find target -name "*.jar" -print -quit)
-
-if [ -z "$JAR_FILE" ]; then
-    echo "Error: No JAR file found in the target directory. Exiting."
-    exit 1
-fi
 
 # Run the Spring Boot application JAR file
 echo "Running the Spring Boot application from JAR file..."
@@ -55,3 +41,21 @@ echo "Spring Boot backend setup completed successfully!"
 
 
 - ### Change the application properties manually.
+# ERROR:
+while running springboot application the error like :**Connections using insecure transport are prohibited (require_secure_transport=ON)**
+
+**soln**:Your Azure MySQL Flexible Server requires SSL/TLS encryption, but your Spring Boot app is not using SSL.
+
+Step1:Download the Azure MySQL SSL Certificate
+```
+wget https://www.digicert.com/CACerts/BaltimoreCyberTrustRoot.crt.pem -O /home/ranjitha/mysql-azure-cert.pem
+```
+Step2:Update application.properties
+```
+spring.datasource.url=jdbc:mysql://mysql-db-demo.mysql.database.azure.com:3306/new_flexible_db?useSSL=true&requireSSL=true&trustCertificateKeyStoreUrl=file:/home/ranjitha/mysql-azure-cert.pem&serverTimezone=UTC
+spring.datasource.username=ranjitha
+spring.datasource.password=tharshik@123
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.hibernate.ddl-auto=update
+```
