@@ -2,7 +2,8 @@
 #!/bin/bash
 
 # Variables
-GIT_REPO="https://github.com/Ranjitha75388/ranjitha_assesment"
+GIT_REPO="https://github.com/Ranjitha75388/ranjitha_assesment"          ### if public repo
+# GIT_REPO="git@github.com:Ranjitha75388/ranjitha_assesment.git"        ### if private repo
 APP_DIR="/home/ranjitha/ranjitha_assesment"
 NODE_VERSION="18"
 
