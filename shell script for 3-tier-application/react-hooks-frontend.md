@@ -1,9 +1,10 @@
+# Shell script for frontend application,cloning application code from private github repo,and running as a service
+
 ```
 #!/bin/bash
 
 # Variables
-GIT_REPO="https://github.com/Ranjitha75388/ranjitha_assesment"          ### if public repo
-# GIT_REPO="git@github.com:Ranjitha75388/ranjitha_assesment.git"        ### if private repo
+GIT_REPO="https://Ranjitha75388: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@github.com/Ranjitha75388/ranjitha_assesment.git"
 APP_DIR="/home/ranjitha/ranjitha_assesment"
 NODE_VERSION="18"
 
@@ -14,8 +15,8 @@ sudo apt update && sudo apt upgrade -y
 # Install Node.js and npm
 echo "Installing Node.js and npm..."
 curl -fsSL https://deb.nodesource.com/setup_$NODE_VERSION.x | sudo -E bash -
-sudo apt -y install nodejs && npm
-node  -v && npm -v
+sudo apt -y install nodejs
+node -v && npm -v
 
 # Clone the frontend application from GitHub
 echo "Cloning frontend repository..."
@@ -31,9 +32,38 @@ export NODE_OPTIONS=--openssl-legacy-provider
 echo "Installing frontend dependencies..."
 npm install
 
-# Build the frontend 
+# Build the frontend
 echo "Building frontend..."
-npm start
+npm start &
 
-# echo "Frontend setup completed successfully!"
+# Create a systemd service for the frontend
+echo "Creating systemd service..."
+SERVICE_FILE="/etc/systemd/system/frontend.service"
+
+sudo bash -c "cat > $SERVICE_FILE" <<EOF
+[Unit]
+Description=React Frontend Application
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/npm start
+WorkingDirectory=$APP_DIR/ems-ops-phase/react-hooks-frontend
+Restart=always
+User=ranjitha
+Environment=NODE_OPTIONS=--openssl-legacy-provider
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=frontend-app
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Reload systemd and enable the service
+sudo systemctl daemon-reload
+sudo systemctl enable frontend.service
+sudo systemctl start frontend.service
+
+echo "Frontend setup completed successfully!"
+echo "Check service status: sudo systemctl status frontend.service"
 ```
