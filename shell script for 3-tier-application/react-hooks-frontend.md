@@ -24,7 +24,6 @@
 
 -  Important: Copy and securely store your new token immediately, as it will only be displayed once.
 
-```
 
 ```
 #!/bin/bash
