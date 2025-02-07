@@ -1,5 +1,31 @@
 # Shell script for frontend application,cloning application code from private github repo,and running as a service
 
+#### GIT_REPO="https://yourusername:yourPAT@github.com/yourusername/your-private-repo.git"
+
+#### - To generate Personal Access Token(PAT) for accessing private repo through "https"
+
+- Log in to your GitHub account.
+
+- Click on your profile picture in the upper-right corner and select Settings.
+
+-  In the left sidebar, click on Developer settings.
+
+- Click on Personal access tokens, then select Tokens (classic).
+
+- Click the Generate new token button.
+
+- Provide a descriptive name for your token to remember its purpose.
+
+- Expiration: Choose an expiration period for the token. 
+    
+-  Scopes: Select the appropriate scopes based on the access you need. For instance, to access repositories, select the **repo** scope.
+
+-  After configuring the settings, click on Generate token.
+
+-  Important: Copy and securely store your new token immediately, as it will only be displayed once.
+
+```
+
 ```
 #!/bin/bash
 
