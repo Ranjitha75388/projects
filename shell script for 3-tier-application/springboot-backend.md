@@ -10,7 +10,7 @@ APP_DIR="/home/ranjitha/ranjitha_assesment"
 SPRING_BOOT_DIR="$APP_DIR/ems-ops-phase/springboot-backend"
 JAVA_VERSION="17"
 MAVEN_VERSION="3.8.8"
-DB_URL="jdbc:mysql://mysql-db-demo.mysql.database.azure.com:3306/new_flexible_db?useSSL=true&requireSSL=true&verifyServerCertificate=true"
+DB_URL="jdbc:mysql://mysql-server-demo.mysql.database.azure.com:3306/new_flexible_db?useSSL=true&requireSSL=true&verifyServerCertificate=true"
 DB_USERNAME="ranjitha"
 DB_PASSWORD="tharshik@123"
 
@@ -92,7 +92,6 @@ Environment=SPRING_PROFILES_ACTIVE=prod
 [Install]
 WantedBy=multi-user.target
 EOL
-
 # Reload systemd to apply the new service
 echo "Reloading systemd daemon..."
 sudo systemctl daemon-reload
@@ -103,4 +102,5 @@ sudo systemctl enable springboot-backend
 sudo systemctl start springboot-backend
 
 echo "Spring Boot backend setup and service configuration completed successfully!"
+
 ```
