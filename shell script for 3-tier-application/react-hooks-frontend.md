@@ -53,6 +53,9 @@ cd $APP_DIR/ems-ops-phase/react-hooks-frontend
 # Set Node.js options for OpenSSL (in case of legacy OpenSSL issues)
 export NODE_OPTIONS=--openssl-legacy-provider
 
+# Remove cache
+rm -rf node_modules package-lock.json
+
 # Install dependencies
 echo "Installing frontend dependencies..."
 npm install
@@ -71,9 +74,10 @@ Description=React Frontend Application
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/npm start
+ExecStart=/usr/bin/bash -c 'npm start'
 WorkingDirectory=$APP_DIR/ems-ops-phase/react-hooks-frontend
 Restart=always
+RestartSec=5
 User=ranjitha
 Environment=NODE_OPTIONS=--openssl-legacy-provider
 StandardOutput=syslog
