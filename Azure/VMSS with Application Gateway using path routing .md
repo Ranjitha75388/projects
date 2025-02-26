@@ -111,10 +111,13 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 **NEXT: Advanced**  : Add frontend script 
 
-
 ![image](https://github.com/user-attachments/assets/f7fe3c85-5386-4646-8bba-a13c28ebc841)
 
 ### Review+create
+
+## NSG for Frontend vmss
+
+![image](https://github.com/user-attachments/assets/e3a7b2b7-c606-46df-968b-0604b00b426c)
 
 ## Step 8: Configure Backend vmss
 
@@ -130,6 +133,10 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 ![image](https://github.com/user-attachments/assets/0f612c59-53a7-4397-8f4a-d899605c6ffd)
 
 ### Review+create
+
+## NSG for Backend vmss
+
+![image](https://github.com/user-attachments/assets/f351556a-8b17-432e-9631-b65982948960)
 
 ## Step 9: Check created vm's are in Healthy state
 
