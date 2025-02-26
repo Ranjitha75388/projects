@@ -144,4 +144,6 @@ Review+create
 
 ### Using Backend path : <Application gateway public-ip>/api/v1/employees
 
+![Screenshot from 2025-02-24 14-11-17](https://github.com/user-attachments/assets/34276923-e3cf-48b3-a536-da1f83b6c4d1)
+
 
