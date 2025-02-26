@@ -38,6 +38,8 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 #### Step 4 : Create subnet (seperate subnet for application gateway)
 
+- Add private subnet and NAT Gateway for  frontend vmss and backend vmss
+   
 ![image](https://github.com/user-attachments/assets/3a7de545-f9c8-4e13-a3ff-1ba7a8948732)
 
 #### Step 5 : Create Application gateway
@@ -88,11 +90,58 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 ## Health probes
 
-
+![image](https://github.com/user-attachments/assets/28efa8c0-a32f-48ea-93a5-887dd2d1ad88)
+![image](https://github.com/user-attachments/assets/51600c73-21d6-45b7-af17-1fcfaa236637)
 
 ### Review+Create
 
+## Configrue frontend vmss
+
+![image](https://github.com/user-attachments/assets/7ed390b9-14ca-4fd5-9ef4-df2c87afc997)
+![image](https://github.com/user-attachments/assets/3bcca5d1-531f-4a2b-a512-c527bf161441)
+![image](https://github.com/user-attachments/assets/ddde99b4-a318-4abe-a107-f3c9840a9342)
+
+NEXT: Networking
+
+- NIC --> none  , public ip ---> Disabled
+  
+![image](https://github.com/user-attachments/assets/9d75594d-0f17-4076-a641-542d9f1fcb00)
+![image](https://github.com/user-attachments/assets/b657ee23-16eb-42e1-845d-7e4370ff4f4c)
+
+**NEXT: Advanced**  : Add frontend script 
 
 
+![image](https://github.com/user-attachments/assets/f7fe3c85-5386-4646-8bba-a13c28ebc841)
 
- 
+Reviw+create
+
+## Configure Backend vmss
+
+![image](https://github.com/user-attachments/assets/3dd9e4b1-219e-4b2e-9077-da1e08e4adaa)
+
+NEXT: Networking
+
+![image](https://github.com/user-attachments/assets/f0e8387f-bbd1-40fd-85f7-1db7872a0dc2)
+![image](https://github.com/user-attachments/assets/c3c73e76-f167-4a4d-ae09-675faa6a1c23)
+
+**NEXT : Advanced** : Add backend script
+
+![image](https://github.com/user-attachments/assets/0f612c59-53a7-4397-8f4a-d899605c6ffd)
+
+Review+create
+
+## Check created vm's are in Healthy state
+
+- Application Gateway ---> Rules ---> Backend health
+
+![image](https://github.com/user-attachments/assets/437bbfc7-cf26-4a9b-9cb2-60e957a492d2)
+
+## Check in browser 
+
+### Using frontend path : <Application gateway public-ip>/add-employee
+
+![image](https://github.com/user-attachments/assets/46537475-8ff1-4f38-a165-f9cbf5b5392e)
+
+### Using Backend path : <Application gateway public-ip>/api/v1/employees
+
+
