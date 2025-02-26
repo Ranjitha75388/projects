@@ -34,15 +34,17 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 ### Step 2 : Create NAT Gateway (frontend vmss and backend vmss are in private subnet)
 
-### Step 3 : Create Virtual network
+### Step 3 : Create NSG 
 
-## Step 4 : Create subnet (seperate subnet for application gateway)
+### Step 4 : Create Virtual network
 
-- Add private subnet and NAT Gateway for  frontend vmss and backend vmss
+## Step 5 : Create subnet (seperate subnet for application gateway)
+
+#### - Add private subnet and NAT Gateway,NSG for  frontend vmss and backend vmss
    
 ![image](https://github.com/user-attachments/assets/3a7de545-f9c8-4e13-a3ff-1ba7a8948732)
 
-## Step 5 : Create Application gateway
+## Step 6 : Create Application gateway
 
 ![image](https://github.com/user-attachments/assets/45548ca2-5f08-464b-88ed-450c22ebe153)
 ![image](https://github.com/user-attachments/assets/05c07db3-72e5-4b54-850b-7aa688b4f77d)
@@ -89,7 +91,7 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 ### Review+Create
 
-## Configrue frontend vmss
+## Step 7: Configrue frontend vmss
 
 ![image](https://github.com/user-attachments/assets/7ed390b9-14ca-4fd5-9ef4-df2c87afc997)
 ![image](https://github.com/user-attachments/assets/3bcca5d1-531f-4a2b-a512-c527bf161441)
@@ -109,7 +111,7 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 ### Review+create
 
-## Configure Backend vmss
+## Step 8: Configure Backend vmss
 
 ![image](https://github.com/user-attachments/assets/3dd9e4b1-219e-4b2e-9077-da1e08e4adaa)
 
@@ -124,13 +126,13 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 ### Review+create
 
-## Check created vm's are in Healthy state
+## Step 9: Check created vm's are in Healthy state
 
 - Application Gateway ---> Rules ---> Backend health
 
 ![image](https://github.com/user-attachments/assets/437bbfc7-cf26-4a9b-9cb2-60e957a492d2)
 
-## Check in browser 
+## Step 10: Check in browser 
 
 ### Using frontend path : Applicatio-gateway-public-ip:3000/add-employee
 
