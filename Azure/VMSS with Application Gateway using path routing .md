@@ -30,49 +30,44 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 ## Step by step configuration Azure portal
 
-#### Step 1 : Create Resourse group
+### Step 1 : Create Resourse group
 
-#### Step 2 : Create NAT Gateway (frontend vmss and backend vmss are in private subnet)
+### Step 2 : Create NAT Gateway (frontend vmss and backend vmss are in private subnet)
 
-#### Step 3 : Create Virtual network
+### Step 3 : Create Virtual network
 
-#### Step 4 : Create subnet (seperate subnet for application gateway)
+## Step 4 : Create subnet (seperate subnet for application gateway)
 
 - Add private subnet and NAT Gateway for  frontend vmss and backend vmss
    
 ![image](https://github.com/user-attachments/assets/3a7de545-f9c8-4e13-a3ff-1ba7a8948732)
 
-#### Step 5 : Create Application gateway
+## Step 5 : Create Application gateway
 
 ![image](https://github.com/user-attachments/assets/45548ca2-5f08-464b-88ed-450c22ebe153)
 ![image](https://github.com/user-attachments/assets/05c07db3-72e5-4b54-850b-7aa688b4f77d)
 
-**NEXT: Frontends** :Create public ip
+### **NEXT: Frontends** :Create public ip
 
 ![image](https://github.com/user-attachments/assets/4f2fdc42-1306-4471-80ed-3172742c00f0)
 
-**NEXT: Backend pools** : Create backend pool for frontend vmss and backend vmss and **Add**
+### **NEXT: Backend pools** : Create backend pool for frontend vmss and backend vmss and **Add**
 
 ![image](https://github.com/user-attachments/assets/db00485e-5fd7-4873-a1e4-b3cedd5a5a39)
 ![image](https://github.com/user-attachments/assets/5a219237-ae6e-42c6-b64b-4f20bbab4034)
 
-**NEXT: Configuration** : Add Routing rules
+## **NEXT: Configuration** : Add Routing rules
 
 ![image](https://github.com/user-attachments/assets/ca6386de-a785-4121-9cf2-e78caff77cb3)
 
-**For Listener**
+![image](https://github.com/user-attachments/assets/f70e04bf-3ecf-4987-9683-1e42a5b2800e) 
 
-![image](https://github.com/user-attachments/assets/f70e04bf-3ecf-4987-9683-1e42a5b2800e)
-
-**For Backend Targets**
+## NEXT:Backend targets
 
 ![image](https://github.com/user-attachments/assets/0758d724-14e3-4b31-82ae-a7636633eb08)
-
-**Add Frontend path: /***
-
 ![image](https://github.com/user-attachments/assets/82c91a8c-613b-43c6-9b62-08dac65a07b6)
 
-**Backend Targets**
+### **Backend Targets**
 
 ![image](https://github.com/user-attachments/assets/705e98a4-71f4-4e38-a3e2-4932efeed42a)
 
@@ -81,7 +76,6 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 ![image](https://github.com/user-attachments/assets/4b58d8f9-0dc8-4f87-bdbd-d513c8f8ff64)
 
 ![image](https://github.com/user-attachments/assets/e3cde5e1-d10f-4155-98cc-30ee6ddeaa50)
-
 ![image](https://github.com/user-attachments/assets/d6b3e76e-962a-491f-9919-9372daf9952d)
 
 ### Backend Targets
@@ -101,7 +95,7 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 ![image](https://github.com/user-attachments/assets/3bcca5d1-531f-4a2b-a512-c527bf161441)
 ![image](https://github.com/user-attachments/assets/ddde99b4-a318-4abe-a107-f3c9840a9342)
 
-NEXT: Networking
+### NEXT: Networking
 
 - NIC --> none  , public ip ---> Disabled
   
@@ -113,22 +107,22 @@ NEXT: Networking
 
 ![image](https://github.com/user-attachments/assets/f7fe3c85-5386-4646-8bba-a13c28ebc841)
 
-Reviw+create
+### Review+create
 
 ## Configure Backend vmss
 
 ![image](https://github.com/user-attachments/assets/3dd9e4b1-219e-4b2e-9077-da1e08e4adaa)
 
-NEXT: Networking
+### NEXT: Networking
 
 ![image](https://github.com/user-attachments/assets/f0e8387f-bbd1-40fd-85f7-1db7872a0dc2)
 ![image](https://github.com/user-attachments/assets/c3c73e76-f167-4a4d-ae09-675faa6a1c23)
 
-**NEXT : Advanced** : Add backend script
+### **NEXT : Advanced** : Add backend script
 
 ![image](https://github.com/user-attachments/assets/0f612c59-53a7-4397-8f4a-d899605c6ffd)
 
-Review+create
+### Review+create
 
 ## Check created vm's are in Healthy state
 
@@ -138,11 +132,11 @@ Review+create
 
 ## Check in browser 
 
-### Using frontend path : <Application gateway public-ip>/add-employee
+### Using frontend path : Applicatio-gateway-public-ip:3000/add-employee
 
 ![image](https://github.com/user-attachments/assets/46537475-8ff1-4f38-a165-f9cbf5b5392e)
 
-### Using Backend path : <Application gateway public-ip>/api/v1/employees
+### Using Backend path : Application-gateway-public-ip:8080/api/v1/employees
 
 ![Screenshot from 2025-02-24 14-11-17](https://github.com/user-attachments/assets/34276923-e3cf-48b3-a536-da1f83b6c4d1)
 
