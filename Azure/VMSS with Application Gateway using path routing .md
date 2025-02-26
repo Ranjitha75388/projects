@@ -158,4 +158,8 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 ![Screenshot from 2025-02-24 14-11-17](https://github.com/user-attachments/assets/34276923-e3cf-48b3-a536-da1f83b6c4d1)
 
+## Step 11 : Check in terminal
+
+![image](https://github.com/user-attachments/assets/9597c996-12ae-4a49-ba0a-127b49f64702)
+
 
