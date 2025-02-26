@@ -28,6 +28,11 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 ![image](https://github.com/user-attachments/assets/3b171a8b-6604-4408-a8be-cb5c5724afa2)
 
+## Architecture Diagram
+
+![image](https://github.com/user-attachments/assets/b03fc27a-f304-411a-a54c-49714d7e518d)
+
+
 ## Step by step configuration Azure portal
 
 ### Step 1 : Create Resourse group
