@@ -40,7 +40,7 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 ## Step 5 : Create subnet (seperate subnet for application gateway)
 
-#### - Add private subnet and NAT Gateway,NSG for  frontend vmss and backend vmss
+- #### Add private subnet and NAT Gateway,NSG for  frontend vmss and backend vmss
    
 ![image](https://github.com/user-attachments/assets/3a7de545-f9c8-4e13-a3ff-1ba7a8948732)
 
@@ -64,7 +64,7 @@ Azure Application Gateway is a layer 7 (HTTP/HTTPS) load balancer that manages a
 
 ![image](https://github.com/user-attachments/assets/f70e04bf-3ecf-4987-9683-1e42a5b2800e) 
 
-## NEXT:Backend targets
+### NEXT:Backend targets
 
 ![image](https://github.com/user-attachments/assets/0758d724-14e3-4b31-82ae-a7636633eb08)
 ![image](https://github.com/user-attachments/assets/82c91a8c-613b-43c6-9b62-08dac65a07b6)
