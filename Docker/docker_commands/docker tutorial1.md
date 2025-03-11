@@ -13,13 +13,16 @@
 
 **Docker containers**
 
-**docker run --name <container name><image name>:**run a container from an image.
-
+- Run a container from an image.
+```
+docker run --name <container name><image name>
+```
 ![](Aspose.Words.537962d7-87ca-4eb7-8f4a-7c70a9c39d5d.001.png)
 
-
-**docker run -d --name <container name><image name>:**run a container in detached mode.
-
+- run a container in detached mode
+```
+docker run -d --name <container name><image name>.
+```
 ![](Aspose.Words.537962d7-87ca-4eb7-8f4a-7c70a9c39d5d.002.png)
 
 **docker run -d -p  <port on host>:<port on container> --name <container name><image name>:**run a container with ports
