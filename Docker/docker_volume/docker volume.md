@@ -1,5 +1,4 @@
-﻿`                                    `**Volumes**
-
+# Volumes
 
 **Docker volumes** are a feature of docker that allows data to be stored and managed in the host even after removing the container.All volumes are stored in a dedicated directory on host in /var/lib/docker/volumes.We can use one volume to many containers. 
 
