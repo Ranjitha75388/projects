@@ -12,7 +12,7 @@ mkdir ranjitha ---> cd ranjitha
 
 Create a index.html file in a current directory(ranjitha)
 
-![](Aspose.Words.10197d42-1e16-43c9-ab25-3b88e2c986de.001.png)
+![image](https://github.com/user-attachments/assets/8a7a4c49-06e2-4576-80a7-4f3ed3b8c894)
 
 **Step3:** Create the Dockerfile
 
@@ -26,7 +26,7 @@ Use your preferred text editor to open the Dockerfile.
 ```
 Vi Dockerfile
 ```
-![](Aspose.Words.10197d42-1e16-43c9-ab25-3b88e2c986de.002.png)       
+![image](https://github.com/user-attachments/assets/4d25b3f1-88d9-4a5f-ad32-581a4d02b450)
 
 - Base Image:**FROM nginx**
 
@@ -61,14 +61,14 @@ docker build -t nginx-latest .
 ```
 The -t flag tags your image with a name (nginx-latest), and the . specifies that the current directory should be used as the build context.
 
-![](Aspose.Words.10197d42-1e16-43c9-ab25-3b88e2c986de.003.png)
+![image](https://github.com/user-attachments/assets/dff630a7-4eb4-4be9-a933-8e3c005b85d0)
 
 ### 2.Check docker images
 ```
 docker images
 ```
+![image](https://github.com/user-attachments/assets/ec5ed2f9-06e9-4c9a-ba5b-4298acc8994b)
 
-![](Aspose.Words.10197d42-1e16-43c9-ab25-3b88e2c986de.004.png) 
 
 ### 3.Run Your Container:
 
@@ -78,11 +78,12 @@ docker run -d -it –name nginxcon1 -p 8084:80 nginx-latest
 ```
 This command runs your container in detached mode (**-d**), maps port **8084:80** and names it **nginxcon1** by using image **nginx-latest**.
 
-![](Aspose.Words.10197d42-1e16-43c9-ab25-3b88e2c986de.005.png)
+![image](https://github.com/user-attachments/assets/4d550d98-00ba-4329-a99a-ee1d23395b27)
+
 
 ### 4.Access Your Application:
 Open the web browser and go to localhost:8084 to see application running.
 
-![](Aspose.Words.10197d42-1e16-43c9-ab25-3b88e2c986de.006.png)
+![image](https://github.com/user-attachments/assets/fa48ed1d-a37e-463b-9402-bc158487a190)
 
 
