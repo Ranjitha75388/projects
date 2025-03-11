@@ -18,6 +18,23 @@ Docker consists of:
 
 **Advantages** of using docker container is lightweight,fast delivery,reduce infrastructure cost,Easy Scalability.
 
+### To run Docker without root privileges
+
+https://docs.docker.com/engine/install/linux-postinstall/
+
+1.Create the docker group.
+```
+sudo groupadd docker
+```
+2.Add your user to the docker group.
+```
+sudo usermod -aG docker $USER
+```
+3.You can also run the following command to activate the changes to groups.
+```
+newgrp docker
+```
+
 ## **Docker Commands :**
 
 ### Commands for Docker containers
