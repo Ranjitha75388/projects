@@ -1,13 +1,22 @@
 # Docker
 
 
-**Docker** is a opensource software platformtool that allows you to build,test,deploy application using container.
+- **Docker** is a platform for developing, shipping, and running applications inside lightweight, portable containers.
 
-**Container** is a runtime engine that allows developers to package application  with all parts needed such as libraries and other dependencies.containers contain the whole kit required for an application.so the application can run in isolated way in different environment.
+- **Containers** package an application and its dependencies together, ensuring that it runs consistently across different environments (development, testing, production, etc.).
+
+## How Docker Works (Basic Architecture)
+
+Docker consists of:
+
+- Docker Engine – Runs and manages containers
+- Docker Images – Read-only templates for creating containers
+- Docker Containers – Running instances of Docker images
+- Docker Hub – Cloud-based registry for sharing images
 
 **Docker images** is a file in the template formate is a set of instructions used to create a docker container in a read only format.
 
-**Advantages** of using docker container is lightweight,fast delivery,reduce infrastructure cost.
+**Advantages** of using docker container is lightweight,fast delivery,reduce infrastructure cost,Easy Scalability.
 
 ## **Docker Commands :**
 
