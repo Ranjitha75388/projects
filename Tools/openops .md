@@ -249,4 +249,11 @@ OpenOps optimizes Azure cloud costs by:
 ## 10. Conclusion
 OpenOps is a powerful, no-code FinOps tool that automates cloud cost management, prevents overspending, and improves efficiency.
 
+![image](https://github.com/user-attachments/assets/777095df-8919-4366-860c-6ddb7087162f)
 
+
+![image](https://github.com/user-attachments/assets/715d1ab0-7429-4960-989b-de248201ca73)
+
+
+
+![image](https://github.com/user-attachments/assets/5920cf56-ad67-45a1-aa2b-e54778d0a36a)
