@@ -187,16 +187,25 @@ The Wazuh Server is the main control center that processes security data from ag
 
 ##  How to Configure Wazuh for Azure Security?
 
-**Step 1: Check Prerequisites:** Make sure Wazuh and Azure integration permissions are enabled.
+Step 1: Check Prerequisites
 
-**Step 2: Connect Wazuh to Azure Log Analytics** : Allows Wazuh to collect security logs from Azure.
+    Ensure that Wazuh and Azure integration permissions are enabled.
 
-**Step 3: Configure Azure Storage:**  Stores security logs for long-term analysis.
+Step 2: Connect Wazuh to Azure Log Analytics
 
-**Step 4: Set Up Microsoft Graph API:** Enables monitoring of Microsoft 365 applications (Teams, OneDrive, Exchange).
+    Set up Azure Log Analytics to allow Wazuh to collect security logs from Azure services.
 
-**Step 5: Integrate Microsoft Intune:** Ensures secure device management in an organization.
+Step 3: Configure Azure Storage
 
+    Enable Azure Storage to store security logs for long-term analysis and compliance.
+
+Step 4: Set Up Microsoft Graph API
+
+    Configure Microsoft Graph API to enable monitoring of Microsoft 365 applications (Teams, OneDrive, Exchange).
+
+Step 5: Integrate Microsoft Intune
+
+    Connect Microsoft Intune with Wazuh to ensure secure device management and compliance in the organization.
 ## Examples of Wazuh in Action
 
 **Scenario 1:** An employee downloads a suspicious file.
