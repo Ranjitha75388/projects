@@ -156,7 +156,7 @@ Deployment Methods:
 
 - In Azure Portal, go to Overview > Connect > SSH using Azure CLI.
 
-- Open Cloud Shell and connect to the VM.
+- Open Cloud Shell and connect to the VM.or open in terminal using SSH
 
 **Step 3: Deploy OpenOps**
 
@@ -164,24 +164,31 @@ Deployment Methods:
 ```
 [ -z "$BASH_VERSION" ] && exec bash
 ```
-2. Download & Extract OpenOps:
+2. Create OpenOps Directory & Download Files
 ```
-mkdir -p openops && cd openops
+cd ~
+mkdir openops && cd openops
 wget https://github.com/openops-cloud/openops/releases/download/0.2.1/openops-dc-0.2.1.zip
-python3 -m zipfile -e openops-dc-0.2.1.zip .
-cp -n .env.defaults .env
 ```   
-3. Set Public IP in Configuration:
+3. Extract OpenOps Files
+```
+python3 -m zipfile -e openops-dc-0.2.1.zip .
+cp --update=none .env.defaults .env
+```
+4. Set Public IP in Configuration:
+
+Repalce localhost to vm public ip
 ```
 sed -i 's|http://localhost|http://'$(wget -4qO - https://ifconfig.io/ip)'|g' .env
 ```   
-4. Install Docker & Start OpenOps:
+4. Start OpenOps with Docker Compose
 ```
-sudo snap install docker
-sudo COMPOSE_PARALLEL_LIMIT=4 docker compose pull && sudo docker compose up -d
+sudo docker compose up -d
 ```
-Access OpenOps at http://<vm-public-ip>.
-
+5. Verify OpenOps is Running
+```
+http://<Your-VM-Public-IP>
+```
 - Login: admin@openops.com
 
 - Password: please-change-this-password-1
