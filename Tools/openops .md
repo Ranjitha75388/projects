@@ -187,6 +187,13 @@ sudo docker compose up -d
 ```
 5. Verify OpenOps is Running
 ```
+sudo docker ps
+```
+![image](https://github.com/user-attachments/assets/ea9e8a1b-76a7-43de-9d6a-0817acef9224)
+
+6.Access OpenOps in Your Browser
+
+```
 http://<Your-VM-Public-IP>
 ```
 - Login: admin@openops.com
