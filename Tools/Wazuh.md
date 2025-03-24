@@ -172,7 +172,8 @@ The Wazuh Server is the main control center that processes security data from ag
 ## Securing Microsoft Azure with Wazuh
 
 - Microsoft Azure is a cloud computing platform that offers computing, storage, and networking services. Since Azure stores critical business data, securing it is essential.
-- Wazuh enhances Azure security by collecting and analyzing security event data.  - It helps detect threats, protect sensitive data, and ensure compliance.
+- Wazuh enhances Azure security by collecting and analyzing security event data.
+-  It helps detect threats, protect sensitive data, and ensure compliance.
 
 ### What Wazuh Monitors in Azure?
  
