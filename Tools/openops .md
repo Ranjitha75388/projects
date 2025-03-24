@@ -38,29 +38,7 @@ OpenOps simplifies cloud cost management by:
     - Human in loop – prevents mistakes.
     - Tables– track all cost-related actions.
 
-## 5. System Requirements
-
-- **Hardware Requirements:**
-   
-    • Testing & Small Projects: 2 CPU cores, 8GB RAM, 50GB storage.
-    
-    • Production Use: 4 CPU cores, 16GB RAM, 100GB storage.
-- **Supported Operating Systems:**
-   
-    • Linux: Ubuntu 20.04+, Debian 11+, Fedora 35+.
-    
-    • macOS: Big Sur (11.x) or later.
-    
-    • Windows: Windows 10 (2004) or later, Windows 11.
-- **Docker Requirements:**
-    
-    • Linux: Docker Engine v20.10+, Docker Compose v2.x.
-    
-    • macOS: Docker Desktop 4.11+.
-    
-    • Windows: Docker Desktop 4.11+ (WSL 2 required).
-
-## 6. Workflow Automation
+## 5. Workflow Automation
 A workflow in OpenOps is a series of automated steps triggered by an event.
 
 ### Workflow Components
@@ -127,20 +105,30 @@ Build our own workflows based on specific business needs.
 
 7. Publish & activate the workflow.
 
-## 7. Cloud Access & Permissions
-### Connecting OpenOps to Azure
+## 6. System Requirements
 
-To allow OpenOps to manage Azure resources, users must provide:
+- **Hardware Requirements:**
+   
+    • Testing & Small Projects: 2 CPU cores, 8GB RAM, 50GB storage.
+    
+    • Production Use: 4 CPU cores, 16GB RAM, 100GB storage.
+- **Supported Operating Systems:**
+   
+    • Linux: Ubuntu 20.04+, Debian 11+, Fedora 35+.
+    
+    • macOS: Big Sur (11.x) or later.
+    
+    • Windows: Windows 10 (2004) or later, Windows 11.
+- **Docker Requirements:**
+    
+    • Linux: Docker Engine v20.10+, Docker Compose v2.x.
+    
+    • macOS: Docker Desktop 4.11+.
+    
+    • Windows: Docker Desktop 4.11+ (WSL 2 required).
 
-• Application (client) ID
 
-• Client Secret
-
-• Directory (tenant) ID
-
-With proper permissions, OpenOps can monitor cloud spending, detect unused resources, and automate cost-saving actions.
-
-## 8. Deploying OpenOps
+## 7. Deploying OpenOps
 
 Deployment Methods:
 
@@ -215,6 +203,19 @@ wget https://github.com/openops-cloud/openops/releases/download/0.2.1/openops-dc
 python3 -m zipfile -e openops-dc-0.2.1.zip .
 sudo COMPOSE_PARALLEL_LIMIT=4 docker compose pull -q && sudo docker compose up -d
 ```
+## 8. Cloud Access & Permissions
+### Connecting OpenOps to Azure
+
+To allow OpenOps to manage Azure resources, users must provide:
+
+• Application (client) ID
+
+• Client Secret
+
+• Directory (tenant) ID
+
+With proper permissions, OpenOps can monitor cloud spending, detect unused resources, and automate cost-saving actions.
+
 ## 9. How OpenOps Helps in Azure
 
 OpenOps optimizes Azure cloud costs by:
