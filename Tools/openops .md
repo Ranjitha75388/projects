@@ -126,7 +126,7 @@ Deployment Methods:
 ```   
 5. Start OpenOps with Docker Compose
 ```
-    sudo docker compose up -d
+    sudo docker-compose up -d
 ```
 6. Verify OpenOps is Running
 ```
