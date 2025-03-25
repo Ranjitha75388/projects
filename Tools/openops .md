@@ -98,6 +98,7 @@ Deployment Methods:
 5. Check vresion
 ```
    docker --version
+   docker-compose --version
 ```       
 **Step 3: Deploy OpenOps**
 
