@@ -189,6 +189,9 @@ Deployment Methods:
 
   ![https://support.google.com/accounts/answer/185833?hl=en]
 
+  ![image](https://github.com/user-attachments/assets/5920cf56-ad67-45a1-aa2b-e54778d0a36a)
+
+
 ## 8. Workflow Automation
 
  A workflow in OpenOps is a series of automated steps triggered by an event.
@@ -273,7 +276,8 @@ OpenOps provides ready-made workflow templates to automate cost optimization, bu
 6. Save and activate the workflow.
 
 ### 2. Creating a Custom Workflow
-Build our own workflows based on specific business needs.
+
+  Build our own workflows based on specific business needs.
 
 1. Go to Workflows > New Workflow.
 
@@ -289,33 +293,13 @@ Build our own workflows based on specific business needs.
 
 7. Publish & activate the workflow.
 
-
-
-
-## 9. How OpenOps Helps in Azure
-
-OpenOps optimizes Azure cloud costs by:
-
-• Detecting and removing unused VMs, disks, and storage.
-
-• Auto-scaling resources based on usage.
-
-• Scheduling automatic shutdowns during non-business hours.
-
-• Monitoring spending and alerting on cost spikes.
-
-• Creating workflows for cost control with approval-based execution.
-
-• Ensuring security with Azure AD integration and role-based access.
-
-## 10. Conclusion
-OpenOps is a powerful, no-code FinOps tool that automates cloud cost management, prevents overspending, and improves efficiency.
-
 ![image](https://github.com/user-attachments/assets/777095df-8919-4366-860c-6ddb7087162f)
-
 
 ![image](https://github.com/user-attachments/assets/715d1ab0-7429-4960-989b-de248201ca73)
 
+8. Check the logs after workflow running by clicking Runs > Select the runs need to check log.when expanding the runs we can check the logs for each steps runned in workflow.
+   
+## 9. Conclusion
+OpenOps is a powerful, no-code FinOps tool that automates cloud cost management, prevents overspending, and improves efficiency.
 
 
-![image](https://github.com/user-attachments/assets/5920cf56-ad67-45a1-aa2b-e54778d0a36a)
