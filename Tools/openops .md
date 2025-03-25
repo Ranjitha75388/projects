@@ -175,13 +175,15 @@ Deployment Methods:
 **3. Create Azure connection by adding credentials**    
 
 - Go to Connections > New conneections.
-1. - Click **"Azure"**
+
+1. Click **"Azure"**
 - Paste the credentials that copied above step.
  
    ![image](https://github.com/user-attachments/assets/e8d759b3-2f97-4eae-9ea6-371e63a1f18a)
 
 - If need to send notification via **SMTP**,connect in openops
-- 2. New connection > Click **SMTP**
+
+2. New connection > Click **SMTP**
 
   ![image](https://github.com/user-attachments/assets/7cad0032-09b1-46d2-9e57-48912da296b8)
 
