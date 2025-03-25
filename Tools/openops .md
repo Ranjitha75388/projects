@@ -17,7 +17,7 @@ OpenOps helps companies save on cloud costs by identifying waste, optimizing res
 
 - **Automation & Optimization**
   
-      – Identifies unused resources and unnecessary expenses.
+     - Identifies unused resources and unnecessary expenses.
      -  Pre-made FinOps workflows – cost savings, budgeting, reporting.
      -    Customizable workflows – build our own cost management rules.
      -  Integrates with major cloud providers – AWS, Azure, Google Cloud.
@@ -28,7 +28,17 @@ OpenOps helps companies save on cloud costs by identifying waste, optimizing res
     - Human in loop – prevents mistakes.
     - Tables– track all cost-related actions.
  
-## 4. System Requirements
+## 4. Deploying OpenOps
+
+Deployment Methods:
+
+1. Local Deployment
+
+2. AWS EC2 Deployment
+
+3. Azure VM Deployment 
+
+## 5. System Requirements
 
 - **Hardware Requirements:**
    
@@ -50,17 +60,7 @@ OpenOps helps companies save on cloud costs by identifying waste, optimizing res
     
     • Windows: Docker Desktop 4.11+ (WSL 2 required).
 
-## 5. Deploying OpenOps
-
-Deployment Methods:
-
-1. Local Deployment
-
-2. AWS EC2 Deployment
-
-3. Azure VM Deployment
-
-### Azure VM Deployment Guide
+## 6.Azure VM Deployment Guide
 
 **Step 1: Create a Virtual Machine**
 
@@ -80,68 +80,69 @@ Deployment Methods:
 
 1. Update System Packages:
 ```
-  sudo apt update && sudo apt upgrade -y
+   sudo apt update && sudo apt upgrade -y
 ```
 2. Install Docker:
 ```
-  sudo apt install -y docker.io
+   sudo apt install -y docker.io
 ```
 3. Enable Docker Service:
 ```
-  sudo systemctl enable docker
-  sudo systemctl start docker
+   sudo systemctl enable docker
+   sudo systemctl start docker
 ```
 4. Install Docker Compose:
 ```
-sudo apt install -y docker-compose
+   sudo apt install -y docker-compose
 ```
 5. Check vresion
 ```
-docker --version
+   docker --version
 ```       
 **Step 3: Deploy OpenOps**
 
 1. Ensure Bash Shell:
 ```
-[ -z "$BASH_VERSION" ] && exec bash
+   [ -z "$BASH_VERSION" ] && exec bash
 ```
 2. Create OpenOps Directory & Download Files
 ```
-cd ~
-mkdir openops && cd openops
-wget https://github.com/openops-cloud/openops/releases/download/0.2.1/openops-dc-0.2.1.zip
+    cd ~
+    mkdir openops && cd openops
+    wget https://github.com/openops-cloud/openops/releases/download/0.2.1/openops-dc-0.2.1.zip
 ```   
 3. Extract OpenOps Files
 ```
-python3 -m zipfile -e openops-dc-0.2.1.zip .
-cp --update=none .env.defaults .env
+    python3 -m zipfile -e openops-dc-0.2.1.zip .
+    cp --update=none .env.defaults .env
 ```
 4. Set Public IP in Configuration:
 
-Repalce localhost to vm public ip
+  - Repalce localhost to vm public ip
+
 ```
-sed -i 's|http://localhost|http://'$(wget -4qO - https://ifconfig.io/ip)'|g' .env
+    sed -i 's|http://localhost|http://'$(wget -4qO - https://ifconfig.io/ip)'|g' .env
 ```   
 5. Start OpenOps with Docker Compose
 ```
-sudo docker compose up -d
+    sudo docker compose up -d
 ```
 6. Verify OpenOps is Running
 ```
-sudo docker ps
+    sudo docker ps
 ```
 ![image](https://github.com/user-attachments/assets/ea9e8a1b-76a7-43de-9d6a-0817acef9224)
 
 **Step 4: Access OpenOps in Your Browser**
 ```
-http://<Your-VM-Public-IP>
+    http://<Your-VM-Public-IP>
 ```
 - Login: admin@openops.com
 - Password: please-change-this-password-1
 
-**Step 5 :Connect OpenOps to Azure Cloud**
+## 7. Connect OpenOps to Azure Cloud
 
-1.Generate Azure Credentials
+**1.Generate Azure Credentials**
 
   -  Go to Azure Portal > Azure Active Directory > App Registrations
 
@@ -159,7 +160,7 @@ http://<Your-VM-Public-IP>
 
    - Copy Client **Secret value** (not secret ID)
 
-2.Give permission 
+**2.Given Acess permission** 
 
    - Go to subscriptions choose which subscription you would like to be your service principal.(Free Trail)
    
@@ -167,56 +168,33 @@ http://<Your-VM-Public-IP>
 
    - Select a Role **“Reader”**
    
-   - Now in the next step add your application as a **member** in the role. The application might not show up in the dropdown but upon searching for it it will appear.(OpenOps-Integration)
+   - Now in the next step add your application as a **member** in the role. The application might not show up in the dropdown but upon searching for it it will appear.(Named as OpenOps-Integration)
 
-    - click “Review + assign”.
+   - click “Review + assign”.
 
+**3. Create Azure connection by adding credentials**    
 
-5. Configure Azure Credentials:
+- Go to Connections > New conneections.
+1. - Click **"Azure"**
+- Paste the credentials that copied above step.
+ 
+   ![image](https://github.com/user-attachments/assets/e8d759b3-2f97-4eae-9ea6-371e63a1f18a)
 
-```
-echo -e "OPS_ENABLE_HOST_SESSION=true\nHOST_AZURE_CONFIG_DIR=/root/.azure" >> .env
-sudo az login
-```
-6. Enable TLS (Recommended for Production)
+- If need to send notification via **SMTP**,connect in openops
+- 2. New connection > Click **SMTP**
 
-- Use Azure Application Gateway for HTTPS.
+  ![image](https://github.com/user-attachments/assets/7cad0032-09b1-46d2-9e57-48912da296b8)
 
-7. Updating OpenOps
-```
-sudo docker compose down
-cd openops
-wget https://github.com/openops-cloud/openops/releases/download/0.2.1/openops-dc-0.2.1.zip
-python3 -m zipfile -e openops-dc-0.2.1.zip .
-sudo COMPOSE_PARALLEL_LIMIT=4 docker compose pull -q && sudo docker compose up -d
-```
+- **Important:** Google does not allow direct SMTP login with our normal password.we must generate an App Password from **Google App Passwords**.
 
+  ![https://support.google.com/accounts/answer/185833?hl=en]
 
+## 8. Workflow Automation
 
-
-
-
-
-
-
-## 8. Cloud Access & Permissions
-### Connecting OpenOps to Azure
-
-To allow OpenOps to manage Azure resources, users must provide:
-
-• Application (client) ID
-
-• Client Secret
-
-• Directory (tenant) ID
-
-With proper permissions, OpenOps can monitor cloud spending, detect unused resources, and automate cost-saving actions.
-
-
-## 5. Workflow Automation
-A workflow in OpenOps is a series of automated steps triggered by an event.
+ A workflow in OpenOps is a series of automated steps triggered by an event.
 
 ### Workflow Components
+
 ### 1. Triggers (Start the Workflow)
     
 - **Schedule**: Every X minutes, Every hour, Every day, Every week, Every month, Cron expression.
@@ -276,7 +254,7 @@ A workflow in OpenOps is a series of automated steps triggered by an event.
 
 20.**Text Operations**: Manipulate text data, such as extracting, transforming, or combining strings.
 
-### Workflow Methods
+## 9. Workflow Methods
 
 ### 1. Using Prebuilt Workflows
 
