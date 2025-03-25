@@ -50,7 +50,7 @@ OpenOps helps companies save on cloud costs by identifying waste, optimizing res
     
     • Windows: Docker Desktop 4.11+ (WSL 2 required).
 
-## 7. Deploying OpenOps
+## 5. Deploying OpenOps
 
 Deployment Methods:
 
@@ -68,18 +68,37 @@ Deployment Methods:
   
   - Choose Ubuntu Server (latest version).
     
-- Allocate at least 2 CPUs and 8GB RAM.
+  - Allocate at least 2 CPUs and 8GB RAM.
  
- - Click Review + Create, then Create.
+  - Click Review + Create, then Create.
   
   - Open Networking > Inbound port rules, allow port 80 for web access.
-    
-**Step 2: Connect to the VM Using Cloud Shell**
 
-- In Azure Portal, go to Overview > Connect > SSH using Azure CLI.
+   - Connect in terminal using (ssh username@vm-public-ip)
 
-- Open Cloud Shell and connect to the VM.or open in terminal using SSH
+**Step 2: Install Required Dependencies**
 
+1. Update System Packages:
+```
+  sudo apt update && sudo apt upgrade -y
+```
+2. Install Docker:
+```
+  sudo apt install -y docker.io
+```
+3. Enable Docker Service:
+```
+  sudo systemctl enable docker
+  sudo systemctl start docker
+```
+4. Install Docker Compose:
+```
+sudo apt install -y docker-compose
+```
+5. Check vresion
+```
+docker --version
+```       
 **Step 3: Deploy OpenOps**
 
 1. Ensure Bash Shell:
@@ -103,24 +122,56 @@ Repalce localhost to vm public ip
 ```
 sed -i 's|http://localhost|http://'$(wget -4qO - https://ifconfig.io/ip)'|g' .env
 ```   
-4. Start OpenOps with Docker Compose
+5. Start OpenOps with Docker Compose
 ```
 sudo docker compose up -d
 ```
-5. Verify OpenOps is Running
+6. Verify OpenOps is Running
 ```
 sudo docker ps
 ```
 ![image](https://github.com/user-attachments/assets/ea9e8a1b-76a7-43de-9d6a-0817acef9224)
 
-6.Access OpenOps in Your Browser
-
+**Step 4: Access OpenOps in Your Browser**
 ```
 http://<Your-VM-Public-IP>
 ```
 - Login: admin@openops.com
-
 - Password: please-change-this-password-1
+
+**Step 5 :Connect OpenOps to Azure Cloud**
+
+1.Generate Azure Credentials
+
+  -  Go to Azure Portal > Azure Active Directory > App Registrations
+
+  - Click New Registration
+
+   - Name: OpenOps-Integration
+
+   - Click Register
+
+   - Copy **Application (Client) ID**
+
+   - Copy **Directory (Tenant) ID**
+
+   - Go to Certificates & Secrets > New Client Secret
+
+   - Copy Client **Secret value** (not secret ID)
+
+2.Give permission 
+
+   - Go to subscriptions choose which subscription you would like to be your service principal.(Free Trail)
+   
+   -  Go to Access control (IAM) and add a new role assignment
+
+   - Select a Role **“Reader”**
+   
+   - Now in the next step add your application as a **member** in the role. The application might not show up in the dropdown but upon searching for it it will appear.(OpenOps-Integration)
+
+    - click “Review + assign”.
+
+
 5. Configure Azure Credentials:
 
 ```
