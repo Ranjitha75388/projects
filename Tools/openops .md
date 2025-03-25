@@ -289,7 +289,7 @@ OpenOps provides ready-made workflow templates to automate cost optimization, bu
 
 5. Enable the approval process (if required).
 
-6. Test the workflow using sample data.
+6. Test the workflow steps using **Generate sample data** at bottom.
 
 7. Publish & activate the workflow.
 
