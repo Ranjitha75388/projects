@@ -44,25 +44,79 @@ A workflow in OpenOps is a series of automated steps triggered by an event.
 ### Workflow Components
 ### 1. Triggers (Start the Workflow)
     
- • **Scheduled Trigger**: Runs at fixed times (e.g., daily at 12 AM).
+- **Schedule**: Every X minutes, Every hour, Every day, Every week, Every month, Cron expression.
     
-• **Event-Based Trigger**: Runs on cloud events (e.g., idle VM for 7 days).
+- **Webhook**: It works like a "notification" sent over the internet from one app to another.
     
-• **Manual Trigger**: Runs when manually started.
+- **Jira Cloud**:
 
-### 2. Conditions & Decision Making
-    
-• If Condition A is met → Take Action 1. (e.g., If cloud cost increases by 20%)
+    - **New issue**: Triggered when a new issue (bug, task, etc.) is created in Jira.
+    - **Updated issue**: Triggered when an existing issue is updated (like a status change or new comment).
+
+- **Monday.com**: 
+
+    - **New item in board:** Triggered when a new item (task, project, etc.) is added to a board in Monday.com.
+
+    - **Specific column value updated in board:** Triggered when a value in a specific column (like "status" or "priority") is updated within a board.
+
+### 2.Actions (All subsequent steps of workflow will be actions) 
+
+1. **Code**: Run custom code (e.g., JavaScript or Python) within a workflow.
+
+2. **Loop on Items:** Iterate through a list of items and perform actions on each item individually.
+
+3. **Condition**: Check if a certain condition is true or false, then perform actions based on the result.
+
+4. **Split**: Break a single data value into multiple parts (like splitting a string by commas or spaces).
+
+5. **Approval**: Request approval from someone before proceeding with a certain action or workflow.
+
+6. **AWS**:AWS Athena,AWS CloudFormation,AWS Compute Optimizer.
+
+7. **Azure**: Use Microsoft Azure services to manage and deploy cloud resources and infrastructure.
+
+8. **Date Operations**: Perform operations on dates like adding or subtracting days, comparing dates, or formatting them.
+   
+9. **Delay**: Pause the workflow for a set amount of time before continuing to the next action.
+
+10. **End Workflow**: Stop the workflow at a specific point.
+
+11.**File Operations**: Manage files, like uploading, downloading, or modifying files within the workflow.
+
+12. **Github**: Integrate with GitHub to trigger actions on repositories, pull requests, or issues.
+
+13. **List Operations**: Work with lists, such as adding/removing items, or filtering and sorting.
+
+14. **Math Operations**: Perform basic mathematical operations (addition, subtraction, multiplication, etc.).
+
+15.**Microsoft Teams**: Send messages or trigger actions within Microsoft Teams channels.
+
+16.**OpenOps Tables**: Interact with OpenOps data tables for managing records and tables in your workflow.
+
+17.**Slack**: Send messages or trigger actions in Slack channels.
+
+18. **SMTP**: Send emails using Simple Mail Transfer Protocol (SMTP).
+
+19. **Storage**: Manage files and data storage, like saving, retrieving, or deleting files.
+
+20.**Text Operations**: Manipulate text data, such as extracting, transforming, or combining strings.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 • Else → Take Action 2.
 
-### 3. Actions (What the Workflow Does)
-    
- • Modify Cloud Resources: Stop unused servers, resize instances.
 
-• Send Alerts: Notify the team about cost spikes.
-
-• Log Data: Store financial details for reporting.
 
 ### 4. Approval Process
 
