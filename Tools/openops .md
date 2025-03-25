@@ -8,19 +8,7 @@ OpenOps is a no-code platform that automates cloud cost management, reducing man
 
 OpenOps helps companies save on cloud costs by identifying waste, optimizing resources, and automating cloud finance tasks. It integrates with leading cloud providers AWS, Azure, and Google Cloud, and tools like Jira, Slack, and GitHub.
 
-## 3. Why Use OpenOps?
-
-OpenOps simplifies cloud cost management by:
-    
-   • **Detecting cost-saving opportunities**– Identifies unused resources and unnecessary expenses.
-
-  • **Providing AI-driven recommendations** – Suggests actions based on usage patterns.
-
-   • **Automating workflows** – Users can automate cost-saving actions with prebuilt or custom workflows.
-
-   • **Ensuring human oversight** – Requires approvals for major modifications.
-
-## 4. Key Benefits
+## 3. Key Benefits
 
 - **Easy-to-Use No-Code Platform**
     -  Works for all FinOps users – engineers, analysts, managers.
@@ -28,6 +16,8 @@ OpenOps simplifies cloud cost management by:
    
 
 - **Automation & Optimization**
+  
+      – Identifies unused resources and unnecessary expenses.
      -  Pre-made FinOps workflows – cost savings, budgeting, reporting.
      -    Customizable workflows – build our own cost management rules.
      -  Integrates with major cloud providers – AWS, Azure, Google Cloud.
@@ -37,129 +27,8 @@ OpenOps simplifies cloud cost management by:
     - Test before applying – ensures safe automation.
     - Human in loop – prevents mistakes.
     - Tables– track all cost-related actions.
-
-## 5. Workflow Automation
-A workflow in OpenOps is a series of automated steps triggered by an event.
-
-### Workflow Components
-### 1. Triggers (Start the Workflow)
-    
-- **Schedule**: Every X minutes, Every hour, Every day, Every week, Every month, Cron expression.
-    
-- **Webhook**: It works like a "notification" sent over the internet from one app to another.
-    
-- **Jira Cloud**:
-
-    - **New issue**: Triggered when a new issue (bug, task, etc.) is created in Jira.
-    - **Updated issue**: Triggered when an existing issue is updated (like a status change or new comment).
-
-- **Monday.com**: 
-
-    - **New item in board:** Triggered when a new item (task, project, etc.) is added to a board in Monday.com.
-
-    - **Specific column value updated in board:** Triggered when a value in a specific column (like "status" or "priority") is updated within a board.
-
-### 2.Actions (All subsequent steps of workflow will be actions) 
-
-1. **Code**: Run custom code (e.g., JavaScript or Python) within a workflow.
-
-2. **Loop on Items:** Iterate through a list of items and perform actions on each item individually.
-
-3. **Condition**: Check if a certain condition is true or false, then perform actions based on the result.
-
-4. **Split**: Break a single data value into multiple parts (like splitting a string by commas or spaces).
-
-5. **Approval**: Request approval from someone before proceeding with a certain action or workflow.
-
-6. **AWS**:AWS Athena,AWS CloudFormation,AWS Compute Optimizer.
-
-7. **Azure**: Use Microsoft Azure services to manage and deploy cloud resources and infrastructure.
-
-8. **Date Operations**: Perform operations on dates like adding or subtracting days, comparing dates, or formatting them.
-   
-9. **Delay**: Pause the workflow for a set amount of time before continuing to the next action.
-
-10. **End Workflow**: Stop the workflow at a specific point.
-
-11.**File Operations**: Manage files, like uploading, downloading, or modifying files within the workflow.
-
-12. **Github**: Integrate with GitHub to trigger actions on repositories, pull requests, or issues.
-
-13. **List Operations**: Work with lists, such as adding/removing items, or filtering and sorting.
-
-14. **Math Operations**: Perform basic mathematical operations (addition, subtraction, multiplication, etc.).
-
-15.**Microsoft Teams**: Send messages or trigger actions within Microsoft Teams channels.
-
-16.**OpenOps Tables**: Interact with OpenOps data tables for managing records and tables in your workflow.
-
-17.**Slack**: Send messages or trigger actions in Slack channels.
-
-18. **SMTP**: Send emails using Simple Mail Transfer Protocol (SMTP).
-
-19. **Storage**: Manage files and data storage, like saving, retrieving, or deleting files.
-
-20.**Text Operations**: Manipulate text data, such as extracting, transforming, or combining strings.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-• Else → Take Action 2.
-
-
-
-### 4. Approval Process
-
-• Workflows can require human approval before execution.
-
-• Example: Auto-stop an idle server only if the owner doesn’t respond within 3 days.
-
-### Workflow Methods
-
-### 1. Using Prebuilt Workflows
-
-OpenOps provides ready-made workflow templates to automate cost optimization, budget tracking, and anomaly detection.
-
-1. Open OpenOps Dashboard.
-
-2. Click Explore Templates.
-
-3. Select a template and review the workflow steps.
-
-4. Click Use Template to create a workflow.
-
-5. Configure cloud connections and customize automation.
-
-6. Save and activate the workflow.
-
-### 2. Creating a Custom Workflow
-Build our own workflows based on specific business needs.
-
-1. Go to Workflows > New Workflow.
-
-2. Choose a trigger (what starts the workflow).
-
-3. Define conditions (rules to check before actions run).
-
-4. Add actions (tasks to be performed).
-
-5. Enable the approval process (if required).
-
-6. Test the workflow using sample data.
-
-7. Publish & activate the workflow.
-
-## 6. System Requirements
+ 
+## 4. System Requirements
 
 - **Hardware Requirements:**
    
@@ -180,7 +49,6 @@ Build our own workflows based on specific business needs.
     • macOS: Docker Desktop 4.11+.
     
     • Windows: Docker Desktop 4.11+ (WSL 2 required).
-
 
 ## 7. Deploying OpenOps
 
@@ -271,6 +139,15 @@ wget https://github.com/openops-cloud/openops/releases/download/0.2.1/openops-dc
 python3 -m zipfile -e openops-dc-0.2.1.zip .
 sudo COMPOSE_PARALLEL_LIMIT=4 docker compose pull -q && sudo docker compose up -d
 ```
+
+
+
+
+
+
+
+
+
 ## 8. Cloud Access & Permissions
 ### Connecting OpenOps to Azure
 
@@ -283,6 +160,108 @@ To allow OpenOps to manage Azure resources, users must provide:
 • Directory (tenant) ID
 
 With proper permissions, OpenOps can monitor cloud spending, detect unused resources, and automate cost-saving actions.
+
+
+## 5. Workflow Automation
+A workflow in OpenOps is a series of automated steps triggered by an event.
+
+### Workflow Components
+### 1. Triggers (Start the Workflow)
+    
+- **Schedule**: Every X minutes, Every hour, Every day, Every week, Every month, Cron expression.
+    
+- **Webhook**: It works like a "notification" sent over the internet from one app to another.
+    
+- **Jira Cloud**:
+
+    - **New issue**: Triggered when a new issue (bug, task, etc.) is created in Jira.
+    - **Updated issue**: Triggered when an existing issue is updated (like a status change or new comment).
+
+- **Monday.com**: 
+
+    - **New item in board:** Triggered when a new item (task, project, etc.) is added to a board in Monday.com.
+
+    - **Specific column value updated in board:** Triggered when a value in a specific column (like "status" or "priority") is updated within a board.
+
+### 2.Actions (All subsequent steps of workflow will be actions) 
+
+1. **Code**: Run custom code (e.g., JavaScript or Python) within a workflow.
+
+2. **Loop on Items:** Iterate through a list of items and perform actions on each item individually.
+
+3. **Condition**: Check if a certain condition is true or false, then perform actions based on the result.
+
+4. **Split**: Break a single data value into multiple parts (like splitting a string by commas or spaces).
+
+5. **Approval**: Request approval from someone before proceeding with a certain action or workflow.
+
+6. **AWS**:AWS Athena,AWS CloudFormation,AWS Compute Optimizer.
+
+7. **Azure**: Use Microsoft Azure services to manage and deploy cloud resources and infrastructure.
+
+8. **Date Operations**: Perform operations on dates like adding or subtracting days, comparing dates, or formatting them.
+   
+9. **Delay**: Pause the workflow for a set amount of time before continuing to the next action.
+
+10. **End Workflow**: Stop the workflow at a specific point.
+
+11.**File Operations**: Manage files, like uploading, downloading, or modifying files within the workflow.
+
+12. **Github**: Integrate with GitHub to trigger actions on repositories, pull requests, or issues.
+
+13. **List Operations**: Work with lists, such as adding/removing items, or filtering and sorting.
+
+14. **Math Operations**: Perform basic mathematical operations (addition, subtraction, multiplication, etc.).
+
+15.**Microsoft Teams**: Send messages or trigger actions within Microsoft Teams channels.
+
+16.**OpenOps Tables**: Interact with OpenOps data tables for managing records and tables in your workflow.
+
+17.**Slack**: Send messages or trigger actions in Slack channels.
+
+18. **SMTP**: Send emails using Simple Mail Transfer Protocol (SMTP).
+
+19. **Storage**: Manage files and data storage, like saving, retrieving, or deleting files.
+
+20.**Text Operations**: Manipulate text data, such as extracting, transforming, or combining strings.
+
+### Workflow Methods
+
+### 1. Using Prebuilt Workflows
+
+OpenOps provides ready-made workflow templates to automate cost optimization, budget tracking, and anomaly detection.
+
+1. Open OpenOps Dashboard.
+
+2. Click Explore Templates.
+
+3. Select a template and review the workflow steps.
+
+4. Click Use Template to create a workflow.
+
+5. Configure cloud connections and customize automation.
+
+6. Save and activate the workflow.
+
+### 2. Creating a Custom Workflow
+Build our own workflows based on specific business needs.
+
+1. Go to Workflows > New Workflow.
+
+2. Choose a trigger (what starts the workflow).
+
+3. Define conditions (rules to check before actions run).
+
+4. Add actions (tasks to be performed).
+
+5. Enable the approval process (if required).
+
+6. Test the workflow using sample data.
+
+7. Publish & activate the workflow.
+
+
+
 
 ## 9. How OpenOps Helps in Azure
 
