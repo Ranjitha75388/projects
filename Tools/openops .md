@@ -1,4 +1,4 @@
-# OpenOps: No-Code FinOps Automation Tool
+![image](https://github.com/user-attachments/assets/2b35144d-0b61-463c-82de-f896261d22f2)# OpenOps: No-Code FinOps Automation Tool
 
 ## 1. Introduction
 
@@ -346,11 +346,16 @@ OpenOps is a powerful, no-code FinOps tool that automates cloud cost management,
 ```
 az advisor recommendation list --category Cost --query "[].resourceMetadata.resourceId" --output tsv
 ```
-6. Choose Action **openops Tables**  >>>> **Get Records**
+6. Choose Action **openops Tables**  >>>> **Get Records** (To get email address of owner)
 
 ![image](https://github.com/user-attachments/assets/95f67e7a-f972-4816-92ae-82e9486a6570)
 
-           
+7.Choose Actions **openops Tables**   >>> **Add or update Record** 
+
+ - Select **Opportunites**
+ - Fields to update  >>>> Add Item
+     - Status:Created
+     - 
 
 
 
