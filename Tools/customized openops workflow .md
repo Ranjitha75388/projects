@@ -70,8 +70,94 @@ To Get email address of owner  >>> Select **Tag Owner mapping**
 
 ### Check "Runs"
 
+## Azure CLI
+
+1. Install az in Terminal
+```
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+az --version
+```
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. VM: Standard_B1ls (cheapest, 1 vCPU, 0.5 GiB RAM)
+```
+ az vm create --resource-group demo-rg --name demo-vm --image UbuntuLTS --size Standard_B1ls --admin-username azureuser --generate-ssh-keys
+```
+2.Storage
+```
+az storage account create --name openopsstorage --resource-group demo-rg --sku Standard_LRS
+```
+3.Blob Storage (Cool/Archive tier)
+```
+az storage container create --name demo-container --account-name openopsstorage
+```
+4.Networking
+```
+az network public-ip create --resource-group demo-rg --name demo-ip --sku Basic
+```
+5. Azure SQL Database (Serverless, Free Tier)
+```
+az sql server create --name demo-sqlserver --resource-group demo-rg --location eastus --admin-user adminuser --admin-password YourPassword123!
+```
+6. list all services in resourse group
+```
+az resource list --resource-group rg-ranjitha --query "[].{Name:name, Type:type, Location:location}" -o json
+```
+7.list under compute resourses
+```
+az resource list --resource-group rg-ranjitha --query "[?starts_with(type, 'Microsoft.Compute')]" -o table
+```
+8.fetch only vm from group
+```
+az resource list --resource-group rg-ranjitha --query "[?type=='Microsoft.Compute/virtualMachines'].{Name:name, Type:type, Location:location}" -o table
+```
+9. Fetch ressourse id's from group of resourses
+```
+az resource list --resource-group rg-ranjitha --query "[].id" -o table
+```
+10.fetch disk and vm seperately
+```
+az resource list --resource-group rg-ranjitha --query "{
+
+    VMs: [?type=='Microsoft.Compute/virtualMachines'],
+
+    Disks: [?type=='Microsoft.Compute/disks']
+
+}" -o json
+```
 
 
 
