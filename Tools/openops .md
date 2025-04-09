@@ -19,7 +19,7 @@ OpenOps helps companies save on cloud costs by identifying waste, optimizing res
   
      - Identifies unused resources and unnecessary expenses.
      -  Pre-made FinOps workflows – cost savings, budgeting, reporting.
-     -    Customizable workflows – build our own cost management rules.
+     -  Customizable workflows – build our own cost management rules.
      -  Integrates with major cloud providers – AWS, Azure, Google Cloud.
      -  Works with other tools – Jira, Slack, GitHub, Notion, and more.
 
@@ -305,4 +305,10 @@ OpenOps provides ready-made workflow templates to automate cost optimization, bu
 ## 9. Conclusion
 OpenOps is a powerful, no-code FinOps tool that automates cloud cost management, prevents overspending, and improves efficiency.
 
+
+## Example of customized workflow
+
+1.Go to New workflow
+2.Choose Trigger (eg:every seconds)
+3.Choose Action
 
