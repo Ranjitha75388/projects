@@ -141,6 +141,15 @@ Deployment Methods:
 - Login: admin@openops.com
 - Password: please-change-this-password-1
 
+**Step 5:After openops page open check Tables**
+- Check there is prebuilt tables are available
+- If not go back to terminal
+- check ~ openops >>> nano .env   >>>> vm's ip address
+
+
+![image](https://github.com/user-attachments/assets/ffa236ae-5b50-4a65-bfe5-287c8dd96cd0)
+
+
 ## 7. Connect OpenOps to Azure Cloud
 
 **1.Generate Azure Credentials**
