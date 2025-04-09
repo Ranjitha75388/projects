@@ -29,5 +29,80 @@ Azure CLI command to fetch resourse id's from Get advisor recommendations
 ```
 az advisor recommendation list --category Cost --query "[].resourceMetadata.resourceId" --output tsv
 ```
+### Step 5 :Under Azure CLI,select Actions "OpenOps Tables"  >>>>>>  "Get records"
+
+To Get email address of owner  >>> Select **Tag Owner mapping**
+
+![Screenshot from 2025-04-09 18-55-12](https://github.com/user-attachments/assets/c989f4e7-9fed-4c3d-9044-bf10ae15fc8d)
+
+### Step 6 : Under Get records ,select Actions "Openops Tables"   >>>>>>>   "Add or update record"
+
+- Select **Opportunites**
+- Fields to update >>> Add items
+- Status     : Created
+- Owner :Tag above Get rocord >>>> Owner email
+- Workflow :Azure advisor recommentation workflow
+- Resourse ID :Tag Step:4
+- Risk:Medium
+
+### Step 7:Select Actions "Approval"
+ - Create Approval links
+
+### Step 8:Selcet Actions "SMTP"
+
+ - Select connection created in above file:smtp
+ - From email:Tag Step:5 email adddress
+ - To :Tag Step:5 email address
+ - Subject:Advisor Recommendations
+ - Body: Tag the link creates above step:7
+
+### Step 9: Select Actions "Approval"
+
+- Wait for Approval
+
+### Step 10:Select Actions "Conditions"
+
+![image](https://github.com/user-attachments/assets/6a8cd405-4cf4-4db7-add6-7ce05e974e2f)
+
+### Step 11:End workflow
+
+### Click publish
+
+### Check "Runs"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
