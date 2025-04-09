@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/2b35144d-0b61-463c-82de-f896261d22f2)# OpenOps: No-Code FinOps Automation Tool
+# OpenOps: No-Code FinOps Automation Tool
 
 ## 1. Introduction
 
