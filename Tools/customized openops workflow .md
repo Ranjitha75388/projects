@@ -77,78 +77,144 @@ To Get email address of owner  >>> Select **Tag Owner mapping**
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 az --version
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1. VM: Standard_B1ls (cheapest, 1 vCPU, 0.5 GiB RAM)
+2.List of vm,disk
 ```
- az vm create --resource-group demo-rg --name demo-vm --image UbuntuLTS --size Standard_B1ls --admin-username azureuser --generate-ssh-keys
+az resource list --resource-group rg-ranjitha \
+  --query "[?type=='Microsoft.Compute/virtualMachines' || type=='Microsoft.Compute/disks'].{Name:name, ID:id, Type:type}" \
+  -o json
 ```
-2.Storage
+3.Specific Disk
 ```
-az storage account create --name openopsstorage --resource-group demo-rg --sku Standard_LRS
+az monitor metrics list \
+  --resource "/subscriptions/07ee8e08-7d5b-420b-9bec-bc242df1c043/resourceGroups/rg-ranjitha/providers/Microsoft.Compute/disks/<Disk name>" \
+  --metric "Composite Disk Read Bytes/sec" "Composite Disk Write Bytes/sec" \
+  --aggregation "Average" \
+  --interval PT1H \
+  --query "value[].timeseries[].data[].average" -o json
 ```
-3.Blob Storage (Cool/Archive tier)
+4.list all resourses
 ```
-az storage container create --name demo-container --account-name openopsstorage
+az resource list --resource-group rg-ranjitha --query "[].{name:name, type:type}" -o json
 ```
-4.Networking
+5.Lists disks that are not attached to any VM.
 ```
-az network public-ip create --resource-group demo-rg --name demo-ip --sku Basic
+az disk list --resource-group <your-resource-group> --query "[?managedBy==null].[name, id]" -o table
 ```
-5. Azure SQL Database (Serverless, Free Tier)
+6.unused nsg 
 ```
-az sql server create --name demo-sqlserver --resource-group demo-rg --location eastus --admin-user adminuser --admin-password YourPassword123!
+az network nsg list --query "[?(!subnets && !networkInterfaces)].[name, id]" -o table
 ```
-6. list all services in resourse group
+7.unused public ip
 ```
-az resource list --resource-group rg-ranjitha --query "[].{Name:name, Type:type, Location:location}" -o json
+az network public-ip list --query "[?ipConfiguration == null].[name, id]" -o table
 ```
-7.list under compute resourses
+8.unused storage account
+```
+az storage account list --query "[?properties.provisioningState=='Succeeded'].[name, properties.creationTime]" -o table
+```
+9.list of subnet
+```
+az network vnet subnet list --resource-group <RESOURCE_GROUP> --vnet-name <VNET_NAME> -o table
+```
+10.Listing Unused Stopped VMs)
+```
+az vm list -d --query "[?powerState=='VM deallocated'].{Name:name, Status:powerState}" -o table
+```
+11.VM WITHSTATUS
+```
+az vm list --show-details --query "[].{Name:name, Status:powerState, ResourceGroup:resourceGroup}" --output table
+```
+12.WITHALL DETAILS ABOUT VM
+```
+az vm list --show-details --query "[].{
+    Name:name, 
+    Status:powerState, 
+    ResourceGroup:resourceGroup, 
+    ResourceID:id,
+    Size:hardwareProfile.vmSize,
+    Location:location,
+    OS:storageProfile.osDisk.osType,
+    DiskSizeGB:storageProfile.osDisk.diskSizeGb,
+    PublicIP:publicIps,
+    PrivateIP:privateIps,
+    ProvisioningState:provisioningState
+}" --output table
+```
+13.VM WITH SIZE
+```
+az vm list --show-details --query "[?powerState=='VM running'].{Name:name, ResourceGroup:resourceGroup, Size:hardwareProfile.vmSize}" -o table
+```
+14.STOP THE VM
+```
+az vm deallocate --resource-group MyResourceGroup --name openops-vm
+```
+15.Resize to downsize
+```
+az vm resize --resource-group <your-resource-group> --name <your-vm-name> --size Standard_B1s
+```
+16.Check current-status of vm
+```
+az vm get-instance-view --name <private-vm> --resource-group rg-ranjitha --query "instanceView.statuses[?code.starts_with(@, 'PowerState/')].displayStatus" --output table
+```
+17.Specific Disk
+```
+az resource list --resource-type "Microsoft.Compute/disks" --query "[?managedBy==null && name=='<test-disk>'].{ResourceID:id, Name:name, Type:type, Location:location, State:'Unused', RecommendedAction:'Evaluate if you still need this disk and delete if unnecessary'}" -o json
+```
+18.CPU usage of vm
+```
+az monitor metrics list \
+    --resource "/subscriptions/07ee8e08-7d5b-420b-9bec-bc242df1c043/resourceGroups/rg-ranjitha/providers/Microsoft.Compute/virtualMachines/<vm-demo>" \
+    --metric "Percentage CPU" \
+    --interval PT1M \
+    --aggregation Average \
+    --query "value[0].timeseries[0].data[*].{Time:timeStamp, CPU_Percentage:average}" \
+    --output table
+```
+19.list all services in resourse group
+```
+az resource list --resource-group rg-ranjitha --query "[].{Name:name, Type:type, Location:location}" -o table
+```
+20.list under compute resourses
 ```
 az resource list --resource-group rg-ranjitha --query "[?starts_with(type, 'Microsoft.Compute')]" -o table
 ```
-8.fetch only vm from group
+21. VM: Standard_B1ls (cheapest, 1 vCPU, 0.5 GiB RAM)
+```
+ az vm create --resource-group demo-rg --name demo-vm --image UbuntuLTS --size Standard_B1ls --admin-username azureuser --generate-ssh-keys
+```
+22.Storage
+```
+az storage account create --name openopsstorage --resource-group demo-rg --sku Standard_LRS
+```
+23.Blob Storage (Cool/Archive tier)
+```
+az storage container create --name demo-container --account-name openopsstorage
+```
+24.Networking
+```
+az network public-ip create --resource-group demo-rg --name demo-ip --sku Basic
+```
+25. Azure SQL Database (Serverless, Free Tier)
+```
+az sql server create --name demo-sqlserver --resource-group demo-rg --location eastus --admin-user adminuser --admin-password YourPassword123!
+```
+26. list all services in resourse group
+```
+az resource list --resource-group rg-ranjitha --query "[].{Name:name, Type:type, Location:location}" -o json
+```
+27.list under compute resourses
+```
+az resource list --resource-group rg-ranjitha --query "[?starts_with(type, 'Microsoft.Compute')]" -o table
+```
+28.fetch only vm from group
 ```
 az resource list --resource-group rg-ranjitha --query "[?type=='Microsoft.Compute/virtualMachines'].{Name:name, Type:type, Location:location}" -o table
 ```
-9. Fetch ressourse id's from group of resourses
+29. Fetch ressourse id's from group of resourses
 ```
 az resource list --resource-group rg-ranjitha --query "[].id" -o table
 ```
-10.fetch disk and vm seperately
+30.fetch disk and vm seperately
 ```
 az resource list --resource-group rg-ranjitha --query "{
 
