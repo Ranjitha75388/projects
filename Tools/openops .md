@@ -149,6 +149,10 @@ Deployment Methods:
 
 ![image](https://github.com/user-attachments/assets/ffa236ae-5b50-4a65-bfe5-287c8dd96cd0)
 
+```
+sudo docker-compose down
+sudo docker-compose up -d
+```
 
 ## 7. Connect OpenOps to Azure Cloud
 
