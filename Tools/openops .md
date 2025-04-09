@@ -306,57 +306,6 @@ OpenOps provides ready-made workflow templates to automate cost optimization, bu
 OpenOps is a powerful, no-code FinOps tool that automates cloud cost management, prevents overspending, and improves efficiency.
 
 
-### Example of customized workflow
-
-1.Go to **New workflow**
-
-2.Select **Trigger** (eg:Schedule:Every X minutes)
-
-![image](https://github.com/user-attachments/assets/770a67dc-51fb-4ef5-a756-5fa03c513c2a)
-
-
-3.Under trigger,Choose Action "**Azure**".
-
-  - Choose **Get Advisor cost Recommentations**.(Fetch resourses based on cost category from your Azure Account).
-    
-  - Double click Advisor cost Recommentation box,In right corner Choose connection created above "Azure".
-    
-  - Select "subscription":Free Trail.
-    
-  - Filter by Resourse group
-    
-  - Resourse group name(rg-ranjitha)
-
-![image](https://github.com/user-attachments/assets/99bf6c0e-be75-41c7-8a37-6d98d6c8b4e5)
-![image](https://github.com/user-attachments/assets/270779bb-fa4a-4b6b-9a4e-47bf64b96243)
-
-
-4.Choose Action "**Loop**"
-
-- Right corner > Loop on Items > select Get advisor cost Recommentation step shown in side Data selector.
-
-![image](https://github.com/user-attachments/assets/1e6540aa-036d-48c4-ab0f-aa36e5535aed)
-
-
-5.Inside Loop, Click + , Choose action "**Azure**"
-
-   - Connection:Azure
-   - Subscription:Free trail.
-   - Azure CLI Command to fetch resourse id's from Get advisor Recommentation
-```
-az advisor recommendation list --category Cost --query "[].resourceMetadata.resourceId" --output tsv
-```
-6. Choose Action **openops Tables**  >>>> **Get Records** (To get email address of owner)
-
-![image](https://github.com/user-attachments/assets/95f67e7a-f972-4816-92ae-82e9486a6570)
-
-7.Choose Actions **openops Tables**   >>> **Add or update Record** 
-
- - Select **Opportunites**
- - Fields to update  >>>> Add Item
-     - Status:Created
-     - 
-
 
 
  
