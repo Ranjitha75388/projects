@@ -144,3 +144,50 @@ kubectl get secret $SECRET_NAME -n nithya-namespace -o jsonpath='{.data.token}' 
 kubectl get secret $SECRET_NAME -n nithya-namespace -o jsonpath='{.data.ca\.crt}'
 ```
 You can now use this token and CA to fill your kubeconfig file.
+
+
+
+
+
+
+
+
+
+
+
+
+context
+Steps to add nithya-context:
+
+    Set the context with the correct cluster and namespace:
+
+You need to create a new context that references the correct namespace (nithya-namespace) and user (nithya-user), and ensure that it points to the correct cluster (test-cluster).
+
+Use the following kubectl command to create the context:
+
+kubectl config set-context nithya-context \
+  --cluster=test-cluster \
+  --namespace=nithya-namespace \
+  --user=clusterAdmin_rg-ranjitha_test-cluster
+
+This will add nithya-context to your kubeconfig and set it to use the nithya-namespace under the test-cluster with the clusterAdmin_rg-ranjitha_test-cluster user.
+
+    Switch to nithya-context:
+
+After creating the context, switch to it by running:
+
+kubectl config use-context nithya-context
+
+    Verify the context and namespace:
+
+Once you've switched to the nithya-context, verify that the correct context is active:
+
+kubectl config current-context
+
+It should now show nithya-context.
+
+    Check the pods in nithya-namespace:
+
+Now you should be able to list the pods in nithya-namespace:
+
+kubectl get pods -n nithya-namespace
