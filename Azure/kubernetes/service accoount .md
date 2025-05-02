@@ -104,3 +104,43 @@ spec:
 ```
 kubectl apply -f dummy-pod.yaml
 ```
+
+
+
+
+
+to get secret
+
+
+
+Step-by-step fix:
+
+1.    Create the token secret manually:
+```
+# nithya-sa-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nithya-sa-token
+  namespace: nithya-namespace
+  annotations:
+    kubernetes.io/service-account.name: nithya-sa
+type: kubernetes.io/service-account-token
+```
+Apply it:
+```
+kubectl apply -f nithya-sa-secret.yaml
+```
+2. Wait a few seconds, then get the token secret name:
+```
+SECRET_NAME=nithya-sa-token
+```
+3. Extract the token (base64 decoded):
+```  
+kubectl get secret $SECRET_NAME -n nithya-namespace -o jsonpath='{.data.token}' | base64 --decode
+```
+4. Get the CA certificate (base64 raw):
+```
+kubectl get secret $SECRET_NAME -n nithya-namespace -o jsonpath='{.data.ca\.crt}'
+```
+You can now use this token and CA to fill your kubeconfig file.
