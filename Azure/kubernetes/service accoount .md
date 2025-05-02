@@ -86,3 +86,21 @@ users:
 ```
 kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'
 ```
+### 7.create pod in service account
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dummy-pod
+  namespace: nithya-namespace
+spec:
+  serviceAccountName: nithya-sa
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+```
+```
+kubectl apply -f dummy-pod.yaml
+```
