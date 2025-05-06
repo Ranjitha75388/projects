@@ -46,15 +46,15 @@ It comes in two main versions:
 
 3.Create a Docker image with JasperReports Server + Tomcat
 
-2.Create a PostgreSQL (or MySQL) instance, and prepare it for JasperReports
+4.Create a PostgreSQL (or MySQL) instance, and prepare it for JasperReports
 
-3.Use YAML to deploy the app (Tomcat + JasperReports WAR) to AKS.
+5.Use YAML to deploy the app (Tomcat + JasperReports WAR) to AKS.
 
-4.Use a LoadBalancer or Ingress to allow access from the internet.
+6.Use a LoadBalancer or Ingress to allow access from the internet.
 
-5.View JasperReports in Browser.
+7.View JasperReports in Browser.
 
-## Pre-Requisites (Before Starting)
+## Pre-Requisites
 
 - Install tools: Docker, kubectl, Azure CLI, Helm
 
