@@ -76,3 +76,26 @@ It comes in two main versions:
 
    - ConfigMap or Secret (for database credentials)
 
+## Design 
+
+
+  User's Browser
+      
+   |
+   
+ LoadBalancer / Ingress               <----------- Exposes JasperReports
+    
+   |
+   
+
+JasperReports Pod                <----------- Runs Docker container
+
+(Tomcat + jasperserver.war) 
+
+   |
+   
+
+PostgreSQL / MySQL DB           <-- Hosted in Azure or as Pod in AKS
+
+(holds report data, users)
+
