@@ -52,7 +52,7 @@ It comes in two main versions:
 
 4.Use a LoadBalancer or Ingress to allow access from the internet.
 
-5.View in Browser.
+5.View JasperReports in Browser.
 
 ## Pre-Requisites (Before Starting)
 
