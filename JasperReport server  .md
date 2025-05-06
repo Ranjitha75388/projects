@@ -40,16 +40,19 @@ It comes in two main versions:
 
 ## Plan
 
-1.Create a Docker image with JasperReports Server + Tomcat
+1.Create and connect to the AKS Cluster.
+
+2.Download JasperReports Server WAR file package.
+
+3.Create a Docker image with JasperReports Server + Tomcat
 
 2.Create a PostgreSQL (or MySQL) instance, and prepare it for JasperReports
 
-3.Use YAML to deploy the app (Tomcat + JasperReports WAR) to Kubernetes.
+3.Use YAML to deploy the app (Tomcat + JasperReports WAR) to AKS.
 
 4.Use a LoadBalancer or Ingress to allow access from the internet.
 
-5.Add TLS (HTTPS), set up users, and apply licensing.
-
+5.View in Browser.
 
 ## Pre-Requisites (Before Starting)
 
@@ -61,9 +64,9 @@ It comes in two main versions:
 
 - Build Docker image with Tomcat + JasperReports WAR
 
-- Prepare your default_master.properties file to connect to the database
+- Prepare the default_master.properties file to connect to the database
 
-- Test the connection to your database
+- Test the connection to database
 
 - Create Kubernetes YAMLs (or Helm charts) for:
 
