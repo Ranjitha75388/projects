@@ -245,4 +245,34 @@ spec:
 2. Apply it:
 ```
 kubectl apply -f jasper-deployment.yaml
-``` 
+```
+## Step 6: Check pods are in running state and service
+
+![image](https://github.com/user-attachments/assets/4dab492b-211e-40bd-9fda-c276fb2faae9)
+
+## Step 7:Access JasperReports in Browser
+
+1.Get the IP:
+```
+minikube ip
+```
+2.Access JasperReports using:
+```
+http://<minikube-ip>:30080
+```
+3.Log in with:
+
+   - Username: jasperadmin
+
+   - Password: jasperadmin
+
+![Screenshot from 2025-05-09 13-24-24](https://github.com/user-attachments/assets/6011f115-8b93-4a54-b8bb-96f39829219f)
+
+## Step 8:Jasper report server
+
+once logged in
+
+![Screenshot from 2025-05-09 12-36-20](https://github.com/user-attachments/assets/560f6b15-6243-47fb-bcdf-71a98a9a6eb6)
+
+
+
