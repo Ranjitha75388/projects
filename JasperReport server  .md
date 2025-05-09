@@ -99,3 +99,150 @@ PostgreSQL / MySQL DB           <-- Hosted in Azure or as Pod in AKS
 
 (holds report data, users)
 
+
+
+
+
+
+## Step 1: Prerequisites
+
+Make sure you have these installed:
+
+- Minikube – runs Kubernetes locally
+
+- kubectl – CLI to interact with Kubernetes
+
+- Docker – builds & pulls container images
+
+Check with:
+```
+minikube version
+kubectl version --client
+docker --version
+```
+## Step 2: Start Minikube
+```
+minikube start
+```
+This will create a local Kubernetes cluster.
+
+## Step 3: Enable Ingress (optional but useful)
+```
+minikube addons enable ingress
+```
+This allows you to access JasperReports through a friendly URL (or just use service port).
+
+## Step 4: Deploy PostgreSQL as the database
+
+1.Create a file postgres-deployment.yaml:
+
+```
+nano postgres-deployment.yaml
+```
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: postgres
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:13
+          env:
+            - name: POSTGRES_DB
+              value: jasperdb
+            - name: POSTGRES_USER
+              value: jasper
+            - name: POSTGRES_PASSWORD
+              value: jasper123
+          ports:
+            - containerPort: 5432
+
+```
+2.Apply it:
+```
+kubectl apply -f postgres-deployment.yaml
+```
+## Step 5: Deploy JasperReports Server
+
+1.Create a file jasper-deployment.yaml: 
+
+```
+nano jasper-deployment.yaml
+```
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: jasperreports
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30080
+  selector:
+    app: jasperreports
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jasperreports
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jasperreports
+  template:
+    metadata:
+      labels:
+        app: jasperreports
+    spec:
+      containers:
+        - name: jasperreports
+          image: bitnami/jasperreports:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JASPERREPORTS_DATABASE_TYPE
+              value: postgresql
+            - name: JASPERREPORTS_DATABASE_HOST
+              value: postgres
+            - name: JASPERREPORTS_DATABASE_PORT_NUMBER
+              value: "5432"
+            - name: JASPERREPORTS_DATABASE_NAME
+              value: jasperdb
+            - name: JASPERREPORTS_DATABASE_USER
+              value: jasper
+            - name: JASPERREPORTS_DATABASE_PASSWORD
+              value: jasper123
+            - name: JASPERREPORTS_USERNAME
+              value: jasperadmin
+            - name: JASPERREPORTS_PASSWORD
+              value: jasperadmin
+
+```
+2. Apply it:
+```
+kubectl apply -f jasper-deployment.yaml
+``` 
