@@ -101,6 +101,8 @@ PostgreSQL / MySQL DB           <-- Hosted in Azure or as Pod in AKS
 
 
 
+#### Note: Used Bitnami Docker image for JasperReports. This image already has the .war file pre-installed and deployed in Tomcat, so no manual download or deployment is required.
+
 
 
 
