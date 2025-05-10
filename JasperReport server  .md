@@ -300,22 +300,10 @@ http://<minikube-ip>:30080
 
 ![Screenshot from 2025-05-09 12-36-20](https://github.com/user-attachments/assets/560f6b15-6243-47fb-bcdf-71a98a9a6eb6)
 
-2.After log in navigate to "view" > "Repository".
-   - Under Repository right click "Root"
-   - "Add folder" - Give folder name (MyReports) and save.
-   - Right click "MyReports" > "Add Resourses"
-
-
-
-
-
-
-
-databse
-
-Step 1: Ensure You Have a Table in PostgreSQL
+2.Before entering to next step, Ensure You Have a Table in PostgreSQL
 
 Make sure your postgres pod contains a table to query. You can exec into the pod and create one:
+
 ```
 kubectl exec -it <postgres-pod-name> -- psql -U jasper -d jasperdb
 ```
@@ -334,14 +322,18 @@ VALUES
   ('Charlie', 'Finance');
 ```
 
-Step 2:Create a JDBC Data Source
+2.Create a folder
 
-Inside the JasperReports Server UI:
+- Go to  view > Repository.
 
-    Go to Repository > Root > Add Resource > Data Source
+- Left side "Root" right click it.
 
-    Choose JDBC Data Source 
+- "Add folder" - Give folder name (MyReports) and save.
 
+3.Create a JDBC Data Source
+
+- Right click  MyReports > Add Resourse > Data Source
+   
 ![Screenshot from 2025-05-10 21-03-36](https://github.com/user-attachments/assets/f419619f-4ccf-4f2e-982e-3ab168e63b55)
 
 
@@ -420,8 +412,6 @@ Step 3: Save the JRXML File
 
 Step 4: Upload to JasperReports Server
 
-    Login to JasperReports Server.
-
     Go to Repository > Root.
 
     Click Add Resource > JasperReport.
@@ -437,5 +427,6 @@ Step 4: Upload to JasperReports Server
 Step 5: Navigate to Repository and Run "employee" file added.
 
 output
+
 ![image](https://github.com/user-attachments/assets/d897dcf3-50c1-4493-9f29-10ef96abffd3)
 
