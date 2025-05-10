@@ -2,7 +2,7 @@
 
 This phase guides to setup and build the frontend and backend services and run it on local machine manually.
 
-Before build the application Pre-requisites installation should be done.Follow the `Phase 0` https://github.com/Ranjitha75388/Jumisa-Technology/blob/main/3-Tier%20web%20Application/Prerequisites%20Installation%20(phase-0).md
+Before build the application Pre-requisites installation should be done.Follow the [Phase 0](https://github.com/Ranjitha75388/Jumisa-Technology/blob/main/3-Tier%20web%20Application/Prerequisites%20Installation%20(phase-0).md)
  
 
 ### Step1 : Unzip the file
