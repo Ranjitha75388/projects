@@ -1,30 +1,32 @@
 # 1.JasperReports Server 
 
-JasperReports Server is a tool that helps to **create, share, and manage reports** about the data. It's like a smart report maker that works in a web browser.
+JasperReports Server is a java based web application tool that helps to **create, share, and manage reports** about the data. It's like a smart report maker that works in a web browser.
 
-- **Show reports online** – You can view and run reports from your web browser.
+- **Creating Reports** – Design tabular and graphical reports.
 
-- **Download reports** – You can export reports as PDF, Excel, Word, or other files.
+- **Viewing Reports Online** – Accessible through the browser.
 
-- **Schedule reports** – You can set it to send reports automatically (like every morning or weekly).
+- **Exporting** – Download as PDF, Excel, etc.
 
-- **Make dashboards** – You can combine different charts and reports into one screen.
+- **Scheduling** – Email reports daily/weekly.
 
-- **Control who sees what** – You can decide which users can see or edit reports.
+- **User Roles** – Control who can create/view/edit reports.
 
-- **Connect to databases** – It pulls data from systems like MySQL, Oracle, PostgreSQL, etc.
+- **Embedding** – Can be embedded in other apps.
 
-- **Embed into other apps** – Developers can put reports inside other websites or systems.
+- **Database Support** – Connects to PostgreSQL, MySQL, Oracle, and more.
 
 It comes in two main versions:
 
--    Community Edition (free) — basic features
+-    Community Edition (free) - latest version(7.0.2) — basic features
 
--    Commercial Edition (paid) — has extras like dashboards, audit logs, multi-org support, etc.
+-    Commercial Edition (paid) - latest version(9.0)— has extras like dashboards, audit logs, multi-org support, etc.
 
 ## Requirements for JasperReports Server on Azure Kubernetes Service (AKS)
 
 - Azure account.
+
+- Azure container Registry.
 
 - Azure Kubernetes Service (AKS) cluster.
 
@@ -100,15 +102,9 @@ PostgreSQL / MySQL DB           <-- Hosted in Azure or as Pod in AKS
 (holds report data, users)
 
 
-
-#### Note: Used Bitnami Docker image for JasperReports. This image already has the .war file pre-installed and deployed in Tomcat, so no manual download or deployment is required.
-
-
-
-
-## Step 1: Prerequisites
-
-Make sure you have these installed:
+## Steps to deploying Jasper report server in Azure kubernetes service
+ 
+### Step 1: Prerequisites
 
 - Minikube – runs Kubernetes locally
 
@@ -116,25 +112,28 @@ Make sure you have these installed:
 
 - Docker – builds & pulls container images
 
+- Bitnami Docker image - This image already has the .war file pre-installed and deployed in Tomcat, so no manual download or deployment is required.Latest version:8.2.0
+
 Check with:
+
 ```
 minikube version
 kubectl version --client
 docker --version
 ```
-## Step 2: Start Minikube
+### Step 2: Start Minikube
 ```
 minikube start
 ```
 This will create a local Kubernetes cluster.
 
-## Step 3: Enable Ingress (optional but useful)
+### Step 3: Enable Ingress (optional but useful)
 ```
 minikube addons enable ingress
 ```
-This allows you to access JasperReports through a friendly URL (or just use service port).
+This allow to access JasperReports through a friendly URL.
 
-## Step 4: Deploy PostgreSQL as the database
+### Step 4: Deploy PostgreSQL as the database
 
 1.Create a file postgres-deployment.yaml:
 
@@ -185,7 +184,7 @@ spec:
 ```
 kubectl apply -f postgres-deployment.yaml
 ```
-## Step 5: Deploy JasperReports Server
+### Step 5: Deploy JasperReports Server
 
 1.Create a file jasper-deployment.yaml: 
 
@@ -248,7 +247,7 @@ spec:
 ```
 kubectl apply -f jasper-deployment.yaml
 ```
-## Step 6: Check pods are in running state and service
+### Step 6: Check pods are in running state and service
 
 ![image](https://github.com/user-attachments/assets/4dab492b-211e-40bd-9fda-c276fb2faae9)
 
