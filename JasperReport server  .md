@@ -272,9 +272,13 @@ http://<minikube-ip>:30080
 
 ## Step 8:Jasper report server
 
-once logged in
+1.once logged in
 
 ![Screenshot from 2025-05-09 12-36-20](https://github.com/user-attachments/assets/560f6b15-6243-47fb-bcdf-71a98a9a6eb6)
 
+2.After log in navigate to "view" > "Repository".
+   - Under Repository right click "Root"
+   - "Add folder" - Give folder name (MyReports) and save.
+   - Right click "MyReports" > "Add Resourses"
 
 
