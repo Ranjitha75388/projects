@@ -272,6 +272,26 @@ http://<minikube-ip>:30080
 
 ## Step 8:Jasper report server
 
+**Jaspersoft Studio:**
+
+  -  Designing Reports: It allows users to create .jrxml files (JasperReports files) that define how the report will look and behave.
+
+  -  Preview: It allows previewing the design with real data fetched from connected data sources (e.g., databases, web services, etc.).
+
+  -  Report Creation: You can create reports with tables, charts, images, text fields, etc.
+
+   - Export: It can export reports to various formats like PDF, Excel, HTML, CSV, and more.
+
+**JasperReports Server:**
+
+    Report Deployment: After designing reports in Jaspersoft Studio, you can upload them to JasperReports Server.
+
+    Running Reports: You can execute reports directly from the server, with the option to run reports on-demand or schedule them for regular intervals (e.g., daily, weekly).
+
+    User Management: JasperReports Server allows role-based access control, letting administrators manage who can view, edit, or execute specific reports.
+
+    Data Security: JasperReports Server provides security features like authentication and authorization, enabling fine-grained control over data access.
+
 1.once logged in
 
 ![Screenshot from 2025-05-09 12-36-20](https://github.com/user-attachments/assets/560f6b15-6243-47fb-bcdf-71a98a9a6eb6)
