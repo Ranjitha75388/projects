@@ -274,23 +274,27 @@ http://<minikube-ip>:30080
 
 **Jaspersoft Studio:**
 
-  -  Designing Reports: It allows users to create .jrxml files (JasperReports files) that define how the report will look and behave.
+   - Go to the official "Jaspersoft Studio download page"
 
-  -  Preview: It allows previewing the design with real data fetched from connected data sources (e.g., databases, web services, etc.).
+  - It allows users to create .jrxml files (JasperReports files) that define how the report will look and behave.
 
-  -  Report Creation: You can create reports with tables, charts, images, text fields, etc.
+  - It allows previewing the design with real data fetched from connected data sources (e.g., databases, web services, etc.).
 
-   - Export: It can export reports to various formats like PDF, Excel, HTML, CSV, and more.
+  - You can create reports with tables, charts, images, text fields, etc.
+
+- It can export reports to various formats like PDF, Excel, HTML, CSV, and more.
 
 **JasperReports Server:**
 
-    Report Deployment: After designing reports in Jaspersoft Studio, you can upload them to JasperReports Server.
+- After designing reports in Jaspersoft Studio, you can upload them to JasperReports Server.
 
-    Running Reports: You can execute reports directly from the server, with the option to run reports on-demand or schedule them for regular intervals (e.g., daily, weekly).
+- .jrxml file must be compiled into a .jasper file before it can be executed by the JasperReports engine (though the JasperReports Server does this automatically upon upload).
 
-    User Management: JasperReports Server allows role-based access control, letting administrators manage who can view, edit, or execute specific reports.
+- You can execute reports directly from the server, with the option to run reports on-demand or schedule them for regular intervals (e.g., daily, weekly).
 
-    Data Security: JasperReports Server provides security features like authentication and authorization, enabling fine-grained control over data access.
+- JasperReports Server allows role-based access control, letting administrators manage who can view, edit, or execute specific reports.
+
+ - JasperReports Server provides security features like authentication and authorization, enabling fine-grained control over data access.
 
 1.once logged in
 
