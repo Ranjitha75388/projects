@@ -102,7 +102,7 @@ PostgreSQL / MySQL DB           <-- Hosted in Azure or as Pod in AKS
 (holds report data, users)
 
 
-## Steps to deploying Jasper report server in Azure kubernetes service
+## Steps to deploying Jasper report server in kubernetes service
  
 ### Step 1: Prerequisites
 
