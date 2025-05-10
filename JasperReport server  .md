@@ -112,9 +112,7 @@ PostgreSQL / MySQL DB           <-- Hosted in Azure or as Pod in AKS
 
 - Docker – builds & pulls container images
 
-- Bitnami Docker image - This image already has the .war file pre-installed and deployed in Tomcat, so no manual download or deployment is required.Latest version:8.2.0
-
-Check with:
+ Check with:
 
 ```
 minikube version
@@ -184,7 +182,10 @@ spec:
 ```
 kubectl apply -f postgres-deployment.yaml
 ```
-### Step 5: Deploy JasperReports Server
+### Step 5: Deploy JasperReports Server : 
+
+- Bitnami Docker image used. This image already has the .war file pre-installed and deployed in Tomcat, so no manual download or deployment is required.Latest version:8.2.0
+
 
 1.Create a file jasper-deployment.yaml: 
 
