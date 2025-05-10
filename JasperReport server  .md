@@ -306,3 +306,136 @@ http://<minikube-ip>:30080
    - Right click "MyReports" > "Add Resourses"
 
 
+
+
+
+
+
+databse
+
+Step 1: Ensure You Have a Table in PostgreSQL
+
+Make sure your postgres pod contains a table to query. You can exec into the pod and create one:
+```
+kubectl exec -it <postgres-pod-name> -- psql -U jasper -d jasperdb
+```
+Inside the psql shell:
+```
+CREATE TABLE employees (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  department VARCHAR(100)
+);
+
+INSERT INTO employees (name, department)
+VALUES 
+  ('Alice', 'HR'),
+  ('Bob', 'IT'),
+  ('Charlie', 'Finance');
+```
+
+Step 2:Create a JDBC Data Source
+
+Inside the JasperReports Server UI:
+
+    Go to Repository > Root > Add Resource > Data Source
+
+    Choose JDBC Data Source 
+
+![Screenshot from 2025-05-10 21-03-36](https://github.com/user-attachments/assets/f419619f-4ccf-4f2e-982e-3ab168e63b55)
+
+
+Step 3:Use This Valid JRXML File (for employees Table)
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="EmployeeReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5e3fb00-89ab-11ee-b9d1-0242ac120002">
+
+    <queryString>
+        <![CDATA[SELECT 'John Doe' AS name, 'Engineering' AS department, 5000 AS salary]]>
+    </queryString>
+
+    <field name="name" class="java.lang.String"/>
+    <field name="department" class="java.lang.String"/>
+    <field name="salary" class="java.lang.Integer"/>
+
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="0" width="555" height="30"/>
+                <textElement>
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Employee Report]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="20">
+            <staticText>
+                <reportElement x="0" y="0" width="185" height="20"/>
+                <text><![CDATA[Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="185" y="0" width="185" height="20"/>
+                <text><![CDATA[Department]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="370" y="0" width="185" height="20"/>
+                <text><![CDATA[Salary]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="185" height="20"/>
+                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="185" y="0" width="185" height="20"/>
+                <textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="370" y="0" width="185" height="20"/>
+                <textFieldExpression><![CDATA[$F{salary}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+</jasperReport>
+```
+Step 3: Save the JRXML File
+
+    Open any text editor (like Notepad, VS Code, or Nano).
+
+    Paste the content above.
+
+    Save it as: employee_report.jrxml
+
+Step 4: Upload to JasperReports Server
+
+    Login to JasperReports Server.
+
+    Go to Repository > Root.
+
+    Click Add Resource > JasperReport.
+
+    Enter a Name, e.g., Employee Report.
+
+    Click Upload a file, browse for employee_report.jrxml.
+
+    In Data Source, choose your PostgreSQL connection created in step2
+   
+   Click submit
+ 
+Step 5: Navigate to Repository and Run "employee" file added.
+
+output
+![image](https://github.com/user-attachments/assets/d897dcf3-50c1-4493-9f29-10ef96abffd3)
+
