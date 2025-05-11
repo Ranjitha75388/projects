@@ -1,20 +1,26 @@
 # 1.JasperReports Server 
 
-JasperReports Server is a java based web application tool that helps to **create, share, and manage reports** about the data. It's like a smart report maker that works in a web browser.
+- JasperReports Server is a web-based reporting tool used to create, manage, and share reports.
 
-- **Creating Reports** – Design tabular and graphical reports.
+- It lets users generate reports from databases and view them in a browser.
 
-- **Viewing Reports Online** – Accessible through the browser.
+- Think of it as an online report builder for organizing and presenting data clearly.
 
-- **Exporting** – Download as PDF, Excel, etc.
+### Essential Functions of JasperReports Server 
 
-- **Scheduling** – Email reports daily/weekly.
+   - **Creating Reports** – Design both tabular and graphical reports using JRXML.
 
-- **User Roles** – Control who can create/view/edit reports.
+   - **Viewing Reports Online** – Access and view reports directly from a web browser.
 
-- **Embedding** – Can be embedded in other apps.
+   - **Exporting** – Download reports as PDF, Excel, Word, etc.
 
-- **Database Support** – Connects to PostgreSQL, MySQL, Oracle, and more.
+   - **Scheduling** – Automate report delivery by email on a set schedule (daily, weekly, etc.).
+
+   - **User Roles & Permissions** – Manage access control (view/edit/create) for users.
+
+   - **Embedding** – Integrate reports into other web or enterprise applications.
+
+   - **Database Support** – Connects to various databases like PostgreSQL, MySQL, Oracle, and others.
 
 It comes in two main versions:
 
@@ -296,13 +302,11 @@ http://<minikube-ip>:30080
 
  - JasperReports Server provides security features like authentication and authorization, enabling fine-grained control over data access.
 
-1.once logged in
+#### 1.once logged in
 
 ![Screenshot from 2025-05-09 12-36-20](https://github.com/user-attachments/assets/560f6b15-6243-47fb-bcdf-71a98a9a6eb6)
 
-2.Before entering to next step, Ensure You Have a Table in PostgreSQL
-
-Make sure your postgres pod contains a table to query. You can exec into the pod and create one:
+#### 2.Before entering to next step, Ensure You Have a Table in PostgreSQL
 
 ```
 kubectl exec -it <postgres-pod-name> -- psql -U jasper -d jasperdb
@@ -322,7 +326,7 @@ VALUES
   ('Charlie', 'Finance');
 ```
 
-2.Create a folder
+#### 3.Create a folder under Repository
 
 - Go to  view > Repository.
 
@@ -330,17 +334,17 @@ VALUES
 
 - "Add folder" - Give folder name (MyReports) and save.
 
-3.Create a JDBC Data Source
+#### 4.Create a JDBC Data Source
 
 - Right click  MyReports > Add Resourse > Data Source
 
  ![image](https://github.com/user-attachments/assets/710f518b-d8cc-45a7-a47a-5bf05360af8f)
  
    
-![Screenshot from 2025-05-10 21-03-36](https://github.com/user-attachments/assets/f419619f-4ccf-4f2e-982e-3ab168e63b55)
+ ![Screenshot from 2025-05-10 21-03-36](https://github.com/user-attachments/assets/f419619f-4ccf-4f2e-982e-3ab168e63b55)
 
 
-Step 3:Use This Valid JRXML File (for employees Table)
+#### 5.Use Valid JRXML File (for employees Table)
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -409,29 +413,29 @@ Step 3:Use This Valid JRXML File (for employees Table)
 </jasperReport>
 
 ```
-Step 3: Save the JRXML File
+#### 6. Save the JRXML File
 
-    Open any text editor (like Notepad, VS Code, or Nano).
+  -  Open any text editor (like Notepad, VS Code, or Nano).
 
-    Paste the content above.
+  -  Paste the content above.
 
-    Save it as: employee_report.jrxml
+  -  Save it as: employee_report.jrxml
 
-Step 4: Upload to JasperReports Server
+#### 7. Upload to JasperReports Server
 
-    Go to Repository > Root.
+- Go to Repository > Root.
 
-    Click Add Resource > JasperReport.
+- Click Add Resource > JasperReport.
 
-    Enter a Name, e.g., Employee Report.
+- Enter a Name,( e.g., **employee**).
 
-    Click Upload a file, browse for employee_report.jrxml.
+- Click Upload a file, browse for employee_report.jrxml from local Downloads.
 
-    In Data Source, choose your PostgreSQL connection created in step2
+- In Data Source, choose your PostgreSQL connection created in step-4
    
-   Click submit
+- Click submit
  
-Step 5: Navigate to Repository and Run "employee" file added.
+#### 8. Navigate to Repository and Run "employee" file added.
 
 output:
 
