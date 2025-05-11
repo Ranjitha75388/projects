@@ -146,7 +146,7 @@ PostgreSQL / MySQL DB           <-- Hosted in Azure or as Pod in AKS
 
 ## Steps to deploying Jasper report server in kubernetes service
  
-### Step 1: Check for prerequesties
+### Step 1: Verify Prerequisites 
 
 ```
 minikube version
