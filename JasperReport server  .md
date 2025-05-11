@@ -63,7 +63,9 @@ It comes in two main versions:
 
 #### 2.Prepare JasperReports WAR Package
 
--  Download the Community or commercial WAR package from Jaspersoft .
+-  Download the Community or commercial WAR package from Jaspersoft if permission allowed.
+
+- orelse use Bitnami Docker image,which already has the .war file pre-installed and deployed in Tomcat, so no manual download or deployment is required
 
 #### 3. Build Docker Image
 
@@ -218,7 +220,7 @@ kubectl apply -f postgres-deployment.yaml
 ```
 ### Step 5: Deploy JasperReports Server : 
 
-- Bitnami Docker image used. This image already has the .war file pre-installed and deployed in Tomcat, so no manual download or deployment is required.Latest version:8.2.0 of jasper report server.
+- Bitnami Docker image used Latest version:8.2.0 of jasper report server.
 
 
 1.Create a file jasper-deployment.yaml: 
