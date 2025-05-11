@@ -6,7 +6,7 @@
 
 - Think of it as an online report builder for organizing and presenting data clearly.
 
-### Essential Functions of JasperReports Server 
+#### Essential Functions of JasperReports Server 
 
    - **Creating Reports** – Design both tabular and graphical reports using JRXML.
 
@@ -30,59 +30,105 @@ It comes in two main versions:
 
 ## Requirements for JasperReports Server on Azure Kubernetes Service (AKS)
 
-- Azure account.
+- **Azure Account** – For using AKS, Storage, Registry.
 
-- Azure container Registry.
+- **AKS Cluster** – A Kubernetes cluster to run JasperReports.
 
-- Azure Kubernetes Service (AKS) cluster.
+- **Azure Container Registry** – (Optional) To store custom Docker images.
 
-- kubectl installed to manage Kubernetes.
+- **kubectl** – To control the cluster.
 
-- Docker to build and manage containers.
+- **Docker** – To build container images.
 
-- Helm (optional, but makes app deployment easier).
+- **Helm** (Optional) – For easier deployment.
 
-- JasperReports WAR file package (from Jaspersoft site)
+- **PostgreSQL Database** – Our report data source (inside AKS or Azure).
 
-- A database (like PostgreSQL, MySQL, or SQL Server) either on Azure or inside AKS.
+- **JasperReports Server WAR File** – Web application package.
 
-## Plan
+- **JDBC Driver** – Needed so JasperReports can talk to the database.
 
-1.Create and connect to the AKS Cluster.
+- **LoaadBalancer/ Ingress Controller** – JasperReports accessible via a public IP or custom domain.
 
-2.Download JasperReports Server WAR file package.
+- **Secrets** – Use Kubernetes Secrets to store DB passwords safely.
 
-3.Create a Docker image with JasperReports Server + Tomcat
+- **Persistent Volume** – To store reports/uploads.
 
-4.Create a PostgreSQL (or MySQL) instance, and prepare it for JasperReports
+- **JasperReports Studio** – (Optional) designing .jrxml reports locally before uploading them to the server.
 
-5.Use YAML to deploy the app (Tomcat + JasperReports WAR) to AKS.
 
-6.Use a LoadBalancer or Ingress to allow access from the internet.
+## Deployment Plan: JasperReports Server on AKS
 
-7.View JasperReports in Browser.
+#### 1. Create and Connect to AKS Cluster
+
+ - Connect using
+```
+az aks get-credentials and verify with kubectl get nodes.
+```
+#### 2.Prepare JasperReports WAR Package
+
+-  Download the Community or commercial WAR package from Jaspersoft .
+
+#### 3. Build Docker Image
+
+-  Use a Dockerfile with Tomcat + JasperReports WAR + JDBC driver.
+
+-  Push image to Azure Container Registry (ACR) or Docker Hub.
+
+#### 4.  Deploy PostgreSQL (or other DB) to AKS
+
+-  Use Kubernetes YAML or Helm to deploy PostgreSQL.
+
+-  Set POSTGRES_DB, POSTGRES_USER, and POSTGRES_PASSWORD.
+
+
+#### 5. Create Secrets and ConfigMaps
+
+  -   Store DB credentials securely using kubectl create secret.
+
+   -  Create ConfigMap for environment variables if needed.
+
+ #### 6. Deploy JasperReports Server to AKS
+
+   -  Create a Kubernetes Deployment yaml.
+
+  -  Mount any required volumes (for persistence/logs).
+
+   - Connect it to the PostgreSQL service using JDBC URL:
+```
+    jdbc:postgresql://<postgres-service>:5432/<db-name>
+```
+#### 7.Expose the Application
+
+- Use a LoadBalancer service or configure an Ingress controller (e.g., NGINX).
+
+- Access the JasperReports Server in browser using the external IP.
+
+#### 8. Use JasperReports Server
+
+- Upload .jrxml files, create data sources, and generate reports.
 
 ## Pre-Requisites
 
-- Install tools: Docker, kubectl, Azure CLI, Helm
+- **Install Tools**: Docker, kubectl, Azure CLI, and optionally Helm.
 
-- Create AKS cluster on Azure
+-  **Azure Setup**: Create an AKS cluster and optionally an Azure Container Registry (ACR).
 
-- Download the WAR distribution (JasperReports Server .war package)
+- **Download JasperReports WAR**: Get the JasperReports Server WAR file.
 
-- Build Docker image with Tomcat + JasperReports WAR
+- **Build Docker Image**: Tomcat + JasperReports WAR + JDBC Driver
+  
+- **Database Setup**: Deploy PostgreSQL (Azure or AKS), create a database (jasperdb), and test the connection.
 
-- Prepare the default_master.properties file to connect to the database
+- **Configure:** Edit default_master.properties for DB credentials. Use ConfigMap/Secret for secure storage.
 
-- Test the connection to database
+- **Kubernetes YAMLs**: Create YAMLs for:
 
-- Create Kubernetes YAMLs (or Helm charts) for:
+     -   JasperReports Deployment
 
-   - JasperReports deployment
+     -  Service (LoadBalancer/Ingreess)
 
-   - Service (LoadBalancer or Ingress)
-
-   - ConfigMap or Secret (for database credentials)
+     - Secrets for DB credentials
 
 ## Design 
 
