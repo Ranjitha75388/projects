@@ -480,11 +480,11 @@ VALUES
 
 - Click Add Resource > JasperReport.
 
-- Enter a Name,( e.g., **employee**).
+- Enter a Name,( e.g.,employee).
 
-- Click Upload a file, browse for employee_report.jrxml from local Downloads.
+- Click Upload a file, browse for **employee_report.jrxml** from local Downloads.
 
-- In Data Source, choose your PostgreSQL connection created in step-4
+- In Data Source, choose your **PostgreSQL** connection created in step-4
    
 - Click submit
  
