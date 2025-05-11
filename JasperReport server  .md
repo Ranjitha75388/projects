@@ -46,8 +46,6 @@ It comes in two main versions:
 
 - **JasperReports Server WAR File** – Web application package.
 
-- **JDBC Driver** – Needed so JasperReports can talk to the database.
-
 - **LoaadBalancer/ Ingress Controller** – JasperReports accessible via a public IP or custom domain.
 
 - **Secrets** – Use Kubernetes Secrets to store DB passwords safely.
@@ -61,10 +59,8 @@ It comes in two main versions:
 
 #### 1. Create and Connect to AKS Cluster
 
- - Connect using
-```
-az aks get-credentials and verify with kubectl get nodes.
-```
+ - Connect using az aks get-credentials and verify with kubectl get nodes.
+
 #### 2.Prepare JasperReports WAR Package
 
 -  Download the Community or commercial WAR package from Jaspersoft .
@@ -94,10 +90,6 @@ az aks get-credentials and verify with kubectl get nodes.
 
   -  Mount any required volumes (for persistence/logs).
 
-   - Connect it to the PostgreSQL service using JDBC URL:
-```
-    jdbc:postgresql://<postgres-service>:5432/<db-name>
-```
 #### 7.Expose the Application
 
 - Use a LoadBalancer service or configure an Ingress controller (e.g., NGINX).
@@ -119,8 +111,6 @@ az aks get-credentials and verify with kubectl get nodes.
 - **Build Docker Image**: Tomcat + JasperReports WAR + JDBC Driver
   
 - **Database Setup**: Deploy PostgreSQL (Azure or AKS), create a database (jasperdb), and test the connection.
-
-- **Configure:** Edit default_master.properties for DB credentials. Use ConfigMap/Secret for secure storage.
 
 - **Kubernetes YAMLs**: Create YAMLs for:
 
@@ -156,15 +146,7 @@ PostgreSQL / MySQL DB           <-- Hosted in Azure or as Pod in AKS
 
 ## Steps to deploying Jasper report server in kubernetes service
  
-### Step 1: Prerequisites
-
-- Minikube – runs Kubernetes locally
-
-- kubectl – CLI to interact with Kubernetes
-
-- Docker – builds & pulls container images
-
- Check with:
+### Step 1: Check for prerequesties
 
 ```
 minikube version
@@ -177,7 +159,7 @@ minikube start
 ```
 This will create a local Kubernetes cluster.
 
-### Step 3: Enable Ingress (optional but useful)
+### Step 3: Enable Ingress (optional)
 ```
 minikube addons enable ingress
 ```
@@ -348,16 +330,14 @@ http://<minikube-ip>:30080
 
  - JasperReports Server provides security features like authentication and authorization, enabling fine-grained control over data access.
 
-#### 1.once logged in
+#### 1.Create a Table in PostgreSQL
 
-![Screenshot from 2025-05-09 12-36-20](https://github.com/user-attachments/assets/560f6b15-6243-47fb-bcdf-71a98a9a6eb6)
-
-#### 2.Before entering to next step, Ensure You Have a Table in PostgreSQL
+- In terminal
 
 ```
 kubectl exec -it <postgres-pod-name> -- psql -U jasper -d jasperdb
 ```
-Inside the psql shell:
+- Inside the psql shell:
 ```
 CREATE TABLE employees (
   id SERIAL PRIMARY KEY,
@@ -371,6 +351,9 @@ VALUES
   ('Bob', 'IT'),
   ('Charlie', 'Finance');
 ```
+#### 2.once logged in jasper report server
+
+![Screenshot from 2025-05-09 12-36-20](https://github.com/user-attachments/assets/560f6b15-6243-47fb-bcdf-71a98a9a6eb6)
 
 #### 3.Create a folder under Repository
 
