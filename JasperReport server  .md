@@ -347,22 +347,25 @@ Step 3:Use This Valid JRXML File (for employees Table)
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-              name="EmployeeReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5e3fb00-89ab-11ee-b9d1-0242ac120002">
+              name="EmployeeReport" pageWidth="595" pageHeight="842" columnWidth="555"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12345678-90ab-cdef-1234-567890abcdef">
 
     <queryString>
-        <![CDATA[SELECT 'John Doe' AS name, 'Engineering' AS department, 5000 AS salary]]>
+        <![CDATA[
+            SELECT id, name, department FROM employees
+        ]]>
     </queryString>
 
+    <field name="id" class="java.lang.Integer"/>
     <field name="name" class="java.lang.String"/>
     <field name="department" class="java.lang.String"/>
-    <field name="salary" class="java.lang.Integer"/>
 
     <title>
-        <band height="50">
+        <band height="40">
             <staticText>
-                <reportElement x="0" y="0" width="555" height="30"/>
+                <reportElement x="0" y="0" width="400" height="30"/>
                 <textElement>
-                    <font size="18" isBold="true"/>
+                    <font size="16" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Employee Report]]></text>
             </staticText>
@@ -372,16 +375,16 @@ Step 3:Use This Valid JRXML File (for employees Table)
     <columnHeader>
         <band height="20">
             <staticText>
-                <reportElement x="0" y="0" width="185" height="20"/>
+                <reportElement x="0" y="0" width="100" height="20"/>
+                <text><![CDATA[ID]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="100" y="0" width="200" height="20"/>
                 <text><![CDATA[Name]]></text>
             </staticText>
             <staticText>
-                <reportElement x="185" y="0" width="185" height="20"/>
+                <reportElement x="300" y="0" width="200" height="20"/>
                 <text><![CDATA[Department]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="370" y="0" width="185" height="20"/>
-                <text><![CDATA[Salary]]></text>
             </staticText>
         </band>
     </columnHeader>
@@ -389,21 +392,22 @@ Step 3:Use This Valid JRXML File (for employees Table)
     <detail>
         <band height="20">
             <textField>
-                <reportElement x="0" y="0" width="185" height="20"/>
+                <reportElement x="0" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="0" width="200" height="20"/>
                 <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="185" y="0" width="185" height="20"/>
+                <reportElement x="300" y="0" width="200" height="20"/>
                 <textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="370" y="0" width="185" height="20"/>
-                <textFieldExpression><![CDATA[$F{salary}]]></textFieldExpression>
             </textField>
         </band>
     </detail>
 
 </jasperReport>
+
 ```
 Step 3: Save the JRXML File
 
@@ -429,7 +433,9 @@ Step 4: Upload to JasperReports Server
  
 Step 5: Navigate to Repository and Run "employee" file added.
 
-output
+output:
 
-![image](https://github.com/user-attachments/assets/d897dcf3-50c1-4493-9f29-10ef96abffd3)
+![image](https://github.com/user-attachments/assets/7242dffd-e0dd-4eb0-bf5f-8801e5b00f7a)
+
+
 
