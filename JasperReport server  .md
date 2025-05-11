@@ -1,4 +1,4 @@
-# 1.JasperReports Server 
+# JasperReports Server 
 
 - JasperReports Server is a web-based reporting tool used to create, manage, and share reports.
 
