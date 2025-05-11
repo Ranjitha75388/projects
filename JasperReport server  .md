@@ -125,51 +125,47 @@ It comes in two main versions:
 ## Architecture diagram 
 
 
-                     +------------------------------+
-                    |     User Web Browser         |
-                    |  http://<minikube_ip>:30080  |
-                    +--------------+---------------+
-                                   |
-                                   v
-                       +-----------+------------+
-                       |  NodePort Service       |
-                       |  jasperreports:30080    |
-                       +-----------+------------+
-                                   |
-                          +--------v--------+
-                          | Deployment:     |
-                          | jasperreports   |
-                          | Container:      |
-                          | bitnami/jasper  |
-                          +--------+--------+
-                                   |
-                     +-------------+-------------+
-                     |                           |
-            +--------v--------+         +--------v--------+
-            |  PVC: jasper    |         |  Env Variables   |
-            |  (Persistent    |         |  DB Config       |
-            |  Volume Mount)  |         |  User Auth Info  |
-            +-----------------+         +------------------+
-                                   |
-                             DB Connection
-                                   |
-                            +------v-------+
-                            |  Service:     |
-                            |  postgres     |
-                            |  ClusterIP    |
-                            +------+--------+
-                                   |
-                          +--------v---------+
-                          | Deployment:      |
-                          | postgres         |
-                          | Container:       |
-                          | postgres:13      |
-                          +------------------+
+```plaintext
++---------------------------+
+|      End Users / API      |
+|  (Web Browser, REST API)  |
++------------+--------------+
+             |
+             v
++-----------------------------+
+|     Ingress Controller      |  (NGINX or Azure Application Gateway)
++-----------------------------+
+             |
+             v
++---------------------------------------------+
+|                AKS Cluster                  |
+|                                             |
+|  +-------------------+   +----------------+ |
+|  | JasperReports     |   | Buildomatic    | |
+|  | Server Pod(s)     |   | Pod (optional) | |
+|  +-------------------+   +----------------+ |
+|             |                       |       |
+|             +-----------------------+       |
+|                     |                      |
+|          +--------------------------+      |
+|          | Persistent Volume Claims |      |  (Azure Disk/Files)
+|          +--------------------------+      |
++---------------------------------------------+
+             |
+             v
++-------------------------------+
+|     Repository Database       |  (Azure Database for PostgreSQL/MariaDB)
++-------------------------------+
+             |
+             v
++-------------------------------+
+|      Data Sources (External)  |  (Other DBs, Data Warehouses)
++-------------------------------+
+```
 
 
-
-
-
+              
+![image](https://github.com/user-attachments/assets/dc77baf6-384a-45a0-94bb-7bf94c480695)
 
 
 ## Steps to deploying Jasper report server in kubernetes service
