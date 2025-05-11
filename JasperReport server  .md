@@ -184,7 +184,7 @@ kubectl apply -f postgres-deployment.yaml
 ```
 ### Step 5: Deploy JasperReports Server : 
 
-- Bitnami Docker image used. This image already has the .war file pre-installed and deployed in Tomcat, so no manual download or deployment is required.Latest version:8.2.0
+- Bitnami Docker image used. This image already has the .war file pre-installed and deployed in Tomcat, so no manual download or deployment is required.Latest version:8.2.0 of jasper report server.
 
 
 1.Create a file jasper-deployment.yaml: 
