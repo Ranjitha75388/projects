@@ -122,28 +122,54 @@ It comes in two main versions:
 
      - Secrets for DB credentials
 
-## Design 
+## Architecture diagram 
 
 
-  User's Browser
-      
-   |
-   
- LoadBalancer / Ingress               <----------- Exposes JasperReports
-    
-   |
-   
+                     +------------------------------+
+                    |     User Web Browser         |
+                    |  http://<minikube_ip>:30080  |
+                    +--------------+---------------+
+                                   |
+                                   v
+                       +-----------+------------+
+                       |  NodePort Service       |
+                       |  jasperreports:30080    |
+                       +-----------+------------+
+                                   |
+                          +--------v--------+
+                          | Deployment:     |
+                          | jasperreports   |
+                          | Container:      |
+                          | bitnami/jasper  |
+                          +--------+--------+
+                                   |
+                     +-------------+-------------+
+                     |                           |
+            +--------v--------+         +--------v--------+
+            |  PVC: jasper    |         |  Env Variables   |
+            |  (Persistent    |         |  DB Config       |
+            |  Volume Mount)  |         |  User Auth Info  |
+            +-----------------+         +------------------+
+                                   |
+                             DB Connection
+                                   |
+                            +------v-------+
+                            |  Service:     |
+                            |  postgres     |
+                            |  ClusterIP    |
+                            +------+--------+
+                                   |
+                          +--------v---------+
+                          | Deployment:      |
+                          | postgres         |
+                          | Container:       |
+                          | postgres:13      |
+                          +------------------+
 
-JasperReports Pod                <----------- Runs Docker container
 
-(Tomcat + jasperserver.war) 
 
-   |
-   
 
-PostgreSQL / MySQL DB           <-- Hosted in Azure or as Pod in AKS
 
-(holds report data, users)
 
 
 ## Steps to deploying Jasper report server in kubernetes service
