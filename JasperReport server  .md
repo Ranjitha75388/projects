@@ -270,7 +270,7 @@ http://<minikube-ip>:30080
 
 ![Screenshot from 2025-05-09 13-24-24](https://github.com/user-attachments/assets/6011f115-8b93-4a54-b8bb-96f39829219f)
 
-## Step 8:Jasper report server
+## Step 8:Upload file in Jasper report server
 
 **Jaspersoft Studio:**
 
@@ -333,6 +333,9 @@ VALUES
 3.Create a JDBC Data Source
 
 - Right click  MyReports > Add Resourse > Data Source
+
+ ![image](https://github.com/user-attachments/assets/710f518b-d8cc-45a7-a47a-5bf05360af8f)
+ 
    
 ![Screenshot from 2025-05-10 21-03-36](https://github.com/user-attachments/assets/f419619f-4ccf-4f2e-982e-3ab168e63b55)
 
