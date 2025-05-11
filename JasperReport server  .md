@@ -349,9 +349,9 @@ CREATE TABLE employees (
 
 INSERT INTO employees (name, department)
 VALUES 
-  ('Alice', 'HR'),
-  ('Bob', 'IT'),
-  ('Charlie', 'Finance');
+  ('Logesh', 'HR'),
+  ('Ranjitha', 'IT'),
+  ('Mahathi', 'Finance');
 ```
 #### 2.once logged in jasper report server
 
@@ -468,9 +468,10 @@ VALUES
  
 #### 8. Navigate to Repository and Run "employee" file added.
 
-output:
+![image](https://github.com/user-attachments/assets/416b0f49-7a67-47a9-b715-395bc0c53a73)
 
-![image](https://github.com/user-attachments/assets/7242dffd-e0dd-4eb0-bf5f-8801e5b00f7a)
+![image](https://github.com/user-attachments/assets/336bfdc5-8de8-47aa-8b37-2ef22a0db152)
+
 
 
 
