@@ -1,0 +1,166 @@
+### Step 1: Create Namespace fofr users
+```
+kubectl create namespace nithya-namespace
+```
+### Step 2: Create a ServiceAccount for Nithya in that namespace
+```
+kubectl create serviceaccount nithya -n nithya-namespace
+```
+### Step 3:Deploy pods
+
+1.postgres-deployment
+```
+nano postgres-deployment.yaml
+```
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: nithya-namespace
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: postgres
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: nithya-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:13
+          env:
+            - name: POSTGRES_DB
+              value: jasperdb
+            - name: POSTGRES_USER
+              value: jasper
+            - name: POSTGRES_PASSWORD
+              value: jasper123
+          ports:
+            - containerPort: 5432
+
+```
+Apply it.
+```
+kubectl apply -f postgres-deployment.yaml
+```
+2.jasper report server
+
+```
+nano jasper-deployment.yaml
+```
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: jasperreports
+  namespace: nithya-namespace
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30080
+  selector:
+    app: jasperreports
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jasperreports
+  namespace: nithya-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jasperreports
+  template:
+    metadata:
+      labels:
+        app: jasperreports
+    spec:
+      containers:
+        - name: jasperreports
+          image: bitnami/jasperreports:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JASPERREPORTS_DATABASE_TYPE
+              value: postgresql
+            - name: JASPERREPORTS_DATABASE_HOST
+              value: postgres
+            - name: JASPERREPORTS_DATABASE_PORT_NUMBER
+              value: "5432"
+            - name: JASPERREPORTS_DATABASE_NAME
+              value: jasperdb
+            - name: JASPERREPORTS_DATABASE_USER
+              value: jasper
+            - name: JASPERREPORTS_DATABASE_PASSWORD
+              value: jasper123
+            - name: JASPERREPORTS_USERNAME
+              value: jasperadmin
+            - name: JASPERREPORTS_PASSWORD
+              value: jasperadmin
+```
+Apply it
+```
+kubectl apply -f jasper-deployment.yaml
+```
+### Step 4:Create a Role for namespace access (pods, services, etc)
+
+```
+nano nithya-role.yaml
+```
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: nithya-namespace
+  name: pod-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+
+```
+Apply it.
+```
+kubectl apply -f nithya-role.yaml
+```
+### Step 5: Bind the Role to Nithya's ServiceAccount
+```
+nano nithya-rolebinding.yaml
+```
+```
+kind: RoleBinding
+metadata:
+  name: nithya-rolebinding
+  namespace: nithya-namespace
+subjects:
+- kind: ServiceAccount
+  name: nithya
+  namespace: nithya-namespace
+  # apiGroup: rbac.authorization.k8s.io   <--- REMOVE THIS LINE
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+```
+Apply it.
+```
+kubectl apply -f nithya-rolebinding.yaml
+```
