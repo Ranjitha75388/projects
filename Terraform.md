@@ -1,4 +1,3 @@
-
 ### STEP 1: Install Required Tools
 1. Install Terraform on ubuntu
 
@@ -53,3 +52,21 @@ resource "azurerm_resource_group" "rg" {
   location = "East US"
 }
 ```
+### STEP 5:Deploy with Terraform
+```
+terraform init
+terraform plan
+terraform apply
+```
+![image](https://github.com/user-attachments/assets/48125822-f6d2-4601-97dd-3b6de5bc7c17)
+
+![Screenshot from 2025-05-20 16-41-45](https://github.com/user-attachments/assets/9fd16e8b-f76b-4435-8b3e-82056db93327)
+
+![Screenshot from 2025-05-20 16-43-33](https://github.com/user-attachments/assets/a0de5513-7638-49c7-8c29-daf90966d9de)
+
+### STEP 6: Check in Azure portal
+![image](https://github.com/user-attachments/assets/f21d2cc5-83aa-4d23-b93b-7e16448a10bb)
+
+
+
+
