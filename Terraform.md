@@ -68,5 +68,95 @@ terraform apply
 ![image](https://github.com/user-attachments/assets/f21d2cc5-83aa-4d23-b93b-7e16448a10bb)
 
 
+### code file
+
+```
+provider "azurerm" {
+  features {}
+  subscription_id = "218e4dbc-8f7c-4433-89b0-196356564251"
+}
+
+# Resource Group
+resource "azurerm_resource_group" "rg" {
+  name     = "rg-terraform"
+  location = "East US"
+}
+
+# Virtual Network
+resource "azurerm_virtual_network" "vnet" {
+  name                = "vnet-terraform"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+# Subnet
+resource "azurerm_subnet" "subnet" {
+  name                 = "terraform-subnet"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
+
+# Public IP
+resource "azurerm_public_ip" "public_ip" {
+  name                = "terraform-public-ip"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  allocation_method   = "Dynamic"
+}
+
+# Network Interface
+resource "azurerm_network_interface" "nic" {
+  name                = "terraform-nic"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  ip_configuration {
+    name                          = "ipconfig1"
+    subnet_id                     = azurerm_subnet.subnet.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.public_ip.id
+  }
+}
+
+# Linux Virtual Machine
+resource "azurerm_linux_virtual_machine" "vm" {
+  name                = "terraform-vm"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  network_interface_ids = [azurerm_network_interface.nic.id]
+  size                = "Standard_B1s"
+
+  os_disk {
+    name              = "terraform-osdisk"
+    caching           = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy-daily"
+    sku       = "22_04-daily-lts-gen2"
+    version   = "latest"
+  }
+
+  computer_name  = "terraformvm"
+  admin_username = "ranjitha"
+
+  admin_password = "tharshik@123"  # Change this to a secure password!
+
+  disable_password_authentication = false
+}
+
+
+
+# Output Public IP
+output "public_ip_address" {
+  value = azurerm_public_ip.public_ip.ip_address
+}
+
+
+
 
 
