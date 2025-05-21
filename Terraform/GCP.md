@@ -79,7 +79,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/home/logesh/keys/terraform-sa.json"
 #### Step 5: Update Terraform Provider (optional)
 ```
 provider "google" {
-  project     = "your-project-id"
+  project     = "our-project-id"
   region      = "us-east1"
 }
 ```
