@@ -19,7 +19,7 @@ gcloud version
 
 ### Step 4:Terraform Authenticates with GCP.
 
-- #### Method 1:Application Default Credentials (ADC) to authenticate with Google Cloud.
+#### Method 1:Application Default Credentials (ADC) to authenticate with Google Cloud.
 ```
    gcloud auth application-default login
 ```
@@ -27,7 +27,7 @@ gcloud version
 ```
    ~/.config/gcloud/application_default_credentials.json
 ```
-- #### Method 2: Using a Service Account Key File (Alternative Way)
+#### Method 2: Using a Service Account Key File (Alternative Way)
 
 This is used in automation, CI/CD, or team setups.
 
@@ -89,15 +89,8 @@ gcloud auth list
 ```
 ![image](https://github.com/user-attachments/assets/328f2ee0-e727-4414-a826-d8d1f10c7184)
 
-### Step 6 :Run Terraform from Machine
 
-cd /path/to/.tf file
-```
-terraform init 
-terraform plan
-terraform apply
-```
-### Step 7:Sample file to create vpc with one subnet
+### Step 6:Sample file to create vpc with one subnet
 ```
 nano vpc.tf
 ```
@@ -121,5 +114,12 @@ resource "google_compute_subnetwork" "pub_subnet" {
 ```
 ![image](https://github.com/user-attachments/assets/fa5f8ced-c058-4760-9700-162cc9e15ce2)
 
-### Step 8: Check in console
+### Step 8:Run Terraform
+```
+terraform init
+terraform apply
+```
+
+### Step 9 :Check in console
+
 ![image](https://github.com/user-attachments/assets/489b1654-f708-4703-8222-794933f4e847)
