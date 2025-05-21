@@ -21,11 +21,11 @@ gcloud version
 
 - #### Method 1:Application Default Credentials (ADC) to authenticate with Google Cloud.
 ```
-gcloud auth application-default login
+   gcloud auth application-default login
 ```
 - Google created a file at:
 ```
-~/.config/gcloud/application_default_credentials.json
+   ~/.config/gcloud/application_default_credentials.json
 ```
 - #### Method 2: Using a Service Account Key File (Alternative Way)
 
@@ -40,11 +40,11 @@ This is used in automation, CI/CD, or team setups.
 
 - Fill in:
 
-        Name: terraform-sa
+   - Name: terraform-sa
 
-        ID: auto-filled (e.g., terraform-sa)
+   - ID: auto-filled (e.g., terraform-sa)
 
-        Description: Terraform deployment account
+   - Description: Terraform deployment account
 
 - Click "Create and Continue"
 
@@ -77,12 +77,12 @@ In terminal:
 export GOOGLE_APPLICATION_CREDENTIALS="/home/logesh/keys/terraform-sa.json"
 ```
 #### Step 5: Update Terraform Provider (optional)
-
+```
 provider "google" {
   project     = "your-project-id"
   region      = "us-east1"
 }
-
+```
 ### Step 5:To Check Which Credentials is Using
 ```
 gcloud auth list
