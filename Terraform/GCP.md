@@ -316,63 +316,47 @@ mysql -u <user> -p -h 10.100.x.x
 
 
 # resourse tf
-
 ```
 provider "google" {
-  project     = "your-gcp-project-id"
+  project     = "nomadic-rite-456619-e1"
   region      = "us-central1"
-  credentials = file("/path/to/your/service-account.json")
+  credentials = file("/home/logesh/ranjitha/gcp/credential.json")
 }
 
-# VPC
-resource "google_compute_network" "drip_nonprod" {
-  name                    = "drip-nonprod"
+# 1. VPC
+resource "google_compute_network" "ranjitha_vpc" {
+  name                    = "ranjitha-tf-vpc"
   auto_create_subnetworks = false
 }
 
-# Subnets
-resource "google_compute_subnetwork" "public_subnet" {
-  name                     = "drip-nonprod-public-subnet"
-  ip_cidr_range           = "10.10.1.0/24"
-  region                  = "us-central1"
-  network                 = google_compute_network.drip_nonprod.id
+# 2. Subnets
+resource "google_compute_subnetwork" "subnet_public" {
+  name          = "public-subnet"
+  ip_cidr_range = "10.0.1.0/24"
+  region        = "us-central1"
+  network       = google_compute_network.ranjitha_vpc.id
 }
 
-resource "google_compute_subnetwork" "private_subnet" {
-  name                     = "drip-nonprod-private-subnet"
-  ip_cidr_range           = "10.10.2.0/24"
+resource "google_compute_subnetwork" "subnet_private" {
+  name                     = "private-subnet"
+  ip_cidr_range            = "10.0.2.0/24"
   region                  = "us-central1"
-  network                 = google_compute_network.drip_nonprod.id
+  network                 = google_compute_network.ranjitha_vpc.id
   private_ip_google_access = true
 }
 
-resource "google_compute_subnetwork" "database_subnet" {
-  name                     = "drip-nonprod-database-subnet"
-  ip_cidr_range           = "10.10.3.0/24"
+resource "google_compute_subnetwork" "subnet_db" {
+  name                     = "db-subnet"
+  ip_cidr_range            = "10.0.3.0/24"
   region                  = "us-central1"
-  network                 = google_compute_network.drip_nonprod.id
+  network                 = google_compute_network.ranjitha_vpc.id
   private_ip_google_access = true
 }
 
-# Private Service Access IP Range
-resource "google_compute_global_address" "private_connection_ip" {
-  name          = "drip-nonprod-private-connection-ip"
-  purpose       = "VPC_PEERING"
-  address_type  = "INTERNAL"
-  prefix_length = 16
-  network       = google_compute_network.drip_nonprod.id
-}
-
-resource "google_service_networking_connection" "private_vpc_connection" {
-  network                 = google_compute_network.drip_nonprod.id
-  service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = [google_compute_global_address.private_connection_ip.name]
-}
-
-# Firewall Rules
-resource "google_compute_firewall" "allow_http" {
-  name    = "drip-nonprod-allow-http"
-  network = google_compute_network.drip_nonprod.id
+# 3. Firewall Rules
+resource "google_compute_firewall" "allow-http" {
+  name    = "allow-http"
+  network = google_compute_network.ranjitha_vpc.name
 
   allow {
     protocol = "tcp"
@@ -380,11 +364,13 @@ resource "google_compute_firewall" "allow_http" {
   }
 
   source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["http-server"]
+  direction     = "INGRESS"
 }
 
-resource "google_compute_firewall" "allow_https" {
-  name    = "drip-nonprod-allow-https"
-  network = google_compute_network.drip_nonprod.id
+resource "google_compute_firewall" "allow-https" {
+  name    = "allow-https"
+  network = google_compute_network.ranjitha_vpc.name
 
   allow {
     protocol = "tcp"
@@ -392,64 +378,58 @@ resource "google_compute_firewall" "allow_https" {
   }
 
   source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["https-server"]
+  direction     = "INGRESS"
 }
 
-resource "google_compute_firewall" "bastion_ingress" {
-  name    = "drip-nonprod-bastion-ingress"
-  network = google_compute_network.drip_nonprod.id
+resource "google_compute_firewall" "bastion-ingress" {
+  name    = "bastion-ingress"
+  network = google_compute_network.ranjitha_vpc.name
 
   allow {
     protocol = "tcp"
     ports    = ["22"]
   }
 
-  source_ranges = ["YOUR_BASTION_SOURCE_IP"] # Replace with allowed IP range
-  target_tags   = ["bastion"]
+  source_ranges = ["0.0.0.0/0"]
+  direction     = "INGRESS"
 }
 
-resource "google_compute_firewall" "iap_ssh" {
-  name    = "allow-ssh-from-iap-drip-nonprod"
-  network = google_compute_network.drip_nonprod.id
+resource "google_compute_firewall" "allow-ssh-from-iap" {
+  name    = "allow-ssh-from-iap"
+  network = google_compute_network.ranjitha_vpc.name
 
   allow {
     protocol = "tcp"
     ports    = ["22"]
   }
 
-  source_ranges = ["35.235.240.0/20"] # IP range for IAP
-  target_tags   = ["iap-access"]
+  source_ranges = ["35.235.240.0/20"]  # IAP IP range
+  direction     = "INGRESS"
 }
 
-# Cloud Routers
-resource "google_compute_router" "nonprod_router" {
-  name    = "drip-nonprod-public-router"
-  network = google_compute_network.drip_nonprod.id
+# 4. Cloud Router
+resource "google_compute_router" "router" {
+  name    = "ranjitha-router"
+  network = google_compute_network.ranjitha_vpc.id
   region  = "us-central1"
 }
 
-resource "google_compute_router" "prod_router" {
-  name    = "drip-prod"
-  network = google_compute_network.drip_nonprod.id
-  region  = "us-central1"
-}
-
-# Cloud NATs
-resource "google_compute_router_nat" "nonprod_nat" {
-  name                               = "drip-nonprod-nat"
-  router                             = google_compute_router.nonprod_router.name
+# 5. Cloud NAT
+resource "google_compute_router_nat" "nat" {
+  name                               = "ranjitha-nat"
+  router                             = google_compute_router.router.name
   region                             = "us-central1"
   nat_ip_allocate_option             = "AUTO_ONLY"
-  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
-}
+  source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
 
-resource "google_compute_router_nat" "prod_nat" {
-  name                               = "drip-prod-nat"
-  router                             = google_compute_router.prod_router.name
-  region                             = "us-central1"
-  nat_ip_allocate_option             = "AUTO_ONLY"
-  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+  subnetwork {
+    name                    = google_compute_subnetwork.subnet_private.name
+    source_ip_ranges_to_nat = ["ALL_IP_RANGES"]
+  }
 }
 ```
+
 # Key generation
 Generate SSH Key Pair on Local Machine
 
