@@ -476,3 +476,4 @@ chmod 600 ~/.ssh/id_rsa
 ```
 ssh -i ~/.ssh/id_rsa username@private_vm_ip
 ```
+![image](https://github.com/user-attachments/assets/59fc2fc4-7c7f-486c-8dbd-70b424ccc897)
