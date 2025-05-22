@@ -450,3 +450,29 @@ resource "google_compute_router_nat" "prod_nat" {
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 ```
+# Key generation
+Generate SSH Key Pair on Local Machine
+
+Open your local terminal and run:
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+#### Step 2.1: Copy the public key from local machine to public VM
+```
+scp ~/.ssh/id_rsa username@public-vm-externalip:~/id_rsa
+```
+#### Step 2.2: SSH into the public VM
+```
+ssh username@public_vm_ip
+```
+#### Step 2.3: From the public VM, copy the public key to the private VM
+```
+mkdir -p ~/.ssh
+mv ~/id_rsa ~/.ssh/id_rsa
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_rsa
+```
+#### from the public VM, run:
+```
+ssh -i ~/.ssh/id_rsa username@private_vm_ip
+```
