@@ -314,3 +314,139 @@ sudo apt install mysql-client     # or postgresql-client
 # Connect (example for MySQL)
 mysql -u <user> -p -h 10.100.x.x
 
+
+# resourse tf
+
+```
+provider "google" {
+  project     = "your-gcp-project-id"
+  region      = "us-central1"
+  credentials = file("/path/to/your/service-account.json")
+}
+
+# VPC
+resource "google_compute_network" "drip_nonprod" {
+  name                    = "drip-nonprod"
+  auto_create_subnetworks = false
+}
+
+# Subnets
+resource "google_compute_subnetwork" "public_subnet" {
+  name                     = "drip-nonprod-public-subnet"
+  ip_cidr_range           = "10.10.1.0/24"
+  region                  = "us-central1"
+  network                 = google_compute_network.drip_nonprod.id
+}
+
+resource "google_compute_subnetwork" "private_subnet" {
+  name                     = "drip-nonprod-private-subnet"
+  ip_cidr_range           = "10.10.2.0/24"
+  region                  = "us-central1"
+  network                 = google_compute_network.drip_nonprod.id
+  private_ip_google_access = true
+}
+
+resource "google_compute_subnetwork" "database_subnet" {
+  name                     = "drip-nonprod-database-subnet"
+  ip_cidr_range           = "10.10.3.0/24"
+  region                  = "us-central1"
+  network                 = google_compute_network.drip_nonprod.id
+  private_ip_google_access = true
+}
+
+# Private Service Access IP Range
+resource "google_compute_global_address" "private_connection_ip" {
+  name          = "drip-nonprod-private-connection-ip"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = 16
+  network       = google_compute_network.drip_nonprod.id
+}
+
+resource "google_service_networking_connection" "private_vpc_connection" {
+  network                 = google_compute_network.drip_nonprod.id
+  service                 = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.private_connection_ip.name]
+}
+
+# Firewall Rules
+resource "google_compute_firewall" "allow_http" {
+  name    = "drip-nonprod-allow-http"
+  network = google_compute_network.drip_nonprod.id
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
+resource "google_compute_firewall" "allow_https" {
+  name    = "drip-nonprod-allow-https"
+  network = google_compute_network.drip_nonprod.id
+
+  allow {
+    protocol = "tcp"
+    ports    = ["443"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
+resource "google_compute_firewall" "bastion_ingress" {
+  name    = "drip-nonprod-bastion-ingress"
+  network = google_compute_network.drip_nonprod.id
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["YOUR_BASTION_SOURCE_IP"] # Replace with allowed IP range
+  target_tags   = ["bastion"]
+}
+
+resource "google_compute_firewall" "iap_ssh" {
+  name    = "allow-ssh-from-iap-drip-nonprod"
+  network = google_compute_network.drip_nonprod.id
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["35.235.240.0/20"] # IP range for IAP
+  target_tags   = ["iap-access"]
+}
+
+# Cloud Routers
+resource "google_compute_router" "nonprod_router" {
+  name    = "drip-nonprod-public-router"
+  network = google_compute_network.drip_nonprod.id
+  region  = "us-central1"
+}
+
+resource "google_compute_router" "prod_router" {
+  name    = "drip-prod"
+  network = google_compute_network.drip_nonprod.id
+  region  = "us-central1"
+}
+
+# Cloud NATs
+resource "google_compute_router_nat" "nonprod_nat" {
+  name                               = "drip-nonprod-nat"
+  router                             = google_compute_router.nonprod_router.name
+  region                             = "us-central1"
+  nat_ip_allocate_option             = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+}
+
+resource "google_compute_router_nat" "prod_nat" {
+  name                               = "drip-prod-nat"
+  router                             = google_compute_router.prod_router.name
+  region                             = "us-central1"
+  nat_ip_allocate_option             = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+}
+```
