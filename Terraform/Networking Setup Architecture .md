@@ -1,7 +1,8 @@
 # Architecture for networking
 
+```
 
-                                   +------------------+
+                             +------------------+
                              |     Internet     |
                              +--------+---------+
                                       |
@@ -38,31 +39,10 @@
                                      |
               (Optional Internet Egress for private-vm via NAT)
 
-                           
 
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                         
+           
 
 ### Goal:
 
