@@ -1,47 +1,75 @@
 # Architecture for networking
 
 ```
-                        +--------------------+
-                        |     Internet       |
-                        +---------+----------+
-                                  |
-                    [ External IP: public-vm ]
-                                  |
-                              SSH / HTTP
-                                  |
-                         +--------v--------+
-                         |   Cloud NAT     |
-                         |   (egress only) |
-                         +--------+--------+
-                                  |
-                         +--------v--------+
-                         |  Cloud Router   |
-                         +--------+--------+
-                                  |
-                          +-------v-------+
-                          |     my-vpc     |
-                          |  Custom VPC    |
-                          +---+---+---+----+
-                              |   |   |
-   +--------------------------+   |   +-------------------------------+
-   |                              |                                   |
-   |                              |                                   |
-+--v------------------+   +-------v--------+               +----------v--------+
-|   Public Subnet     |   | Private Subnet |               |      DB Subnet     |
-|    10.0.1.0/24      |   |   10.0.2.0/24  |               |     10.0.3.0/24     |
-+--+------------------+   +--------+-------+               +-----------+--------+
-   |                              |                                   |
-   |   +-------------------+      |   +-------------------+           |
-   +--->  public-vm        |      +--->  private-vm       |           +--->  Cloud SQL DB
-       | Ext IP: yes       |          | Ext IP: no        |                | Internal IP only
-       | Int IP: 10.0.1.10 |          | Int IP: 10.0.2.10 |                | Int IP: 10.0.3.10
-       +-------------------+          +-------------------+                +------------------
++--------------------+
+|     Internet       |
++---------+----------+
+          |
+          |  (Ingress SSH/HTTP)
+          |
+   +------v-------+
+   |     VPC      |
+   | 10.0.0.0/16  |
+   +---+---+---+--+
+       |   |   |
+       |   |   |
+       |   |   +-------------------------------+
+       |   |                                   |
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |   Cloud Router    |
+       |   |                         +---------+---------+
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |     Cloud NAT     |
+       |   |                         |    (egress only)  |
+       |   |                         +---------+---------+
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |   Private Subnet   |
+       |   |                         |     10.0.2.0/24    |
+       |   |                         +---------+---------+
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |    Private VM     |
+       |   |                         |   Ext IP: No      |
+       |   |                         |   Int IP: 10.0.2.10|
+       |   |                         +---------+---------+
+       |   |                                   |
+       |   |                         Connect via internal IP
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |     DB Subnet     |
+       |   |                         |     10.0.3.0/24   |
+       |   |                         +---------+---------+
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |   Cloud SQL DB    |
+       |   |                         |   Int IP only     |
+       |   |                         |    10.0.3.10      |
+       |   |                         +-------------------+
+       |   |
+       |   +---------------------------+
+       |                               |
+       |                               |
+       |                   +-----------v-----------+
+       |                   |    Public Subnet       |
+       |                   |     10.0.1.0/24        |
+       |                   +-----------+-----------+
+       |                               |
+       |                   +-----------v-----------+
+       |                   |      Public VM         |
+       |                   |    Ext IP: Yes         |
+       |                   |    Int IP: 10.0.1.10   |
+       |                   +------------------------+
 
-       ↳ SSH / HTTP from Internet     ↳ SSH to public-vm via internal IP
-                                      ↳ Access Internet (updates etc) via NAT
-                                      ↳ Connect to MySQL via internal IP
+----------------------- SECURITY RULES -----------------------------
 
-                            
+1. Internet → Public VM: Allow SSH (22) and HTTP (80)
+2. Private VM → Internet: Outbound via Cloud NAT only
+3. Private VM → Public VM: Allow SSH (22) via internal IP
+4. Private VM → Cloud SQL DB: Allow MySQL (3306) via internal IP only
+5. No external IP on Private VM or DB subnet instances
 
 
 ```
