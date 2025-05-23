@@ -154,12 +154,35 @@ Click Create
 
 - Security: Select the service account (optional)
 
+#### Create private-vm
+
+Name: private-vm
+
+Zone: us-central1-a
+
+Machine type: e2-micro
+
+Boot disk: Debian
+
+Firewall: No options need checking
+
+Networking > Network interfaces
+
+   - Network: ranjitha-tf-vpc
+
+   - Subnet: private-subnet
+
+   - External IP: **None**
+
+Click Create
+
 #### Step F: Test Connectivity
 
-    SSH into Public VM:
-
+- SSH into Public VM:
+```
 gcloud compute ssh public-vm --zone=us-central1-a
-
+```
 From inside public-vm, connect to private-vm:
-
+```
 ssh <private-vm-internal-ip>
+```
