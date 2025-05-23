@@ -37,7 +37,7 @@ Set up a secure custom VPC network with:
 
 - Private VM can only be accessed through Public VM
 
-#### Step A: Create VPC Network
+## Step A: Create VPC Network
 
 - In console > Search VPC networks
 
@@ -49,7 +49,7 @@ Set up a secure custom VPC network with:
 
      - **Dynamic routing mode**:Regional 
 
-#### Step B: Create Subnets
+## Step B: Create Subnets
 
 1. Public Subnet
 
@@ -75,7 +75,7 @@ Set up a secure custom VPC network with:
 
 Click Create.
 
-#### Step C: Create Firewall Rules
+## Step C: Create Firewall Rules
 
 1. Allow SSH to Public VM (from internet)
 
@@ -117,10 +117,21 @@ Click Create.
     - **Source filter**        : IPv4 ranges                  
     - **Source IPv4 ranges**   : `10.0.0.0/16`                
     - **Protocols and ports**  : All                          
-    - **Logs**                 : Off                          
+    - **Logs**                 : Off
 
+4.Allow Private vm to MYSQL
 
-#### Step D: Setup Cloud Router + NAT (only if private VM needs internet)
+(Optional refer:3 Targets: All instances in the network)
+
+   - **Name**               :  `allow-mysql-access`                   
+   - **Network**             : `ranjitha-tf-vpc`                      
+   - **Direction**            :`Ingress`                              
+   - **Action**               :`Allow`                                
+   - **Source IP ranges**     :`10.0.0.0/24` (your private VM subnet) 
+   - **Target IP ranges**     :`10.127.0.4/32` (your Cloud SQL IP)    
+   - **Protocols and Ports**  :`tcp:3306`                             
+
+## Step D: Setup Cloud Router + NAT (only if private VM needs internet)
 
 - Search for Cloud Router.
 
@@ -144,7 +155,7 @@ Click Create.
 
  -  External IP: Auto
 
-####  Step E: Create VM Instances
+##  Step E: Create VM Instances
 
 #### 1.Public vm
 
@@ -198,24 +209,17 @@ Click Create
 
 Click Create
 
-#### Step F: Test Connectivity
+## Step F: Test Connectivity
 
-#### Method 1:
-- SSH into Public VM:
-```
-gcloud compute ssh public-vm --zone=us-central1-a
-```
-From inside public-vm, connect to private-vm:
-```
-ssh <private-vm-internal-ip>
-```
-Method 2:
-
-- Generate keypair and copy keys to public-vm..From public vm copy public key to private vm.Then
+- Generate keypair and copy keys to public-vm from local machine..From public vm copy public key to private vm.Then
 
 - SSH into the public VM
 ```
 ssh username@public_vm_ip
+```
+or
+```
+gcloud compute ssh public-vm --zone=us-central1-a
 ```
 - SSH to private vm
 ```
@@ -223,7 +227,7 @@ ssh -i ~/.ssh/id_rsa username@private_vm_ip
 ```
     ![image](https://github.com/user-attachments/assets/59fc2fc4-7c7f-486c-8dbd-70b424ccc897)
 
-#### Step G: Create private service access
+## Step G: Create private service access
 
 To create private connections to Google services (like Cloud SQL using Private IP), we must first allocate an internal IP range and then set up a Private Services Access (PSA) connection to our VPC.
 
@@ -266,7 +270,7 @@ To create private connections to Google services (like Cloud SQL using Private I
    ![image](https://github.com/user-attachments/assets/6640df0b-aac7-4312-be00-a3f0c26eb6b3)
 
 
-####  Step H:Create Cloud SQL with Private IP
+##  Step H:Create Cloud SQL with Private IP
 
 - Go to cloud sql : create instance
 - Choose your database engine :MYSQL
@@ -316,6 +320,8 @@ To create private connections to Google services (like Cloud SQL using Private I
   
 ![image](https://github.com/user-attachments/assets/16e20f36-6fc0-4c12-af21-1fd68effd7a1)
 
-
- 
+#### Use a MySQL command in terminal:
+```
+mysql -h 10.127.0.4 -u root -p
+```
 
