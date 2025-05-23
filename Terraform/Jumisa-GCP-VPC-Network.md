@@ -42,7 +42,7 @@
 
 #### Install gcloud CLI (Google Cloud SDK)
 
-- To Download
+- To Download in Linux
 ```
  curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-451.0.1-linux-x86_64.tar.gz
  tar -xvzf google-cloud-sdk-*.tar.gz
