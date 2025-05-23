@@ -87,4 +87,36 @@ docker tag my-image:latest us-central1-docker.pkg.dev/PROJECT_ID/REPO-NAME/IMAGE
 Push the image:
 ```
 docker push us-central1-docker.pkg.dev/PROJECT_ID/REPO-NAME/IMAGE-NAME:LATEST
-```    
+```
+
+Step 5: Use Artifacts in GCP
+
+You can now use your artifacts in:
+
+    Cloud Run
+
+    Google Kubernetes Engine (GKE)
+
+    Cloud Functions
+
+    Cloud Build
+
+By referencing:
+
+us-central1-docker.pkg.dev/PROJECT_ID/my-docker-repo/my-image:latest
+
+✅ Step 6: Manage Permissions
+
+    Go to IAM & Admin > IAM.
+
+    Grant roles like:
+
+        Artifact Registry Reader
+
+        Artifact Registry Writer
+
+        Artifact Registry Administrator
+
+        Storage Admin (for underlying GCS)
+
+To the appropriate users or service accounts.
