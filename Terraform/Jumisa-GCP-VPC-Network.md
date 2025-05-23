@@ -106,7 +106,9 @@ GCP blocks all ingress (incoming) traffic by default. You must:
 
 #### 4. Cloud Router
 
-- Handles dynamic routing for VPC, required for NAT.
+- Handles dynamic route advertisements, especially for hybrid connectivity.
+
+- Required when configuring Cloud NAT.
 
 #### 5. Cloud NAT (Network Address Translation)
 
