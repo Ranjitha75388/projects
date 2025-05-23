@@ -41,15 +41,15 @@ Set up a secure custom VPC network with:
 
 2. Private Subnet
 
-  -  Name: private-subnet
+    -  Name: private-subnet
 
-  -  Vpc Network:ranjitha-tf-vpc
+    -  Vpc Network:ranjitha-tf-vpc
 
-  -  Region: us-central1
+     -  Region: us-central1
 
-  -  IP range: 10.0.2.0/24
+     -  IP range: 10.0.2.0/24
 
-  - **Enable** Private Google Access (required if accessing Google APIs from private VM)
+    - Private Google Access :**ON** (required if accessing Google APIs from private VM)
 
 Click Create.
 
@@ -57,16 +57,17 @@ Click Create.
 
 1. Allow SSH to Public VM (from internet)
 
- - Name: allow-ssh-public
-
- -  
-    Direction: Ingress
-
-    Source IP: 0.0.0.0/0
-
-    Protocols: tcp:22
-
-    Target tags: public-vm
+    - **Name**:allow-ssh-public
+    - **Network**	:ranjitha-tf-vpc
+    - **Priority**	:1000
+    -  **Direction of traffic**	:Ingress
+    - **Action on match**	:Allow
+    - **Targets**	:Specified target tags
+    - **Target tags**	:public-vm
+    - **Source filter**	:IPv4 ranges
+    - **Source IPv4 ranges**	:0.0.0.0/0
+    -  **Protocols and ports**	:TCP: 22
+    - **Logs**:Off (default)
 
 3. Allow HTTP to Public VM
 
