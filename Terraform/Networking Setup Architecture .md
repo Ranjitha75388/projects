@@ -154,19 +154,19 @@ Click Create
 
 - Security: Select the service account (optional)
 
-#### Create private-vm
+#### 2.Private-vm
 
-Name: private-vm
+- Name: private-vm
 
-Zone: us-central1-a
+- Zone: us-central1-a
 
-Machine type: e2-micro
+- Machine type: e2-micro
 
-Boot disk: Debian
+- Boot disk: Debian
 
-Firewall: No options need checking
+- Firewall: No options need checking
 
-Networking > Network interfaces
+- Networking > Network interfaces
 
    - Network: ranjitha-tf-vpc
 
