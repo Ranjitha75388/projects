@@ -158,8 +158,48 @@ resource "azurerm_linux_virtual_machine" "vm" {
 output "public_ip_address" {
   value = azurerm_public_ip.public_ip.ip_address
 }
+```
+----------------------------------------------------------------------------------------------------------------------------------------------
 
+### Terraform commands
 
+1. terraform init
+
+- Purpose: Initializes your Terraform project.
+
+- What it does:
+
+   - Downloads the provider plugins (like Google Cloud, AWS, etc.).
+
+   - Sets up the .terraform directory to store backend and provider data.
+
+   - Prepares your project to be used with Terraform.
+
+- You run this once per project or after changing providers (e.g., switching from AWS to Google Cloud).
+
+2. terraform plan
+
+- Purpose: Previews the changes Terraform will make before applying them.
+
+- What it does:
+
+   - Compares your .tf files (infrastructure code) with what’s already deployed in your GCP project.
+
+    - Shows what will be created, changed, or destroyed, but does NOT make any changes.
+
+- Always run plan to make sure your configuration is correct before applying it.
+
+3. terraform apply
+
+- Purpose: Applies the changes to your cloud infrastructure.
+
+- What it does:
+
+   - Creates/updates/deletes resources in Google Cloud based on your .tf files.
+
+   -  It will ask for confirmation before proceeding (unless you use -auto-approve).
+
+- Use it carefully — this is where changes happen live in your GCP project!
 
 
 
