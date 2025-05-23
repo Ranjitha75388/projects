@@ -78,7 +78,31 @@
 
 - Can be based on IPs, ports, protocols.
 
-- **Default Rules:** GCP creates default rules like allowing internal traffic and blocking all incoming traffic by default. You often need to create custom rules for SSH (port 22), HTTP (port 80), etc.
+#### Default Firewall Rules:
+
+GCP automatically creates the following when a new VPC is made using the default mode:
+
+- **default-allow-icmp**: Allows internal ICMP (ping) traffic.
+
+- **default-allow-internal**: Allows all internal traffic within the 10.128.0.0/9 range.
+
+- **default-allow-rdp**: Allows RDP (Windows) access on TCP port 3389.
+
+- **default-allow-ssh**: Allows SSH access on TCP port 22.
+
+#### When creating a custom VPC, no firewall rules are created. You must define them explicitly.
+
+#### Custom Firewall Rules
+
+GCP blocks all ingress (incoming) traffic by default. You must:
+
+- Allow SSH (port 22) to connect to Linux VMs
+
+- Allow HTTP (port 80) to host websites
+
+- Use internal firewall rules to allow private-to-private communication
+
+- Use tags or service accounts to apply rules to specific VMs
 
 #### 4. Cloud Router
 
