@@ -258,3 +258,134 @@ Then get the external IP:
 kubectl get service
 
 Use the external IP to access your app.
+
+
+
+# Terraform
+```
+# terraform.tf
+
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.0"
+    }
+  }
+
+  required_version = ">= 1.4.0"
+}
+
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
+# variables.tf
+
+variable "project_id" {
+  description = "GCP Project ID"
+  type        = string
+}
+
+variable "region" {
+  description = "GCP Region"
+  type        = string
+  default     = "us-central1"
+}
+
+variable "zone" {
+  description = "GCP Zone"
+  type        = string
+  default     = "us-central1-a"
+}
+
+# main.tf
+
+resource "google_compute_instance" "vm_instances" {
+  for_each = toset([
+    "drip-nonprod-bastion",
+    "drip-prod-bastion",
+    "production-db-forwarder"
+  ])
+
+  name         = each.key
+  machine_type = "e2-micro"
+  zone         = var.zone
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
+    }
+  }
+
+  network_interface {
+    network = "default"
+    access_config {}
+  }
+
+  tags = ["ssh"]
+}
+
+resource "google_artifact_registry_repository" "artifact_repos" {
+  for_each = toset([
+    "feat-ashwin-1", "feat-chetan-1", "feat-dinesh-1", "feat-shripal-1", "feat-sonu-1",
+    "feature-branch", "staging", "production", "runner", "common"
+  ])
+  repository_id = each.key
+  format        = "DOCKER"
+  location      = var.region
+  description   = "Artifact registry for ${each.key}"
+}
+
+resource "google_container_cluster" "gke_clusters" {
+  for_each = {
+    "drip-nonprod" = "drip-nonprod",
+    "drip-prod"    = "drip-prod"
+  }
+
+  name     = each.key
+  location = var.region
+
+  remove_default_node_pool = true
+  initial_node_count       = 1
+
+  node_config {
+    machine_type = "e2-medium"
+  }
+}
+
+# outputs.tf
+
+output "vm_instance_names" {
+  value = [for vm in google_compute_instance.vm_instances : vm.name]
+}
+
+output "artifact_registry_repos" {
+  value = [for repo in google_artifact_registry_repository.artifact_repos : repo.name]
+}
+
+output "gke_clusters" {
+  value = [for cluster in google_container_cluster.gke_clusters : cluster.name]
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
