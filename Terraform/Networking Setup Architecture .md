@@ -21,35 +21,35 @@ Set up a secure custom VPC network with:
 
 - Click "Create VPC network"
 
-    - Name: ranjitha-tf-vpc
+    - **Name**: ranjitha-tf-vpc
 
-    - Subnet creation mode: Custom
+    - **Subnet creation mode**: Custom
 
-     - Dynamic routing mode:Regional 
+     - **Dynamic routing mode**:Regional 
 
 #### Step B: Create Subnets
 
 1. Public Subnet
 
-   - Name: public-subnet
+   - **Name**: public-subnet
 
-   - Region: us-central1
+   - **Region**: us-central1
 
-   - IP range: 10.0.1.0/24
+   - **IP range**: 10.0.1.0/24
 
    - Private Google Access: off(Not needed for public subnet)
 
 2. Private Subnet
 
-    -  Name: private-subnet
+    -  **Name**: private-subnet
 
-    -  Vpc Network:ranjitha-tf-vpc
+    -  **Vpc Network**:ranjitha-tf-vpc
 
-     -  Region: us-central1
+     -  **Region**: us-central1
 
-     -  IP range: 10.0.2.0/24
+     -  **IP range**: 10.0.2.0/24
 
-    - Private Google Access :**ON** (required if accessing Google APIs from private VM)
+    -**Private Google Access** :**ON** (required if accessing Google APIs from private VM)
 
 Click Create.
 
@@ -69,83 +69,58 @@ Click Create.
     -  **Protocols and ports**	:TCP: 22
     - **Logs**:Off (default)
 
-3. Allow HTTP to Public VM
+2. Allow HTTP to Public VM  from Internet
 
-    Name: allow-http-public
+    -**Name**                 : `allow-http-public`   
+    - **Network**              : `my-vpc`             
+    - **Priority**             : `1000`               
+    - **Direction of traffic** : `Ingress`            
+    - **Action on match**      : `Allow`              
+    - **Targets**              : Specified target tags
+    - **Target tags**          : `public-vm`          
+    - **Source filter**        : IPv4 ranges          
+    - **Source IPv4 ranges**   : `0.0.0.0/0`          
+    - **Protocols and ports**  : TCP: `80`            
+    - **Logs**                 : Off                  
 
-    Direction: Ingress
 
-    Source IP: 0.0.0.0/0
+3. Allow Internal Communication (Public <-> Private VM)
 
-    Protocols: tcp:80
+    - **Name**                 : `allow-internal`             
+    - **Network**              : `my-vpc`                     
+    - **Priority**             : `1000`                       
+    - **Direction of traffic** : `Ingress`                    
+    - **Action on match**      : `Allow`                      
+    - **Targets**              : All instances in the network 
+    - **Source filter**        : IPv4 ranges                  
+    - **Source IPv4 ranges**   : `10.0.0.0/16`                
+    - **Protocols and ports**  : All                          
+    - **Logs**                 : Off                          
 
-    Target tags: public-vm
 
-4. Allow Internal Communication (Public <-> Private VM)
+#### Step D: Setup Cloud Router + NAT (only if private VM needs internet)
 
-    Name: allow-internal
+- Search for Cloud Router.
 
-    Direction: Ingress
+- Click "Create Router"
 
-    Source IP: 10.0.0.0/16 ✅ This includes both subnets
+- Name: my-router
 
-    Protocols: All
+- Region: us-central1
 
-    Target tags: Leave empty (applies to all)
+-  Network: my-vpc
 
-5. Optional: Deny All Egress from Private VM (if you don’t want internet)
+-  Go to cloud NAT > Create NAT Gateway
 
-    Name: deny-egress-private
+ -  Name: my-nat
 
-    Direction: Egress
+ -  Region: us-central1
 
-    Target tags: private-vm
+ -  Router: my-router
 
-    Destination IP: 0.0.0.0/0
+ -  Subnet: private-subnet
 
-    Protocols: All
-
-    Action: Deny
-
-    Priority: 1000
-
-6. Optional: Allow Egress to Public Subnet Only
-
-    Name: allow-egress-public
-
-    Direction: Egress
-
-    Target tags: private-vm
-
-    Destination IP: 10.0.1.0/24
-
-    Protocols: All
-
-    Priority: 900
-
-Step D: Setup Cloud Router + NAT (only if private VM needs internet)
-
-    Go to Hybrid Connectivity > Cloud Routers
-
-        Click "Create Router"
-
-        Name: my-router
-
-        Region: us-central1
-
-        Network: my-vpc
-
-    Go to NAT > Create NAT Gateway
-
-        Name: my-nat
-
-        Region: us-central1
-
-        Router: my-router
-
-        Subnet: private-subnet
-
-        External IP: Auto or static
+ -  External IP: Auto or static
 
 Step E: Create VM Instances
 1. Public VM
