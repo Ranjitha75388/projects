@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/3e91ce4c-5922-41d4-a39e-0fd1102201f0)# Architecture for networking
+# Architecture for networking
 
                 +------------------+
                 |    Internet      |
@@ -221,9 +221,9 @@ ssh username@public_vm_ip
 ```
 ssh -i ~/.ssh/id_rsa username@private_vm_ip
 ```
-![image](https://github.com/user-attachments/assets/59fc2fc4-7c7f-486c-8dbd-70b424ccc897)
+    ![image](https://github.com/user-attachments/assets/59fc2fc4-7c7f-486c-8dbd-70b424ccc897)
 
-#### Create private service access
+#### Step G: Create private service access
 
 To create private connections to Google services (like Cloud SQL using Private IP), we must first allocate an internal IP range and then set up a Private Services Access (PSA) connection to our VPC.
 
@@ -248,7 +248,7 @@ To create private connections to Google services (like Cloud SQL using Private I
 
 - Click Allocate.
 
-![image](https://github.com/user-attachments/assets/ad718d79-4027-4905-951b-1a6bdd08cec5)
+   ![image](https://github.com/user-attachments/assets/ad718d79-4027-4905-951b-1a6bdd08cec5)
 
 
 #### Step 2: Create Private Connection Using the IP Range
@@ -263,13 +263,57 @@ To create private connections to Google services (like Cloud SQL using Private I
 
   - Click Create connection.
 
-![image](https://github.com/user-attachments/assets/6640df0b-aac7-4312-be00-a3f0c26eb6b3)
+   ![image](https://github.com/user-attachments/assets/6640df0b-aac7-4312-be00-a3f0c26eb6b3)
 
 
-Create Cloud SQL with Private IP
-MSQL
-![image](https://github.com/user-attachments/assets/67f1d09f-0396-4f01-9516-312de6d3c641)
+####  Step H:Create Cloud SQL with Private IP
 
+- Go to cloud sql : create instance
+- Choose your database engine :MYSQL
+
+   ![image](https://github.com/user-attachments/assets/67f1d09f-0396-4f01-9516-312de6d3c641)
+- Create a MYSQL Instance
+
+  #### 1. Instance Basics
+
+   -  Edition Preset: Production
+
+   -  Database Version: MySQL 8.0
+
+    - Instance ID: gcp-mysql-db
+
+    - Root Password: StrongP@ssword123!
+
+  #### Region & Availability
+
+    - Region: us-central1
+
+    - Zonal Availability: Multiple zones (Highly Available)
+ 
+  #### Machine Configuration
+
+   - Machine Type: N2 - 4 vCPU, 32 GB RAM
+
+   - Storage Type: SSD
+
+   - Storage Capacity: 250 GB
+
+   - Enable Automatic Storage Increases
+
+#### Networking
+
+  - IP Assignment: Private IP
+
+  - VPC Network: ranjitha-tf-vpc
+
+  - Private Services Access (PSA): Enabled (required)
+
+  - No Public IP (for security)
+
+  - Authorized Networks Enable(for SQL Proxy or private access)
+
+- Create Instance
+  
 ![image](https://github.com/user-attachments/assets/16e20f36-6fc0-4c12-af21-1fd68effd7a1)
 
 
