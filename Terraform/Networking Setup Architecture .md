@@ -37,7 +37,7 @@ Set up a secure custom VPC network with:
 
    - **IP range**: 10.0.1.0/24
 
-   - Private Google Access: off(Not needed for public subnet)
+   - **Private Google Access**: off(Not needed for public subnet)
 
 2. Private Subnet
 
@@ -49,7 +49,7 @@ Set up a secure custom VPC network with:
 
      -  **IP range**: 10.0.2.0/24
 
-    -**Private Google Access** :**ON** (required if accessing Google APIs from private VM)
+    - **Private Google Access** :**ON** (required if accessing Google APIs from private VM)
 
 Click Create.
 
@@ -71,7 +71,7 @@ Click Create.
 
 2. Allow HTTP to Public VM  from Internet
 
-    -**Name**                 : `allow-http-public`   
+    - **Name**                 : `allow-http-public`   
     - **Network**              : `my-vpc`             
     - **Priority**             : `1000`               
     - **Direction of traffic** : `Ingress`            
@@ -122,7 +122,7 @@ Click Create.
 
  -  External IP: Auto or static
 
-Step E: Create VM Instances
+####  Step E: Create VM Instances
 1. Public VM
 
     Name: public-vm
