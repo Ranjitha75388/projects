@@ -1,6 +1,6 @@
 # GCP
 
-- Google Cloud Platform (GCP) is a suite of cloud computing services by Google that allows individuals and organizations to run and manage workloads on Google's infrastructure.
+- Google Cloud Platform (GCP) is a cloud computing services by Google that allows individuals and organizations to run and manage workloads on Google's infrastructure.
 
 - It includes services like compute (VMs), networking (VPC), storage (buckets), databases, and more.
 
@@ -14,7 +14,7 @@
 
   - Analyze data
 
-    - Use AI/ML services
+  - Use AI/ML services
 
 ## Setup Guide
 
@@ -39,3 +39,138 @@
 - Enter project name: my-first-gcp-project
 
 - Click "Create"
+
+#### Install gcloud CLI (Google Cloud SDK)
+
+- To Download
+```
+ curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-451.0.1-linux-x86_64.tar.gz
+ tar -xvzf google-cloud-sdk-*.tar.gz
+ ./google-cloud-sdk/install.sh
+```
+- After install, run in terminal:
+```
+ gcloud init
+```
+### Understanding GCP Networking Components
+
+#### 1. VPC (Virtual Private Cloud)
+
+- A private, isolated network within GCP.
+
+- We can launch VMs, databases, and connect services within it.
+
+#### 2. Subnets
+
+- Sub-networks within a VPC.
+
+- Each is assigned a specific IP range and region.
+
+#### Types:
+
+  - Public Subnet: Allows VMs to have external IPs (internet-facing).
+
+  - Private Subnet: No external IPs. Internal-only communication.
+
+#### 3. Firewall Rules
+
+- Controls what traffic is allowed to/from our network.
+
+- Can be based on IPs, ports, protocols.
+
+- **Default Rules:** GCP creates default rules like allowing internal traffic and blocking all incoming traffic by default. You often need to create custom rules for SSH (port 22), HTTP (port 80), etc.
+
+#### 4. Cloud Router
+
+- Handles dynamic routing for VPC, required for NAT.
+
+#### 5. Cloud NAT (Network Address Translation)
+
+- Allows VMs in private subnet to access the internet (e.g., to install packages), but not be accessed from internet.
+
+#### 6. VM (Compute Engine)
+
+- A computer hosted in the cloud.
+
+- Can be public (has external IP) or private (no external IP).
+
+#### 7. Service Account
+
+- Identity that our VM uses to access other GCP services securely.
+
+## Create and Use Service Account
+
+#### What is it?
+
+A Service Account is like a special user your VM or app uses to interact with GCP securely (e.g., access storage, databases).
+
+#### When to Use
+
+Always create a custom service account for better security and control.
+
+#### Steps:
+
+- Go to IAM & Admin > Service Accounts
+
+- Click Create Service Account
+
+- Name: vm-service-account
+
+- Grant Role: Compute Admin or least privilege needed
+
+- Click "Done"
+
+#### Create Key (Download JSON File)
+
+- Go to the service account you just created
+
+- Click on Keys > Add Key > Create New Key
+
+- Select JSON format
+
+- Download the file — this is your credentials file
+
+- Store and Use JSON File Securely
+
+- Store this file securely on your local machine
+
+- Never commit this file to GitHub or share it
+
+#### Use with gcloud CLI:
+```
+export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/vm-service-account.json"
+```
+#### Attach to VM
+
+- When creating a VM:
+
+  - Click Security.
+
+  - Under Identity and API Access, select your service account.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
