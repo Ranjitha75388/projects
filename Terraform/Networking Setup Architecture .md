@@ -1,4 +1,4 @@
-# Architecture for networking
+![image](https://github.com/user-attachments/assets/3e91ce4c-5922-41d4-a39e-0fd1102201f0)# Architecture for networking
 
                 +------------------+
                 |    Internet      |
@@ -222,3 +222,56 @@ ssh username@public_vm_ip
 ssh -i ~/.ssh/id_rsa username@private_vm_ip
 ```
 ![image](https://github.com/user-attachments/assets/59fc2fc4-7c7f-486c-8dbd-70b424ccc897)
+
+#### Create private service access
+
+To create private connections to Google services (like Cloud SQL using Private IP), we must first allocate an internal IP range and then set up a Private Services Access (PSA) connection to our VPC.
+
+#### Step 1: Allocate IP Range for Private Services Access
+
+- Go to VPC network > VPC networks in the GCP Console.
+
+- Click on your network (e.g., ranjitha-tf-vpc).
+
+- In the left menu, click Private service connection.
+
+- Click Allocate IP range.
+
+- Fill in:
+
+    - Name: private-seervice-ip
+
+    - Region: Choose your region (e.g., us-central1)
+
+    - IP range: custom:e.g., 10.10.0.0/16 (must not overlap with our VPC subnets)
+      Automatic :eg:16
+
+- Click Allocate.
+
+![image](https://github.com/user-attachments/assets/ad718d79-4027-4905-951b-1a6bdd08cec5)
+
+
+#### Step 2: Create Private Connection Using the IP Range
+
+ - In the same Private service connection page, click Create connection.
+
+ - Select:
+    
+     - Connected service provider:Google cloud platform.
+    
+     -  Allocated allocation: Choose psa-ip-range (from above)
+
+  - Click Create connection.
+
+![image](https://github.com/user-attachments/assets/6640df0b-aac7-4312-be00-a3f0c26eb6b3)
+
+
+Create Cloud SQL with Private IP
+MSQL
+![image](https://github.com/user-attachments/assets/67f1d09f-0396-4f01-9516-312de6d3c641)
+
+![image](https://github.com/user-attachments/assets/16e20f36-6fc0-4c12-af21-1fd68effd7a1)
+
+
+ 
+
