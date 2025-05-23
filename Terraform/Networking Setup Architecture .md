@@ -120,36 +120,41 @@ Click Create.
 
  -  Subnet: private-subnet
 
- -  External IP: Auto or static
+ -  External IP: Auto
 
 ####  Step E: Create VM Instances
-1. Public VM
 
-    Name: public-vm
+#### 1.Public vm
 
-    Subnet: public-subnet
+- Go to: Compute Engine > VM instances
 
-    External IP: Ephemeral
+- Click "Create Instance"
 
-    Network tag: public-vm
+- Name: public-vm
 
-    Allow SSH & HTTP ✅
+- Region: us-central1, Zone: us-central1-a
 
-2. Private VM
+- Machine type: e2-micro
 
-    Name: private-vm
+- Boot disk: Default (Debian)
 
-    Subnet: private-subnet
+- Firewall: Check "Allow HTTP" and "Allow SSH"
 
-    External IP: None
+- Networking > Network interfaces
 
-    Network tag: private-vm
+    - Network: ranjitha-tf-vpc
+    
+    - Subnet: public-subnet
 
-    ✅ Enable "Private Google Access" (comes from subnet)
+    - External IP: **Ephemeral**
 
-    Select your service account (optional but good practice)
+    - Network tags: public-vm
 
-Step F: Test Connectivity
+Click Create
+
+- Security: Select the service account (optional)
+
+#### Step F: Test Connectivity
 
     SSH into Public VM:
 
