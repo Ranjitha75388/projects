@@ -130,6 +130,8 @@ To the appropriate users or service accounts.
 
 # GKE
 
+![image](https://github.com/user-attachments/assets/b1234f82-8ea4-4c38-8495-e412d298a63e)
+
 
 In Google Kubernetes Engine (GKE), a "Standard Cluster" refers to the fully customizable and flexible mode of running Kubernetes clusters. It offers more control over the infrastructure compared to Autopilot clusters, where Google manages the nodes for you.
 🔍 What is a GKE Standard Cluster?
