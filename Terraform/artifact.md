@@ -377,6 +377,8 @@ output "gke_clusters" {
 
 ![image](https://github.com/user-attachments/assets/b288c6b9-7750-4e11-ad55-0ef6da3242b5)
 
+![image](https://github.com/user-attachments/assets/3cbab25d-13db-4256-973f-35c4aef84705)
+
 
 
 
