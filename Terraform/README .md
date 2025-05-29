@@ -45,7 +45,7 @@ Google Cloud Platform (GCP) is a powerful suite of cloud computing services prov
 ```
  gcloud init
 ```
-### Basic Architecture diagram 
+### Basic workflow diagram for vpc
 ```
 +--------------------+
 |     Internet       |
