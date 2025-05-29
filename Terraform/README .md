@@ -97,21 +97,21 @@ Google Cloud Platform (GCP) is a powerful suite of cloud computing services prov
 
 #### Step 2: Sign Up for Google Cloud
 
--    Go to https://console.cloud.google.com/
+- Go to https://console.cloud.google.com/
 
--    Accept terms and sign in with your Google account.
+- Accept terms and sign in with your Google account.
 
--    You'll be asked to set up a billing account. GCP offers a $300 free credit for 90 days.
+- You'll be asked to set up a billing account. GCP offers a $300 free credit for 90 days.
 
 #### Step 3: Create a New Project
 
--    In the GCP Console, click the project drop-down (top bar).
+- In the GCP Console, click the project drop-down (top bar).
 
--    Click "New Project"
+- Click "New Project"
 
--    Enter project name: my-first-gcp-project
+- Enter project name: my-first-gcp-project
 
--    Click "Create"
+- Click "Create"
 
 #### Install gcloud CLI (Google Cloud SDK)
 
@@ -129,24 +129,24 @@ Google Cloud Platform (GCP) is a powerful suite of cloud computing services prov
 ##  Resource Setup
 ### 1. VPC (Virtual Private Cloud)
    
-- #### What is it?
+#### What is it?
 
-    A VPC is like a private, isolated network in GCP where you can launch resources like VMs, databases, and GKE clusters. It’s similar to having your own private data center in the cloud.
-- #### How does it work?
+- A VPC is like a private, isolated network in GCP where you can launch resources like VMs, databases, and GKE clusters. It’s similar to having your own private data center in the cloud.
+#### How does it work?
 
-  -  You define an IP range for the VPC (e.g., 10.0.0.0/16), and all resources inside it can communicate securely.
-  -  You can create subnets within the VPC for better organization and security.
-  -  It isolates your resources from other GCP projects and the public internet unless explicitly allowed.
+-  You define an IP range for the VPC (e.g., 10.0.0.0/16), and all resources inside it can communicate securely.
+-  You can create subnets within the VPC for better organization and security.
+-  It isolates your resources from other GCP projects and the public internet unless explicitly allowed.
 
-- ### Steps to Create in Console:
+### Steps to Create in Console:
 
-  - In console > Search VPC networks
-  - Click Create VPC Network.
-  -  Fill in:
-       - **Name**: ranjitha-tf-vpc.
-       - **Subnet creation mode**: Custom (to manually define subnets).
-       - **Dynamic routing mode**: Regional.
-  -  Click Create.
+- In console > Search VPC networks
+- Click Create VPC Network.
+- Fill in:
+  - **Name**: ranjitha-tf-vpc.
+  - **Subnet creation mode**: Custom (to manually define subnets).
+  - **Dynamic routing mode**: Regional.
+-  Click Create.
 
 ### 2. Subnets
 #### What are they?
@@ -154,13 +154,13 @@ Google Cloud Platform (GCP) is a powerful suite of cloud computing services prov
 Subnets are smaller networks within your VPC, each with its own IP range and region. They help organize resources and control access.
 #### How do they work?
 
--    Each subnet has a specific IP range (e.g., 10.0.1.0/24) and is tied to a region (e.g., us-central1).
--    Resources in a subnet can communicate with each other directly.
+- Each subnet has a specific IP range (e.g., 10.0.1.0/24) and is tied to a region (e.g., us-central1).
+- Resources in a subnet can communicate with each other directly.
 
 #### Types:
 
-- Public Subnet: Resources can have external IPs and be accessed from the internet.
-- Private Subnet: Resources have no external IPs and can only communicate internally or via NAT.
+- **Public Subnet**: Resources can have external IPs and be accessed from the internet.
+- **Private Subnet**: Resources have no external IPs and can only communicate internally or via NAT.
 
 ### Steps to Create in Console:
 
