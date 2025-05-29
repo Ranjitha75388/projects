@@ -117,6 +117,11 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 - By default, GCP blocks all ingress (incoming) traffic and allows all egress (outgoing) traffic.
 - You create rules to allow specific traffic, like SSH (port 22) or HTTP (port 80).
 
+### Architeture diagram
+
+![image](https://github.com/user-attachments/assets/08758406-93e2-4747-9138-89ccac2297bc)
+
+
 ### Steps to Create in Console:
 
 - Go to VPC network > Firewall in the GCP Console.
@@ -184,7 +189,7 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 
 ### Architeture diagram
 
-![image](https://github.com/user-attachments/assets/d9d2c5af-c3c6-4379-9b06-bc4b1234e162)
+![image](https://github.com/user-attachments/assets/58572ae8-03f5-4ef7-a15d-c116d8dc87eb)
 
 
 ### Steps to Create in Console:
