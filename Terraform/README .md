@@ -402,7 +402,7 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 ```
 mysql -h 10.0.3.10 -u root -p
 ```
-- Enter the password (StrongP@ssword123!) when prompted.
+- Enter the password when prompted.
 
 ### 9. Artifact Registry
 #### What is it?
