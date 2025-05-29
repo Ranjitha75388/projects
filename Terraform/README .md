@@ -615,60 +615,56 @@ kubectl apply -f deployment.yaml
    - **Advertised Route Priority**: 100
  - Click Save.
 
-### Step 7: Configure the AWS Side
+### Step 6: Configure the AWS Side
 
 Now, set up the VPN connection in AWS to connect to the GCP VPN Gateway.
-Step 7.1: Create a Customer Gateway in AWS
+#### Step 6.1: Create a Customer Gateway in AWS
 
-    Go to the AWS Management Console:
-        Navigate to console.aws.amazon.com.
-        Go to VPC > Customer Gateways.
-    Create Customer Gateway:
-        Click Create Customer Gateway.
-        Name: gcp-customer-gateway
-        BGP ASN: 64514 (match GCP’s ASN)
-        IP Address: 35.200.100.10 (GCP VPN Gateway’s public IP)
-        Click Create Customer Gateway.
+- Go to VPC > Customer Gateways.
+- Create Customer Gateway:
+- Click Create Customer Gateway.
+  - Name: gcp-customer-gateway
+  - BGP ASN: 64514 (match GCP’s ASN)
+  - IP Address: 35.200.100.10 (GCP VPN Gateway’s public IP)
+- Click Create Customer Gateway.
 
-Step 7.2: Create a Virtual Private Gateway in AWS
+#### Step 6.2: Create a Virtual Private Gateway in AWS
 
-    Go to Virtual Private Gateways:
-        Navigate to VPC > Virtual Private Gateways.
-        Click Create Virtual Private Gateway.
-    Configure Virtual Private Gateway:
-        Name: aws-vgw
-        Click Create Virtual Private Gateway.
-        Attach it to your AWS VPC:
-            Select the VGW, click Actions > Attach to VPC.
-            Choose your AWS VPC (aws-vpc).
-    Enable Route Propagation:
-        Go to VPC > Route Tables.
-        Select the route table for your AWS VPC.
-        Click Route Propagation > Edit Route Propagation.
-        Enable propagation for aws-vgw.
+- Navigate to VPC > Virtual Private Gateways.
+- Click Create Virtual Private Gateway.
+- Configure Virtual Private Gateway:
+   - **Name**: aws-vgw
+   - Click Create Virtual Private Gateway.
+   - Attach it to your AWS VPC:
+     - Select the VGW, click Actions > Attach to VPC.
+     - Choose your AWS VPC (aws-vpc).
+- Enable Route Propagation:
+- Go to VPC > Route Tables.
+- Select the route table for your AWS VPC.
+- Click Route Propagation > Edit Route Propagation.
+- Enable propagation for aws-vgw.
 
-Step 7.3: Create a Site-to-Site VPN Connection in AWS
+#### Step 6.3: Create a Site-to-Site VPN Connection in AWS
 
-    Go to Site-to-Site VPN Connections:
-        Navigate to VPC > Site-to-Site VPN Connections.
-        Click Create VPN Connection.
-    Configure the VPN Connection:
-        Name: aws-to-gcp-vpn
-        Target Gateway Type: Virtual Private Gateway
-        Virtual Private Gateway: aws-vgw
-        Customer Gateway: Existing
-            Select gcp-customer-gateway.
-        Routing Options: Dynamic (BGP)
-        Tunnel Options:
-            Tunnel 1 Pre-shared Key: 8J2kP9mWqL5xN3vR7tY1uI4oE6gH8jK9lM2nO4pQ6rS8tU0vW2xY4zA6bC8dE0f (match GCP’s first tunnel)
-            Tunnel 1 Inside IP Addresses:
-                Customer Gateway (GCP): 169.254.1.1/30
-                Virtual Private Gateway (AWS): 169.254.1.2/30
-            Tunnel 2 Pre-shared Key: DifferentKeyForTunnel2_1234567890abcdef (match GCP’s second tunnel)
-            Tunnel 2 Inside IP Addresses:
-                Customer Gateway (GCP): 169.254.2.1/30
-                Virtual Private Gateway (AWS): 169.254.2.2/30
-        Click Create VPN Connection.
+- Navigate to VPC > Site-to-Site VPN Connections.
+- Click Create VPN Connection.
+- Configure the VPN Connection:
+  - **Name**: aws-to-gcp-vpn
+  - **Target Gateway Type**: Virtual Private Gateway
+  - **Virtual Private Gateway**: aws-vgw
+  - **Customer Gateway**: Existing
+  - Select gcp-customer-gateway.
+  - Routing Options: Dynamic (BGP)
+  - Tunnel Options:
+     - Tunnel 1 Pre-shared Key: 8J2kP9mWqL5xN3vR7tY1uI4oE6gH8jK9lM2nO4pQ6rS8tU0vW2xY4zA6bC8dE0f (match GCP’s first tunnel)
+     - Tunnel 1 Inside IP Addresses:
+     - Customer Gateway (GCP): 169.254.1.1/30
+     - Virtual Private Gateway (AWS): 169.254.1.2/30
+     - Tunnel 2 Pre-shared Key: DifferentKeyForTunnel2_1234567890abcdef (match GCP’s second tunnel)
+     - Tunnel 2 Inside IP Addresses:
+     - Customer Gateway (GCP): 169.254.2.1/30
+     - Virtual Private Gateway (AWS): 169.254.2.2/30
+- Click Create VPN Connection.
     Download Configuration:
         Select the VPN connection (aws-to-gcp-vpn).
         Click Download Configuration.
