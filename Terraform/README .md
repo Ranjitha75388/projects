@@ -394,49 +394,45 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 - Click Create Instance.
 - Note the private IP (e.g., 10.0.3.10) assigned to the Cloud SQL instance.
 
-Test Connection:
+#### Test Connection:
 
-From the private VM, connect to Cloud SQL:
-text
+- From the private VM, connect to Cloud SQL:
+```
 mysql -h 10.0.3.10 -u root -p
+```
+- Enter the password (StrongP@ssword123!) when prompted.
 
-Enter the password (StrongP@ssword123!) when prompted.
-9. Artifact Registry
-What is it?
+### 9. Artifact Registry
+#### What is it?
 
-Artifact Registry is a storage service in GCP for software artifacts like Docker images, Maven packages, or npm packages.
-How does it work?
+- Artifact Registry is a storage service in GCP for software artifacts like Docker images, Maven packages, or npm packages.
+#### How does it work?
 
-    You create a repository to store artifacts.
-    You can push artifacts (e.g., Docker images) to the repository and pull them for deployments.
+- You create a repository to store artifacts.
+- You can push artifacts (e.g., Docker images) to the repository and pull them for deployments.
 
-How is it managed?
+### Steps to Create in Console:
 
-    GCP manages the storage and security of the artifacts.
-    You manage the artifacts and access permissions.
+- Go to Artifact Registry > Create Repository in the GCP Console.
+- Fill in:
+  - **Name**: my-docker-repo
+  - **Format**: Docker
+  - **Mode**: Standard
+  - **Location Type**: Region
+  - **Region**: us-central1
+  - **Description**: "Docker images for my app"
+- Click Create.
 
-Steps to Create in Console:
-
-    Go to Artifact Registry > Create Repository in the GCP Console.
-    Fill in:
-        Name: my-docker-repo
-        Format: Docker
-        Mode: Standard
-        Location Type: Region
-        Region: us-central1
-        Description: "Docker images for my app"
-    Click Create.
-    Configure Docker to push/pull images:
-    text
-
-gcloud auth configure-docker us-central1-docker.pkg.dev
-Push a Docker image:
-text
-
-    docker tag my-image:latest us-central1-docker.pkg.dev/my-first-gcp-project/my-docker-repo/my-image:latest
-    docker push us-central1-docker.pkg.dev/my-first-gcp-project/my-docker-repo/my-image:latest
-
-10. GKE (Google Kubernetes Engine) Standard Cluster
+#### Configure Docker to push/pull images:
+```    
+ gcloud auth configure-docker us-central1-docker.pkg.dev
+```
+#### Push a Docker image:
+```
+ docker tag my-image:latest us-central1-docker.pkg.dev/my-first-gcp-project/my-docker-repo/my-image:latest
+ docker push us-central1-docker.pkg.dev/my-first-gcp-project/my-docker-repo/my-image:latest
+```
+### 10. GKE (Google Kubernetes Engine) Standard Cluster
 What is it?
 
 GKE is a managed Kubernetes service in GCP for running containerized applications. A Standard Cluster gives you full control over the nodes (VMs).
