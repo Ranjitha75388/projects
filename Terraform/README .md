@@ -249,56 +249,47 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
   -  **Protocols and Ports** :tcp:3306
 
 
-4. Cloud Router
-What is it?
+### 4. Cloud Router
+#### What is it?
 
-A Cloud Router is a service in GCP that helps manage network routes dynamically, especially for hybrid connectivity (e.g., connecting GCP to AWS).
-How does it work?
+- A Cloud Router is a service in GCP that helps manage network routes dynamically, especially for hybrid connectivity (e.g., connecting GCP to AWS).
+#### How does it work?
 
-    It uses BGP (Border Gateway Protocol) to advertise routes between networks.
-    It’s required for Cloud NAT to allow private VMs to access the internet.
+- It uses BGP (Border Gateway Protocol) to advertise routes between networks.
+- It’s required for Cloud NAT to allow private VMs to access the internet.
 
-How is it managed?
+### Steps to Create in Console:
 
-    You create and configure the Cloud Router in GCP.
-    GCP manages the underlying routing logic.
+ - Go to Hybrid Connectivity > Cloud Routers in the GCP Console.
+ - Click Create Router.
+ - Fill in:
+    - **Name**: my-router
+    - **Region**: us-central1
+    - **Network**: ranjitha-tf-vpc
+    - **Google ASN**: 64514 (a unique number for BGP routing)
+  -   Click Create.
 
-Steps to Create in Console:
+### 5. Cloud NAT (Network Address Translation)
 
-    Go to Hybrid Connectivity > Cloud Routers in the GCP Console.
-    Click Create Router.
-    Fill in:
-        Name: my-router
-        Region: us-central1
-        Network: ranjitha-tf-vpc
-        Google ASN: 64514 (a unique number for BGP routing)
-    Click Create.
-
-5. Cloud NAT (Network Address Translation)
-What is it?
+#### What is it?
 
 Cloud NAT allows VMs in a private subnet to access the internet (e.g., to download updates) without being accessible from the internet.
-How does it work?
+#### How does it work?
 
-    It translates the private IP of your VM to a public IP for outbound traffic.
-    Inbound traffic from the internet is blocked, keeping the VM secure.
+  - It translates the private IP of your VM to a public IP for outbound traffic.
+  - Inbound traffic from the internet is blocked, keeping the VM secure.
 
-How is it managed?
+### Steps to Create in Console:
 
-    You configure Cloud NAT to work with a specific subnet and Cloud Router.
-    GCP manages the translation and routing.
-
-Steps to Create in Console:
-
-    Go to VPC network > Cloud NAT in the GCP Console.
-    Click Create NAT Gateway.
-    Fill in:
-        Name: my-nat
-        Region: us-central1
-        Router: my-router
-        Subnet: private-subnet
-        External IP: Auto (GCP will assign a public IP)
-    Click Create.
+  - Go to VPC network > Cloud NAT in the GCP Console.
+  - Click Create NAT Gateway.
+  - Fill in:
+     - **Name**: my-nat
+     - **Region**: us-central1
+     - **Router**: my-router
+     - **Subnet**: private-subnet
+     - **External IP**: Auto (GCP will assign a public IP)
+  -  Click Create.
 
 6. VM (Compute Engine)
 What is it?
