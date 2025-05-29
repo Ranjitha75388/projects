@@ -423,49 +423,48 @@ mysql -h 10.0.3.10 -u root -p
   - **Description**: "Docker images for my app"
 - Click Create.
 
-#### Configure Docker to push/pull images:
+- #### Configure Docker to push/pull images:
 ```    
  gcloud auth configure-docker us-central1-docker.pkg.dev
 ```
-#### Push a Docker image:
+- #### Push a Docker image:
 ```
  docker tag my-image:latest us-central1-docker.pkg.dev/my-first-gcp-project/my-docker-repo/my-image:latest
  docker push us-central1-docker.pkg.dev/my-first-gcp-project/my-docker-repo/my-image:latest
 ```
 ### 10. GKE (Google Kubernetes Engine) Standard Cluster
-What is it?
 
-GKE is a managed Kubernetes service in GCP for running containerized applications. A Standard Cluster gives you full control over the nodes (VMs).
-How does it work?
+#### What is it?
+- GKE is a managed Kubernetes service in GCP for running containerized applications.
+- A **Standard Cluster** gives you full control over the nodes (VMs).
+- A **autopilot cluster** managed by google.
 
-    GKE creates a Kubernetes cluster with a control plane (managed by GCP) and worker nodes (VMs you configure).
-    You deploy containerized applications (e.g., Docker images) to the cluster.
+#### How does it work?
 
-How is it managed?
+- GKE creates a Kubernetes cluster with a control plane (managed by GCP) and worker nodes (VMs you configure).
+- You deploy containerized applications (e.g., Docker images) to the cluster.
 
-    GCP manages the control plane (e.g., Kubernetes API server, scheduler).
-    You manage the nodes, including machine types, scaling, and upgrades.
+### Steps to Create in Console:
 
-Steps to Create in Console:
+- Go to Kubernetes Engine > Clusters in the GCP Console.
+- Click Create and choose Standard.
+- Fill in:
+  - **Cluster name**: drip-nonprod
+  - **Location**: Zonal, us-central1-a
+  - **Networking mode**: VPC-native
+  - **VPC**: ranjitha-tf-vpc
+  - **Subnetwork**: private-subnet
+  - **Node pool**:
+    - **Machine type**: e2-medium
+    - **Nodes**: 1 (for nonprod)
+  - Click Create.
 
-    Go to Kubernetes Engine > Clusters in the GCP Console.
-    Click Create and choose Standard.
-    Fill in:
-        Cluster name: drip-nonprod
-        Location: Zonal, us-central1-a
-        Networking mode: VPC-native
-        VPC: ranjitha-tf-vpc
-        Subnetwork: private-subnet
-        Node pool:
-            Machine type: e2-medium
-            Nodes: 1 (for nonprod)
-    Click Create.
-    Authenticate kubectl:
-    text
-
-gcloud container clusters get-credentials drip-nonprod --zone us-central1-a --project my-first-gcp-project
-Deploy a sample app: Create a deployment.yaml:
-text
+#### Authenticate kubectl:
+```
+ gcloud container clusters get-credentials drip-nonprod --zone us-central1-a --project my-first-gcp-project
+```
+#### Deploy a sample app: Create a deployment.yaml:
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -485,16 +484,17 @@ spec:
         image: us-central1-docker.pkg.dev/my-first-gcp-project/my-docker-repo/my-image:latest
         ports:
         - containerPort: 80
-Apply it:
-text
+```
+- Apply it:
+```
 kubectl apply -f deployment.yaml
-Expose the app:
-text
-
-    kubectl expose deployment react-app --type=LoadBalancer --port=80 --target-port=80
-    kubectl get service
-    Note the external IP to access your app.
-
+```
+- Expose the app:
+```
+ kubectl expose deployment react-app --type=LoadBalancer --port=80 --target-port=80
+ kubectl get service
+```
+    
 11. VPN Gateway
 What is it?
 
