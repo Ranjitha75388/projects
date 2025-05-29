@@ -1,42 +1,16 @@
 # GCP 
 Google Cloud Platform (GCP) is a powerful suite of cloud computing services provided by Google, enabling individuals and organizations to build, deploy, and manage workloads on Google's robust and scalable infrastructure.
-Key Services
 
-GCP offers a wide range of services, including:
+### Key Services
 
-    Compute: Run virtual machines (VMs) for various applications.
-    Networking: Create and manage Virtual Private Clouds (VPCs) for secure internal networks.
-    Storage: Utilize buckets for scalable and durable object storage.
-    Databases: Leverage managed database solutions for structured data.
-    AI/ML: Access advanced tools for artificial intelligence and machine learning.
+-   **Compute**: Run virtual machines (VMs) for various applications.
+-    **Networking**: Create and manage Virtual Private Clouds (VPCs) for secure internal networks.
+-    **Storage**: Utilize buckets for scalable and durable object storage.
+-    **Databases**: Leverage managed database solutions for structured data.
+-    **AI/ML**: Access advanced tools for artificial intelligence and machine learning.
 
-Common Use Cases
+### Architecture diagram 
 
-With GCP, you can:
-
-    Run Virtual Machines (VMs): Host and manage applications on customizable virtual machines.
-    Host Websites: Deploy and serve websites with high availability and performance.
-    Build Internal Networks: Design secure, isolated networks for your resources.
-    Analyze Data: Process and gain insights from large datasets efficiently.
-    Leverage AI/ML Services: Build and deploy intelligent applications using Google’s AI and machine learning tools.
-This guide will walk you through setting up a secure networking architecture in Google Cloud Platform (GCP) using the console. The architecture includes a custom VPC with public and private subnets, firewall rules, Cloud Router, Cloud NAT, VMs, private service access for Cloud SQL, Artifact Registry, GKE, and a site-to-site VPN with BGP for hybrid connectivity. Each resource is explained in simple terms, including its purpose, how it works, and how it’s managed.
-Architecture Overview
-
-The goal is to create a secure networking setup in GCP with the following components:
-
-    Custom VPC: A private network for all resources.
-    Public Subnet: Hosts a VM accessible from the internet.
-    Private Subnet: Hosts a VM that’s internal-only, with internet access via NAT.
-    Database Subnet: Hosts a Cloud SQL instance with a private IP.
-    Firewall Rules: Controls traffic between the internet, VMs, and Cloud SQL.
-    Cloud Router and NAT: Enables private VMs to access the internet for updates.
-    Private Service Access: Connects to Google services (like Cloud SQL) using private IPs.
-    Artifact Registry: Stores Docker images for deployments.
-    GKE Cluster: Runs containerized applications.
-    VPN Gateway, Tunnel, and BGP: Connects the GCP VPC to an external network (e.g., AWS) using a site-to-site VPN with dynamic routing.
-
-Here’s the architecture diagram for reference:
-text
 +--------------------+
 |     Internet       |
 +---------+----------+
@@ -115,89 +89,98 @@ text
                            |    External Network    |
                            |      (e.g., AWS)       |
                            +------------------------+
-Step 1: Prerequisites
+### Prerequisites
 
-Before starting, ensure you have the following:
+#### Step 1: Create a Google Account
 
-    Google Account: Sign up at accounts.google.com if you don’t have one.
-    GCP Project: Create a project in the GCP Console (console.cloud.google.com).
-        Name: my-first-gcp-project.
-        Set up a billing account (GCP offers $300 free credit for 90 days).
-    gcloud CLI: Install the Google Cloud SDK for command-line access.
-        On Linux:
-        text
+- Go to https://accounts.google.com and create a Google account if you don't already have one.
 
-        curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-451.0.1-linux-x86_64.tar.gz
-        tar -xvzf google-cloud-sdk-*.tar.gz
-        ./google-cloud-sdk/install.sh
-        gcloud init
-        Follow the prompts to authenticate and select your project.
+#### Step 2: Sign Up for Google Cloud
 
-Step 2: Resource Setup with Explanations
-1. VPC (Virtual Private Cloud)
-What is it?
+-    Go to https://console.cloud.google.com/
 
-A VPC is like a private, isolated network in GCP where you can launch resources like VMs, databases, and GKE clusters. It’s similar to having your own private data center in the cloud.
-How does it work?
+-    Accept terms and sign in with your Google account.
 
-    You define an IP range for the VPC (e.g., 10.0.0.0/16), and all resources inside it can communicate securely.
-    You can create subnets within the VPC for better organization and security.
-    It isolates your resources from other GCP projects and the public internet unless explicitly allowed.
+-    You'll be asked to set up a billing account. GCP offers a $300 free credit for 90 days.
 
-How is it managed?
+#### Step 3: Create a New Project
 
-    GCP manages the underlying infrastructure (e.g., routing, network hardware).
-    You manage the configuration, such as IP ranges, subnets, and firewall rules.
+-    In the GCP Console, click the project drop-down (top bar).
 
-Steps to Create in Console:
+-    Click "New Project"
 
-    Go to VPC network > VPC networks in the GCP Console.
-    Click Create VPC Network.
-    Fill in:
-        Name: ranjitha-tf-vpc
-        Subnet creation mode: Custom (to manually define subnets)
-        Dynamic routing mode: Regional (for Cloud Router to advertise routes in the region)
-    Click Create.
+-    Enter project name: my-first-gcp-project
 
-2. Subnets
-What are they?
+-    Click "Create"
+
+#### Install gcloud CLI (Google Cloud SDK)
+
+- To Download in Linux
+```
+ curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-451.0.1-linux-x86_64.tar.gz
+ tar -xvzf google-cloud-sdk-*.tar.gz
+ ./google-cloud-sdk/install.sh
+```
+-  After install, run in terminal:
+```
+ gcloud init
+```
+
+##  Resource Setup
+### 1. VPC (Virtual Private Cloud)
+   
+- #### What is it?
+
+    A VPC is like a private, isolated network in GCP where you can launch resources like VMs, databases, and GKE clusters. It’s similar to having your own private data center in the cloud.
+- #### How does it work?
+
+  -  You define an IP range for the VPC (e.g., 10.0.0.0/16), and all resources inside it can communicate securely.
+  -  You can create subnets within the VPC for better organization and security.
+  -  It isolates your resources from other GCP projects and the public internet unless explicitly allowed.
+
+- ### Steps to Create in Console:
+
+  - In console > Search VPC networks
+  - Click Create VPC Network.
+  -  Fill in:
+       - **Name**: ranjitha-tf-vpc.
+       - **Subnet creation mode**: Custom (to manually define subnets).
+       - **Dynamic routing mode**: Regional.
+  -  Click Create.
+
+### 2. Subnets
+#### What are they?
 
 Subnets are smaller networks within your VPC, each with its own IP range and region. They help organize resources and control access.
-How do they work?
+#### How do they work?
 
-    Each subnet has a specific IP range (e.g., 10.0.1.0/24) and is tied to a region (e.g., us-central1).
-    Resources in a subnet can communicate with each other directly.
-    You can create public subnets (for internet-facing resources) or private subnets (for internal-only resources).
+-    Each subnet has a specific IP range (e.g., 10.0.1.0/24) and is tied to a region (e.g., us-central1).
+-    Resources in a subnet can communicate with each other directly.
 
-Types:
+#### Types:
 
-    Public Subnet: Resources can have external IPs and be accessed from the internet.
-    Private Subnet: Resources have no external IPs and can only communicate internally or via NAT.
+- Public Subnet: Resources can have external IPs and be accessed from the internet.
+- Private Subnet: Resources have no external IPs and can only communicate internally or via NAT.
 
-How are they managed?
+### Steps to Create in Console:
 
-    You define the IP ranges and regions when creating subnets.
-    GCP manages the routing between subnets within the same VPC.
-
-Steps to Create in Console:
-
-    After creating the VPC, you’ll be prompted to add subnets (or go to the VPC details and click Add Subnet).
-    Public Subnet:
-        Name: public-subnet
-        Region: us-central1
-        IP range: 10.0.1.0/24
-        Private Google Access: Off (not needed for public subnet)
-    Private Subnet:
-        Name: private-subnet
-        Region: us-central1
-        IP range: 10.0.2.0/24
-        Private Google Access: On (required for accessing Google APIs from private VMs)
-    Database Subnet:
-        Name: db-subnet
-        Region: us-central1
-        IP range: 10.0.3.0/24
-        Private Google Access: On
-    Click Create.
+After creating the VPC, you’ll be prompted to add subnets (or go to the VPC details and click Add Subnet).
+- Public Subnet:
+   - **Name**: public-subnet
+   - **Region**: us-central1
+   - **IP range**: 10.0.1.0/24
+   - **Private Google Access**: Off (not needed for public subnet)
+- Private Subnet:
+   - **Name**: private-subnet
+   - **Region**: us-central1
+   - **IP range**: 10.0.2.0/24       
+   - **Private Google Access**: On (required for accessing Google APIs from private VMs)
+- Database Subnet:
+   - **Name**: db-subnet
+   - **Region**: us-central1
+   - **IP range**: 10.0.3.0/24
+   - **Private Google Access**: On
+- Click Create.
 
 3. Firewall Rules
 What are they?
