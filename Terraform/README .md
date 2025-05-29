@@ -273,7 +273,7 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 
 #### What is it?
 
-Cloud NAT allows VMs in a private subnet to access the internet (e.g., to download updates) without being accessible from the internet.
+- Cloud NAT allows VMs in a private subnet to access the internet (e.g., to download updates) without being accessible from the internet.
 #### How does it work?
 
   - It translates the private IP of your VM to a public IP for outbound traffic.
@@ -316,7 +316,7 @@ Cloud NAT allows VMs in a private subnet to access the internet (e.g., to downlo
     - **Networking** > Network interfaces:
         - **Network**: ranjitha-tf-vpc
         - **Subnet**: public-subnet
-        - **External IP**: Ephemeral (assigns a temporary public IP)
+        - **External IP**: **Ephemeral** (assigns a temporary public IP)
         - **Network tags**: public-vm
     - Click Create.
 
@@ -330,7 +330,7 @@ Cloud NAT allows VMs in a private subnet to access the internet (e.g., to downlo
     - **Networking** > Network interfaces:
          - **Network**: ranjitha-tf-vpc
          - **Subnet**: private-subnet
-         - **External IP**: None
+         - **External IP**: **None**
     - Click Create.
 
 ### 7. Private Service Access
@@ -339,34 +339,30 @@ Cloud NAT allows VMs in a private subnet to access the internet (e.g., to downlo
 - Private Service Access allows your VPC to connect to Google services (like Cloud SQL) using private IPs, keeping communication internal and secure.
 #### How does it work?
 
-    You allocate an IP range for Google services.
-    GCP creates a private connection between your VPC and Google services using this range.
+- You allocate an IP range for Google services.
+- GCP creates a private connection between your VPC and Google services using this range.
 
-How is it managed?
+### Steps to Create in Console:
 
-    You manage the IP range and connection settings.
-    GCP manages the actual connection and routing.
+1. Allocate IP Range:
+   - Go to VPC network > VPC networks in the GCP Console.
+   - Click on ranjitha-tf-vpc.
+   - In the left menu, click Private service connection.
+   -  Click Allocate IP range.
+   -  Fill in:
+      -  **Name**: private-service-ip
+      -  **Region**: us-central1
+      -  **IP range**: 10.10.0.0/16 (must not overlap with VPC subnets)
+   - Click Allocate.
+ 
+ 2.Create Private Connection:
+   - On the same page, click Create connection.
+   - Select:
+       - Connected service provider: Google Cloud Platform
+       - Allocated allocation: private-service-ip
+    - Click Create connection.
 
-Steps to Create in Console:
-
-    Allocate IP Range:
-        Go to VPC network > VPC networks in the GCP Console.
-        Click on ranjitha-tf-vpc.
-        In the left menu, click Private service connection.
-        Click Allocate IP range.
-        Fill in:
-            Name: private-service-ip
-            Region: us-central1
-            IP range: 10.10.0.0/16 (must not overlap with VPC subnets)
-        Click Allocate.
-    Create Private Connection:
-        On the same page, click Create connection.
-        Select:
-            Connected service provider: Google Cloud Platform
-            Allocated allocation: private-service-ip
-        Click Create connection.
-
-8. Cloud SQL with Private IP
+### 8. Cloud SQL with Private IP
 What is it?
 
 Cloud SQL is a managed database service in GCP (e.g., MySQL, PostgreSQL). Using a private IP ensures it’s only accessible within your VPC.
