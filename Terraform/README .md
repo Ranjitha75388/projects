@@ -560,34 +560,34 @@ kubectl apply -f deployment.yaml
 #### What is it?
 
 - VPN Tunnels are the encrypted connections between the GCP VPN Gateway and the AWS VPN Gateway. AWS provides two tunnels for redundancy, so we’ll create two tunnels in GCP.
-### Stepsin console
 
+### Steps in console
 - Add the First Tunnel:
 - In the VPN setup page for gcp-to-aws-vpn-gateway, scroll to Tunnels.
 - Click Add Tunnel.
 - Configure the First Tunnel:
-  - Name: gcp-to-aws-tunnel-1
-  - VPN Gateway: gcp-to-aws-vpn-gateway
-  - Peer VPN Gateway: aws-peer-vpn-gateway
-  - Interface: 0 (corresponds to Interface 0 IP 203.0.113.10)
-  - Shared Secret: 8J2kP9mWqL5xN3vR7tY1uI4oE6gH8jK9lM2nO4pQ6rS8tU0vW2xY4zA6bC8dE0f (generate a secure key and note it down)
-  - Remote Peer IP Address: 203.0.113.10 (placeholder; update later)
-  - IKE Version: IKEv2 (recommended)
-  - Routing Type: Dynamic (BGP)
-  - Cloud Router: gcp-to-aws-router
+  - **Name**: gcp-to-aws-tunnel-1
+  - **VPN Gateway**: gcp-to-aws-vpn-gateway
+  - **Peer VPN Gateway**: aws-peer-vpn-gateway
+  - **Interface**: 0 (corresponds to Interface 0 IP 203.0.113.10)
+  - **Shared Secret**: 8J2kP9mWqL5xN3vR7tY1uI4oE6gH8jK9lM2nO4pQ6rS8tU0vW2xY4zA6bC8dE0f (generate a secure key and note it down)
+  - **Remote Peer IP Address**: 203.0.113.10 (placeholder; update later)
+  - **IKE Version**: IKEv2 (recommended)
+  - **Routing Type**: Dynamic (BGP)
+  - **Cloud Route**r: gcp-to-aws-router
 - Click Create.
-    Add the Second Tunnel:
-        Click Add Tunnel again.
-        Name: gcp-to-aws-tunnel-2
-        VPN Gateway: gcp-to-aws-vpn-gateway
-        Peer VPN Gateway: aws-peer-vpn-gateway
-        Interface: 1 (corresponds to Interface 1 IP 203.0.113.11)
-        Shared Secret: DifferentKeyForTunnel2_1234567890abcdef (use a different key for the second tunnel)
-        Remote Peer IP Address: 203.0.113.11 (placeholder; update later)
-        IKE Version: IKEv2
-        Routing Type: Dynamic (BGP)
-        Cloud Router: gcp-to-aws-router
-        Click Create.
+- Add the Second Tunnel:
+- Click Add Tunnel again.
+  - **Name**: gcp-to-aws-tunnel-2
+  - **VPN Gateway**: gcp-to-aws-vpn-gateway
+  - **Peer VPN Gateway**: aws-peer-vpn-gateway
+  - **Interface**: 1 (corresponds to Interface 1 IP 203.0.113.11)
+  - **Shared Secret**: DifferentKeyForTunnel2_1234567890abcdef (use a different key for the second tunnel)
+  - **Remote Peer IP Address**: 203.0.113.11 (placeholder; update later)
+  - **IKE Version**: IKEv2
+  - **Routing Type**: Dynamic (BGP)
+  - **Cloud Router**: gcp-to-aws-router
+- Click Create.
 
 Step 6: Configure BGP Sessions in GCP
 What is it?
