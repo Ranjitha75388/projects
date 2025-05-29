@@ -203,6 +203,11 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 - It translates the private IP of your VM to a public IP for outbound traffic.
 - Inbound traffic from the internet is blocked, keeping the VM secure.
 
+### Architeture diagram
+
+![image](https://github.com/user-attachments/assets/951b36d6-239f-475d-9e1f-32680c3b0064)
+
+
 ### Steps to Create in Console:
 
 - Go to VPC network > Cloud NAT in the GCP Console.
@@ -264,6 +269,11 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 
 - You allocate an IP range for Google services.
 - GCP creates a private connection between your VPC and Google services using this range.
+
+### Architeture diagram
+
+![image](https://github.com/user-attachments/assets/9e56384f-1aee-45ad-a12b-b5d68c6c40d7)
+
 
 ### Steps to Create in Console:
 
@@ -335,6 +345,11 @@ mysql -h 10.0.3.10 -u root -p
 - You create a repository to store artifacts.
 - You can push artifacts (e.g., Docker images) to the repository and pull them for deployments.
 
+### Architeture diagram
+
+![image](https://github.com/user-attachments/assets/d3974b1c-3e0e-4287-bc47-0e9d6401ca98)
+
+
 ### Steps to Create in Console:
 
 - Go to Artifact Registry > Create Repository in the GCP Console.
@@ -367,6 +382,10 @@ mysql -h 10.0.3.10 -u root -p
 
 - GKE creates a Kubernetes cluster with a control plane (managed by GCP) and worker nodes (VMs you configure).
 - You deploy containerized applications (e.g., Docker images) to the cluster.
+
+### Architeture diagram
+
+![image](https://github.com/user-attachments/assets/9c41ecda-ff5d-4335-b771-41fb7dc95113)
 
 ### Steps to Create in Console:
 
@@ -425,6 +444,11 @@ kubectl apply -f deployment.yaml
 #### What is it?
 
 - A Cloud VPN Gateway in GCP is a resource that enables secure communication between your GCP VPC and AWS VPC using an IPsec VPN over the internet.
+
+### Architeture diagram
+
+![image](https://github.com/user-attachments/assets/5d8c5798-5d5c-469e-a5b5-16a09b8df810)
+
 
 ### Steps in console
 
