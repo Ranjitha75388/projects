@@ -507,12 +507,12 @@ kubectl apply -f deployment.yaml
    - Click Create VPN Connection.
    - Choose Classic VPN (simpler for this setup; use HA VPN for high availability if needed).
  - Configure the VPN Gateway:
-    - Name: gcp-to-aws-vpn-gateway
-    - Network: ranjitha-tf-vpc
-    - Region: us-central1
-    - IP address: Create a new static IP
+    - **Name**: gcp-to-aws-vpn-gateway
+    - **Network**: ranjitha-tf-vpc
+    - **Region**: us-central1
+    - **IP address**: Create a new static IP
     - Click Reserve a new static IP address.
-    - Name: gcp-vpn-ip
+      - **Name**: gcp-vpn-ip
     - Click Reserve.
     - Leave other settings as default for now.
  - Save and Continue:
