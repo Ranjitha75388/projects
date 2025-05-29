@@ -9,6 +9,42 @@ Google Cloud Platform (GCP) is a powerful suite of cloud computing services prov
 -    **Databases**: Leverage managed database solutions for structured data.
 -    **AI/ML**: Access advanced tools for artificial intelligence and machine learning.
 
+### Prerequisites
+
+#### Step 1: Create a Google Account
+
+- Go to https://accounts.google.com and create a Google account if you don't already have one.
+
+#### Step 2: Sign Up for Google Cloud
+
+- Go to https://console.cloud.google.com/
+
+- Accept terms and sign in with your Google account.
+
+- You'll be asked to set up a billing account. GCP offers a $300 free credit for 90 days.
+
+#### Step 3: Create a New Project
+
+- In the GCP Console, click the project drop-down (top bar).
+
+- Click "New Project"
+
+- Enter project name: my-first-gcp-project
+
+- Click "Create"
+
+#### Install gcloud CLI (Google Cloud SDK)
+
+- To Download in Linux
+```
+ curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-451.0.1-linux-x86_64.tar.gz
+ tar -xvzf google-cloud-sdk-*.tar.gz
+ ./google-cloud-sdk/install.sh
+```
+-  After install, run in terminal:
+```
+ gcloud init
+```
 ### Basic Architecture diagram 
 ```
 +--------------------+
@@ -91,42 +127,6 @@ Google Cloud Platform (GCP) is a powerful suite of cloud computing services prov
                            +------------------------+
 ```
 
-### Prerequisites
-
-#### Step 1: Create a Google Account
-
-- Go to https://accounts.google.com and create a Google account if you don't already have one.
-
-#### Step 2: Sign Up for Google Cloud
-
-- Go to https://console.cloud.google.com/
-
-- Accept terms and sign in with your Google account.
-
-- You'll be asked to set up a billing account. GCP offers a $300 free credit for 90 days.
-
-#### Step 3: Create a New Project
-
-- In the GCP Console, click the project drop-down (top bar).
-
-- Click "New Project"
-
-- Enter project name: my-first-gcp-project
-
-- Click "Create"
-
-#### Install gcloud CLI (Google Cloud SDK)
-
-- To Download in Linux
-```
- curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-451.0.1-linux-x86_64.tar.gz
- tar -xvzf google-cloud-sdk-*.tar.gz
- ./google-cloud-sdk/install.sh
-```
--  After install, run in terminal:
-```
- gcloud init
-```
 
 ##  Resource Setup
 ### 1. VPC (Virtual Private Cloud)
