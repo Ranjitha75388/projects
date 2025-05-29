@@ -665,15 +665,15 @@ Now, set up the VPN connection in AWS to connect to the GCP VPN Gateway.
      - Customer Gateway (GCP): 169.254.2.1/30
      - Virtual Private Gateway (AWS): 169.254.2.2/30
 - Click Create VPN Connection.
-    Download Configuration:
-        Select the VPN connection (aws-to-gcp-vpn).
-        Click Download Configuration.
-        Choose Generic as the vendor.
-        Note the Outside IP Addresses for the AWS VPN gateway:
-            Tunnel 1: 203.0.113.10 (example)
-            Tunnel 2: 203.0.113.11 (example)
+- Download Configuration:
+- Select the VPN connection (aws-to-gcp-vpn).
+- Click Download Configuration.
+- Choose Generic as the vendor.
+- Note the Outside IP Addresses for the AWS VPN gateway:
+     - Tunnel 1: 203.0.113.10 (example)
+     - Tunnel 2: 203.0.113.11 (example)
 
-Step 7.4: Update GCP Peer VPN Gateway with AWS IPs
+#### Step 6.4: Update GCP Peer VPN Gateway with AWS IPs
 
     Go Back to GCP:
         Navigate to Hybrid Connectivity > VPN.
