@@ -182,80 +182,72 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
    - **Private Google Access**: On
 - Click Create.
 
-3. Firewall Rules
-What are they?
+### 3. Firewall Rules
 
-Firewall rules control what traffic is allowed to enter or leave your VPC. They act like security guards for your network.
-How do they work?
+#### What are they?
 
-    Rules are applied based on IPs, ports, protocols, and tags.
-    By default, GCP blocks all ingress (incoming) traffic and allows all egress (outgoing) traffic.
-    You create rules to allow specific traffic, like SSH (port 22) or HTTP (port 80).
+- Firewall rules control what traffic is allowed to enter or leave your VPC. They act like security guards for your network.
+#### How do they work?
 
-How are they managed?
+- Rules are applied based on IPs, ports, protocols, and tags.
+- By default, GCP blocks all ingress (incoming) traffic and allows all egress (outgoing) traffic.
+- You create rules to allow specific traffic, like SSH (port 22) or HTTP (port 80).
 
-    You define and manage firewall rules in the GCP Console.
-    GCP enforces these rules automatically at the network level.
+### Steps to Create in Console:
 
-Steps to Create in Console:
+- Go to VPC network > Firewall in the GCP Console.
 
-    Go to VPC network > Firewall in the GCP Console.
+1. Allow SSH to Public VM (from internet):
+   - **Name**: allow-ssh-public
+   - **Network**: ranjitha-tf-vpc
+   - **Priority**: 1000
+   - **Direction of traffic**: Ingress
+   - **Action on match**: Allow
+   - **Targets**: Specified target tags
+   - **Target tags**: public-vm
+   - **Source filter**: IPv4 ranges
+   - **Source IPv4 ranges**: 0.0.0.0/0 (internet)
+   - **Protocols and ports**: TCP: 22
+   - **Logs**: Off
+   - Click Create.
 
-    Click Create Firewall Rule for each rule:
+2. Allow HTTP to Public VM (from internet):
+  -  **Name**: allow-http-public
+  - **Network**: ranjitha-tf-vpc
+  -  **Priority**: 1001
+  -  **Direction of traffic**: Ingress
+  -  **Action on match**: Allow
+  -  **Targets**: Specified target tags
+  -  **Target tags**: public-vm
+  -  **Source filter**: IPv4 ranges
+  -  **Source IPv4 ranges**: 0.0.0.0/0
+  -  **Protocols and ports**: TCP: 80
+  -  **Logs**: Off
+  -  Click Create.
 
-    1. Allow SSH to Public VM (from internet):
-        Name: allow-ssh-public
-        Network: ranjitha-tf-vpc
-        Priority: 1000
-        Direction of traffic: Ingress
-        Action on match: Allow
-        Targets: Specified target tags
-        Target tags: public-vm
-        Source filter: IPv4 ranges
-        Source IPv4 ranges: 0.0.0.0/0 (internet)
-        Protocols and ports: TCP: 22
-        Logs: Off
-        Click Create.
+3. Allow Internal Communication (Public <-> Private VM):
+  - **Name**: allow-internal
+  - **Network**: ranjitha-tf-vpc
+  - **Priority**: 1002
+  - **Direction of traffic**: Ingress
+  - **Action on match**: Allow
+  - **Targets**: All instances in the network
+  - **Source filter**: IPv4 ranges
+  - **Source IPv4 ranges**: 10.0.0.0/16 (VPC range)
+  - **Protocols and ports**: All
+  - **Logs**: Off
+  - Click Create.
 
-    2. Allow HTTP to Public VM (from internet):
-        Name: allow-http-public
-        Network: ranjitha-tf-vpc
-        Priority: 1000
-        Direction of traffic: Ingress
-        Action on match: Allow
-        Targets: Specified target tags
-        Target tags: public-vm
-        Source filter: IPv4 ranges
-        Source IPv4 ranges: 0.0.0.0/0
-        Protocols and ports: TCP: 80
-        Logs: Off
-        Click Create.
+4. Allow Private VM to Cloud SQL (MySQL):(**Optional**) refer:3 Targets: All instances in the network.so not necessary.
 
-    3. Allow Internal Communication (Public <-> Private VM):
-        Name: allow-internal
-        Network: ranjitha-tf-vpc
-        Priority: 1000
-        Direction of traffic: Ingress
-        Action on match: Allow
-        Targets: All instances in the network
-        Source filter: IPv4 ranges
-        Source IPv4 ranges: 10.0.0.0/16 (VPC range)
-        Protocols and ports: All
-        Logs: Off
-        Click Create.
+    Name : allow-mysql-access
+    Network : ranjitha-tf-vpc
+    Direction :Ingress
+    Action :Allow
+    Source IP ranges :10.0.0.0/24 (your private VM subnet)
+    Target IP ranges :10.127.0.4/32 (your Cloud SQL IP)
+    Protocols and Ports :tcp:3306
 
-    4. Allow Private VM to Cloud SQL (MySQL):
-        Name: allow-mysql-access
-        Network: ranjitha-tf-vpc
-        Direction: Ingress
-        Action on match: Allow
-        Targets: Specified target tags
-        Target tags: cloud-sql
-        Source filter: IPv4 ranges
-        Source IPv4 ranges: 10.0.2.0/24 (private subnet)
-        Protocols and ports: TCP: 3306
-        Logs: Off
-        Click Create.
 
 4. Cloud Router
 What is it?
