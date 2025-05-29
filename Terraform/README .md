@@ -495,7 +495,9 @@ kubectl apply -f deployment.yaml
  kubectl get service
 ```
     
-### 11. VPN Gateway
+### 11. Connect GCP to AWS Using a VPN Gateway
+
+### Step 1:VPN Gateway
 #### What is it?
 
 - A Cloud VPN Gateway in GCP is a resource that enables secure communication between your GCP VPC and AWS VPC using an IPsec VPN over the internet.
@@ -518,45 +520,43 @@ kubectl apply -f deployment.yaml
  - Save and Continue:
  - Note the public IP address assigned to the GCP VPN Gateway (e.g., 35.200.100.10). You’ll need this for the AWS side.
 
-Step 3: Create a Cloud Router in GCP (for BGP)
-What is it?
+### Step 2: Create a Cloud Router in GCP (for BGP)
+#### What is it?
 
-A Cloud Router in GCP manages dynamic routing (using BGP) between your GCP VPC and AWS VPC. It’s required for dynamic routing and will also be used later for the VPN tunnels.
-Steps:
+- A Cloud Router in GCP manages dynamic routing (using BGP) between your GCP VPC and AWS VPC. It’s required for dynamic routing and will also be used later for the VPN tunnels.
+### Steps in console
 
-    Go to Cloud Routers:
-        Navigate to Hybrid Connectivity > Cloud Routers.
-        Click Create Router.
-    Configure the Cloud Router:
-        Name: gcp-to-aws-router
-        Network: ranjitha-tf-vpc
-        Region: us-central1
-        Google ASN: 64514 (a unique number for BGP; note this for AWS setup)
-        Leave other settings as default.
-    Create:
-        Click Create.
+- Navigate to Hybrid Connectivity > Cloud Routers.
+- Click Create Router.
+- Configure the Cloud Router:
+  - **Name**: gcp-to-aws-router
+  - **Network**: ranjitha-tf-vpc
+  - **Region**: us-central1
+  - **Google ASN**: 64514 (a unique number for BGP; note this for AWS setup)
+  -  Leave other settings as default.
+- Click Create.
 
-Step 4: Create a Peer VPN Gateway in GCP
-What is it?
+### Step 3: Create a Peer VPN Gateway in GCP
+#### What is it?
 
-A Peer VPN Gateway in GCP represents the AWS VPN gateway. It tells GCP where to send VPN traffic (i.e., the public IP of the AWS VPN gateway).
-Steps:
+- A Peer VPN Gateway in GCP represents the AWS VPN gateway. It tells GCP where to send VPN traffic (i.e., the public IP of the AWS VPN gateway).
 
-    Add a Peer VPN Gateway:
-        Go back to Hybrid Connectivity > VPN.
-        Select gcp-to-aws-vpn-gateway.
-        Scroll to Peer VPN Gateways.
-        Click Add Peer VPN Gateway.
-    Configure the Peer VPN Gateway:
-        Name: aws-peer-vpn-gateway
-        Interfaces: Add two interfaces (AWS provides two tunnels for redundancy):
-            Interface 0 IP address: 203.0.113.10 (AWS VPN gateway’s first tunnel IP; placeholder for now, you’ll update this after AWS setup).
-            Interface 1 IP address: 203.0.113.11 (AWS VPN gateway’s second tunnel IP; placeholder for now).
-    Save:
-        Click Save.
-        You’ll update these IPs after setting up the AWS side.
+### Steps in coonsole
 
-Step 5: Create VPN Tunnels in GCP
+- Go back to Hybrid Connectivity > VPN.
+- Select gcp-to-aws-vpn-gateway.
+- Scroll to Peer VPN Gateways.
+- Click Add Peer VPN Gateway.
+- Configure the Peer VPN Gateway:
+   - **Name**: aws-peer-vpn-gateway
+   - **Interfaces**: Add two interfaces (AWS provides two tunnels for redundancy):
+      - Interface 0 IP address: 203.0.113.10 (AWS VPN gateway’s first tunnel IP; placeholder for now, you’ll update this after AWS setup).
+      - Interface 1 IP address: 203.0.113.11 (AWS VPN gateway’s second tunnel IP; placeholder for now).
+    - Save:
+- Cick Save.
+- You’ll update these IPs after setting up the AWS side.
+
+### Step 4: Create VPN Tunnels in GCP
 What is it?
 
 VPN Tunnels are the encrypted connections between the GCP VPN Gateway and the AWS VPN Gateway. AWS provides two tunnels for redundancy, so we’ll create two tunnels in GCP.
