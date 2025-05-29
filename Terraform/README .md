@@ -496,31 +496,27 @@ kubectl apply -f deployment.yaml
 ```
     
 ### 11. VPN Gateway
+#### What is it?
 
-Create a Cloud VPN Gateway in GCP
-What is it?
+- A Cloud VPN Gateway in GCP is a resource that enables secure communication between your GCP VPC and AWS VPC using an IPsec VPN over the internet.
 
-A Cloud VPN Gateway in GCP is a resource that enables secure communication between your GCP VPC and AWS VPC using an IPsec VPN over the internet.
-Steps:
+### Steps in console
 
-    Go to the GCP Console:
-        Navigate to console.cloud.google.com.
-        Select your project (my-first-gcp-project).
-        Go to Hybrid Connectivity > VPN.
-    Create a VPN Connection:
-        Click Create VPN Connection.
-        Choose Classic VPN (simpler for this setup; use HA VPN for high availability if needed).
-    Configure the VPN Gateway:
-        Name: gcp-to-aws-vpn-gateway
-        Network: ranjitha-tf-vpc
-        Region: us-central1
-        IP address: Create a new static IP
-            Click Reserve a new static IP address.
-            Name: gcp-vpn-ip
-            Click Reserve.
-        Leave other settings as default for now.
-    Save and Continue:
-        Note the public IP address assigned to the GCP VPN Gateway (e.g., 35.200.100.10). You’ll need this for the AWS side.
+- Go to Hybrid Connectivity > VPN.
+- Create a VPN Connection:
+   - Click Create VPN Connection.
+   - Choose Classic VPN (simpler for this setup; use HA VPN for high availability if needed).
+ - Configure the VPN Gateway:
+    - Name: gcp-to-aws-vpn-gateway
+    - Network: ranjitha-tf-vpc
+    - Region: us-central1
+    - IP address: Create a new static IP
+    - Click Reserve a new static IP address.
+    - Name: gcp-vpn-ip
+    - Click Reserve.
+    - Leave other settings as default for now.
+ - Save and Continue:
+ - Note the public IP address assigned to the GCP VPN Gateway (e.g., 35.200.100.10). You’ll need this for the AWS side.
 
 Step 3: Create a Cloud Router in GCP (for BGP)
 What is it?
