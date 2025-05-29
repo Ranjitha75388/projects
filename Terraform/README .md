@@ -198,55 +198,55 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 - Go to VPC network > Firewall in the GCP Console.
 
 1. Allow SSH to Public VM (from internet):
-   - **Name**: allow-ssh-public
-   - **Network**: ranjitha-tf-vpc
-   - **Priority**: 1000
-   - **Direction of traffic**: Ingress
-   - **Action on match**: Allow
-   - **Targets**: Specified target tags
-   - **Target tags**: public-vm
-   - **Source filter**: IPv4 ranges
-   - **Source IPv4 ranges**: 0.0.0.0/0 (internet)
-   - **Protocols and ports**: TCP: 22
-   - **Logs**: Off
-   - Click Create.
+ - **Name**: allow-ssh-public
+ - **Network**: ranjitha-tf-vpc
+ - **Priority**: 1000
+ - **Direction of traffic**: Ingress
+ - **Action on match**: Allow
+ - **Targets**: Specified target tags
+ - **Target tags**: public-vm
+ - **Source filter**: IPv4 ranges
+ - **Source IPv4 ranges**: 0.0.0.0/0 (internet)
+ - **Protocols and ports**: TCP: 22
+ - **Logs**: Off
+ - Click Create.
 
 2. Allow HTTP to Public VM (from internet):
-  -  **Name**: allow-http-public
-  - **Network**: ranjitha-tf-vpc
-  -  **Priority**: 1001
-  -  **Direction of traffic**: Ingress
-  -  **Action on match**: Allow
-  -  **Targets**: Specified target tags
-  -  **Target tags**: public-vm
-  -  **Source filter**: IPv4 ranges
-  -  **Source IPv4 ranges**: 0.0.0.0/0
-  -  **Protocols and ports**: TCP: 80
-  -  **Logs**: Off
-  -  Click Create.
+ -  **Name**: allow-http-public
+ - **Network**: ranjitha-tf-vpc
+ -  **Priority**: 1001
+ -  **Direction of traffic**: Ingress
+ -  **Action on match**: Allow
+ -  **Targets**: Specified target tags
+ -  **Target tags**: public-vm
+ -  **Source filter**: IPv4 ranges
+ -  **Source IPv4 ranges**: 0.0.0.0/0
+ -  **Protocols and ports**: TCP: 80
+ -  **Logs**: Off
+ -  Click Create.
 
 3. Allow Internal Communication (Public <-> Private VM):
-  - **Name**: allow-internal
-  - **Network**: ranjitha-tf-vpc
-  - **Priority**: 1002
-  - **Direction of traffic**: Ingress
-  - **Action on match**: Allow
-  - **Targets**: All instances in the network
-  - **Source filter**: IPv4 ranges
-  - **Source IPv4 ranges**: 10.0.0.0/16 (VPC range)
-  - **Protocols and ports**: All
-  - **Logs**: Off
-  - Click Create.
+ - **Name**: allow-internal
+ - **Network**: ranjitha-tf-vpc
+ - **Priority**: 1002
+ - **Direction of traffic**: Ingress
+ - **Action on match**: Allow
+ - **Targets**: All instances in the network
+ - **Source filter**: IPv4 ranges
+ - **Source IPv4 ranges**: 10.0.0.0/16 (VPC range)
+ - **Protocols and ports**: All
+ - **Logs**: Off
+ - Click Create.
 
 4. Allow Private VM to Cloud SQL (MySQL):(**Optional** refer:3 Targets: All instances in the network.so not necessary.)
 
-  - **Name** : allow-mysql-access
-  - **Network** : ranjitha-tf-vpc
-  - **Direction** :Ingress
-  - **Action** :Allow
-  -  **Source IP ranges** :10.0.0.0/24 (your private VM subnet)
-  -  **Target IP ranges** :10.127.0.4/32 (your Cloud SQL IP)
-  -  **Protocols and Ports** :tcp:3306
+- **Name** : allow-mysql-access
+- **Network** : ranjitha-tf-vpc
+- **Direction** :Ingress
+- **Action** :Allow
+-  **Source IP ranges** :10.0.0.0/24 (your private VM subnet)
+-  **Target IP ranges** :10.127.0.4/32 (your Cloud SQL IP)
+-  **Protocols and Ports** :tcp:3306
 
 
 ### 4. Cloud Router
@@ -260,14 +260,14 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 
 ### Steps to Create in Console:
 
- - Go to Hybrid Connectivity > Cloud Routers in the GCP Console.
- - Click Create Router.
- - Fill in:
-    - **Name**: my-router
-    - **Region**: us-central1
-    - **Network**: ranjitha-tf-vpc
-    - **Google ASN**: 64514 (a unique number for BGP routing)
-  -   Click Create.
+- Go to Hybrid Connectivity > Cloud Routers in the GCP Console.
+- Click Create Router.
+- Fill in:
+  - **Name**: my-router
+  - **Region**: us-central1
+  - **Network**: ranjitha-tf-vpc
+  - **Google ASN**: 64514 (a unique number for BGP routing)
+-   Click Create.
 
 ### 5. Cloud NAT (Network Address Translation)
 
@@ -276,20 +276,20 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 - Cloud NAT allows VMs in a private subnet to access the internet (e.g., to download updates) without being accessible from the internet.
 #### How does it work?
 
-  - It translates the private IP of your VM to a public IP for outbound traffic.
-  - Inbound traffic from the internet is blocked, keeping the VM secure.
+- It translates the private IP of your VM to a public IP for outbound traffic.
+- Inbound traffic from the internet is blocked, keeping the VM secure.
 
 ### Steps to Create in Console:
 
-  - Go to VPC network > Cloud NAT in the GCP Console.
-  - Click Create NAT Gateway.
-  - Fill in:
-     - **Name**: my-nat
-     - **Region**: us-central1
-     - **Router**: my-router
-     - **Subnet**: private-subnet
-     - **External IP**: Auto (GCP will assign a public IP)
-  -  Click Create.
+- Go to VPC network > Cloud NAT in the GCP Console.
+- Click Create NAT Gateway.
+- Fill in:
+  - **Name**: my-nat
+  - **Region**: us-central1
+  - **Router**: my-router
+  - **Subnet**: private-subnet
+  - **External IP**: Auto (GCP will assign a public IP)
+-  Click Create.
 
 ### 6. VM (Compute Engine)
 #### What is it?
@@ -302,36 +302,35 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 
 ### Steps to Create in Console:
 
- - Go to Compute Engine > VM instances in the GCP Console.
+- Go to Compute Engine > VM instances in the GCP Console.
+- Click Create Instance.
 
- - Click Create Instance.
+1. Public VM:
+- **Name**: public-vm
+- **Region**: us-central1
+- **Zone**: us-central1-a
+- **Machine type**: e2-micro
+- **Boot disk**: Debian (default)
+- **Firewall**: Check "Allow HTTP" and "Allow SSH"
+- **Networking** > Network interfaces:
+  - **Network**: ranjitha-tf-vpc
+  - **Subnet**: public-subnet
+  - **External IP**: **Ephemeral** (assigns a temporary public IP)
+  - **Network tags**: public-vm
+- Click Create.
 
- 1. Public VM:
-    - **Name**: public-vm
-    - **Region**: us-central1
-    - **Zone**: us-central1-a
-    - **Machine type**: e2-micro
-    - **Boot disk**: Debian (default)
-    - **Firewall**: Check "Allow HTTP" and "Allow SSH"
-    - **Networking** > Network interfaces:
-        - **Network**: ranjitha-tf-vpc
-        - **Subnet**: public-subnet
-        - **External IP**: **Ephemeral** (assigns a temporary public IP)
-        - **Network tags**: public-vm
-    - Click Create.
-
- 2. Private VM:
-    - **Name**: private-vm
-    - **Region**: us-central1
-    - **Zone**: us-central1-a
-    - **Machine type**: e2-micro
-    - **Boot disk**: Debian (default)
-    - **Firewall**: No options needed
-    - **Networking** > Network interfaces:
-         - **Network**: ranjitha-tf-vpc
-         - **Subnet**: private-subnet
-         - **External IP**: **None**
-    - Click Create.
+2. Private VM:
+- **Name**: private-vm
+- **Region**: us-central1
+- **Zone**: us-central1-a
+- **Machine type**: e2-micro
+- **Boot disk**: Debian (default)
+- **Firewall**: No options needed
+- **Networking** > Network interfaces:
+  - **Network**: ranjitha-tf-vpc
+  - **Subnet**: private-subnet
+  - **External IP**: **None**
+- Click Create.
 
 ### 7. Private Service Access
 #### What is it?
@@ -345,22 +344,22 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 ### Steps to Create in Console:
 
 1. Allocate IP Range:
-   - Go to VPC network > VPC networks in the GCP Console.
-   - Click on ranjitha-tf-vpc.
-   - In the left menu, click Private service connection.
-   -  Click Allocate IP range.
-   -  Fill in:
-      -  **Name**: private-service-ip
-      -  **Region**: us-central1
-      -  **IP range**: 10.10.0.0/16 (must not overlap with VPC subnets)
-   - Click Allocate.
+- Go to VPC network > VPC networks in the GCP Console.
+- Click on ranjitha-tf-vpc.
+- In the left menu, click Private service connection.
+- Click Allocate IP range.
+- Fill in:
+  - **Name**: private-service-ip
+  - **Region**: us-central1
+  - **IP range**: 10.10.0.0/16 (must not overlap with VPC subnets)
+- Click Allocate.
  
- 2.Create Private Connection:
-   - On the same page, click Create connection.
-   - Select:
-       - Connected service provider: Google Cloud Platform
-       - Allocated allocation: private-service-ip
-    - Click Create connection.
+2.Create Private Connection:
+- On the same page, click Create connection.
+- Select:
+  - Connected service provider: Google Cloud Platform
+  - Allocated allocation: private-service-ip
+- Click Create connection.
 
 ### 8. Cloud SQL with Private IP
 #### What is it?
@@ -368,32 +367,32 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 - Cloud SQL is a managed database service in GCP (e.g., MySQL, PostgreSQL). Using a private IP ensures it’s only accessible within your VPC.
 #### How does it work?
 
- - You create a database instance and assign it a private IP.
- - It can only be accessed by resources in your VPC (e.g., private VM).
+- You create a database instance and assign it a private IP.
+- It can only be accessed by resources in your VPC (e.g., private VM).
 
 ### Steps to Create in Console:
 
-  - Go to SQL > Create Instance in the GCP Console.
-  - Choose MySQL.
-  - Fill in:
-     -  **Edition Preset**: Production
-     -  **Database Version**: MySQL 8.0
-     -   **Instance ID**: gcp-mysql-db
-     -   **Root Password**: StrongP@ssword123!
-     -   **Region**: us-central1
-     -   **Zonal Availability**: Multiple zones (Highly Available)
-     -   **Machine Type**: N2 - 4 vCPU, 32 GB RAM
-     -   **Storage Type**: SSD
-     -   **Storage Capacity**: 250 GB
-     -   **Enable Automatic Storage Increases**: Yes
-     -   Networking:
-          -  **IP Assignmen**t: Private IP
-          -  **VPC Network**: ranjitha-tf-vpc
-          -  **Private Services Access**: Enabled
-          -  **No Public IP**: Yes (for security)
-          -  **Authorized Networks**: Enable (for SQL Proxy or private access)
-    - Click Create Instance.
-    - Note the private IP (e.g., 10.0.3.10) assigned to the Cloud SQL instance.
+- Go to SQL > Create Instance in the GCP Console.
+- Choose MySQL.
+- Fill in:
+  - **Edition Preset**: Production
+  - **Database Version**: MySQL 8.0
+  - **Instance ID**: gcp-mysql-db
+  - **Root Password**: StrongP@ssword123!
+  - **Region**: us-central1
+  - **Zonal Availability**: Multiple zones (Highly Available)
+  - **Machine Type**: N2 - 4 vCPU, 32 GB RAM
+  - **Storage Type**: SSD
+  - **Storage Capacity**: 250 GB
+  - **Enable Automatic Storage Increases**: Yes
+  -   Networking:
+    - **IP Assignmen**t: Private IP
+    - **VPC Network**: ranjitha-tf-vpc
+    - **Private Services Access**: Enabled
+    - **No Public IP**: Yes (for security)
+    - **Authorized Networks**: Enable (for SQL Proxy or private access)
+- Click Create Instance.
+- Note the private IP (e.g., 10.0.3.10) assigned to the Cloud SQL instance.
 
 Test Connection:
 
