@@ -182,6 +182,11 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 - It uses BGP (Border Gateway Protocol) to advertise routes between networks.
 - It’s required for Cloud NAT to allow private VMs to access the internet.
 
+### Architeture diagram
+
+![image](https://github.com/user-attachments/assets/d9d2c5af-c3c6-4379-9b06-bc4b1234e162)
+
+
 ### Steps to Create in Console:
 
 - Go to Hybrid Connectivity > Cloud Routers in the GCP Console.
@@ -228,6 +233,11 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 
 - You choose the operating system, machine type (e.g., CPU and memory), and network settings.
 - VMs can have external IPs (public) or be internal-only (private).
+
+## Architeture diagram
+
+![image](https://github.com/user-attachments/assets/122a1ead-2efc-48e0-aeef-8ed412a5b389)
+
 
 ### Steps to Create in Console:
 
@@ -303,6 +313,11 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
 
 - You create a database instance and assign it a private IP.
 - It can only be accessed by resources in your VPC (e.g., private VM).
+
+### Architeture diagram
+
+![image](https://github.com/user-attachments/assets/07509304-2a30-43cf-936e-ed2da83b0d9d)
+
 
 ### Steps to Create in Console:
 
@@ -447,7 +462,7 @@ kubectl apply -f deployment.yaml
 
 ### Architeture diagram
 
-![image](https://github.com/user-attachments/assets/5d8c5798-5d5c-469e-a5b5-16a09b8df810)
+![image](https://github.com/user-attachments/assets/655ab5a3-8939-4aa6-8205-48c1f9c4216b)
 
 
 ### Steps in console
