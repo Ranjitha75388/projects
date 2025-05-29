@@ -238,15 +238,15 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
   - **Logs**: Off
   - Click Create.
 
-4. Allow Private VM to Cloud SQL (MySQL):(**Optional**) refer:3 Targets: All instances in the network.so not necessary.
+4. Allow Private VM to Cloud SQL (MySQL):(**Optional** refer:3 Targets: All instances in the network.so not necessary.)
 
-    Name : allow-mysql-access
-    Network : ranjitha-tf-vpc
-    Direction :Ingress
-    Action :Allow
-    Source IP ranges :10.0.0.0/24 (your private VM subnet)
-    Target IP ranges :10.127.0.4/32 (your Cloud SQL IP)
-    Protocols and Ports :tcp:3306
+  - **Name** : allow-mysql-access
+  - **Network** : ranjitha-tf-vpc
+  - **Direction** :Ingress
+  - **Action** :Allow
+  -  **Source IP ranges** :10.0.0.0/24 (your private VM subnet)
+  -  **Target IP ranges** :10.127.0.4/32 (your Cloud SQL IP)
+  -  **Protocols and Ports** :tcp:3306
 
 
 4. Cloud Router
