@@ -291,58 +291,53 @@ Cloud NAT allows VMs in a private subnet to access the internet (e.g., to downlo
      - **External IP**: Auto (GCP will assign a public IP)
   -  Click Create.
 
-6. VM (Compute Engine)
-What is it?
+### 6. VM (Compute Engine)
+#### What is it?
 
-A VM (Virtual Machine) is a computer hosted in the cloud. It can run applications, host websites, or act as a bastion host.
-How does it work?
+- A VM (Virtual Machine) is a computer hosted in the cloud. It can run applications, host websites, or act as a bastion host.
+#### How does it work?
 
-    You choose the operating system, machine type (e.g., CPU and memory), and network settings.
-    VMs can have external IPs (public) or be internal-only (private).
+- You choose the operating system, machine type (e.g., CPU and memory), and network settings.
+- VMs can have external IPs (public) or be internal-only (private).
 
-How is it managed?
+### Steps to Create in Console:
 
-    You manage the VM’s configuration, software, and updates.
-    GCP manages the underlying hardware and virtualization.
+ - Go to Compute Engine > VM instances in the GCP Console.
 
-Steps to Create in Console:
+ - Click Create Instance.
 
-    Go to Compute Engine > VM instances in the GCP Console.
+ 1. Public VM:
+    - **Name**: public-vm
+    - **Region**: us-central1
+    - **Zone**: us-central1-a
+    - **Machine type**: e2-micro
+    - **Boot disk**: Debian (default)
+    - **Firewall**: Check "Allow HTTP" and "Allow SSH"
+    - **Networking** > Network interfaces:
+        - **Network**: ranjitha-tf-vpc
+        - **Subnet**: public-subnet
+        - **External IP**: Ephemeral (assigns a temporary public IP)
+        - **Network tags**: public-vm
+    - Click Create.
 
-    Click Create Instance.
+ 2. Private VM:
+    - **Name**: private-vm
+    - **Region**: us-central1
+    - **Zone**: us-central1-a
+    - **Machine type**: e2-micro
+    - **Boot disk**: Debian (default)
+    - **Firewall**: No options needed
+    - **Networking** > Network interfaces:
+         - **Network**: ranjitha-tf-vpc
+         - **Subnet**: private-subnet
+         - **External IP**: None
+    - Click Create.
 
-    1. Public VM:
-        Name: public-vm
-        Region: us-central1
-        Zone: us-central1-a
-        Machine type: e2-micro
-        Boot disk: Debian (default)
-        Firewall: Check "Allow HTTP" and "Allow SSH"
-        Networking > Network interfaces:
-            Network: ranjitha-tf-vpc
-            Subnet: public-subnet
-            External IP: Ephemeral (assigns a temporary public IP)
-            Network tags: public-vm
-        Click Create.
+### 7. Private Service Access
+#### What is it?
 
-    2. Private VM:
-        Name: private-vm
-        Region: us-central1
-        Zone: us-central1-a
-        Machine type: e2-micro
-        Boot disk: Debian (default)
-        Firewall: No options needed
-        Networking > Network interfaces:
-            Network: ranjitha-tf-vpc
-            Subnet: private-subnet
-            External IP: None
-        Click Create.
-
-7. Private Service Access
-What is it?
-
-Private Service Access allows your VPC to connect to Google services (like Cloud SQL) using private IPs, keeping communication internal and secure.
-How does it work?
+- Private Service Access allows your VPC to connect to Google services (like Cloud SQL) using private IPs, keeping communication internal and secure.
+#### How does it work?
 
     You allocate an IP range for Google services.
     GCP creates a private connection between your VPC and Google services using this range.
