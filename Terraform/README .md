@@ -9,8 +9,8 @@ Google Cloud Platform (GCP) is a powerful suite of cloud computing services prov
 -    **Databases**: Leverage managed database solutions for structured data.
 -    **AI/ML**: Access advanced tools for artificial intelligence and machine learning.
 
-### Architecture diagram 
-
+### Basic Architecture diagram 
+```
 +--------------------+
 |     Internet       |
 +---------+----------+
@@ -89,6 +89,8 @@ Google Cloud Platform (GCP) is a powerful suite of cloud computing services prov
                            |    External Network    |
                            |      (e.g., AWS)       |
                            +------------------------+
+```
+
 ### Prerequisites
 
 #### Step 1: Create a Google Account
