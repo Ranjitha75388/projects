@@ -363,42 +363,37 @@ After creating the VPC, you’ll be prompted to add subnets (or go to the VPC de
     - Click Create connection.
 
 ### 8. Cloud SQL with Private IP
-What is it?
+#### What is it?
 
-Cloud SQL is a managed database service in GCP (e.g., MySQL, PostgreSQL). Using a private IP ensures it’s only accessible within your VPC.
-How does it work?
+- Cloud SQL is a managed database service in GCP (e.g., MySQL, PostgreSQL). Using a private IP ensures it’s only accessible within your VPC.
+#### How does it work?
 
-    You create a database instance and assign it a private IP.
-    It can only be accessed by resources in your VPC (e.g., private VM).
+ - You create a database instance and assign it a private IP.
+ - It can only be accessed by resources in your VPC (e.g., private VM).
 
-How is it managed?
+### Steps to Create in Console:
 
-    GCP manages the database instance, including backups, updates, and scaling.
-    You manage the database schema, users, and access.
-
-Steps to Create in Console:
-
-    Go to SQL > Create Instance in the GCP Console.
-    Choose MySQL.
-    Fill in:
-        Edition Preset: Production
-        Database Version: MySQL 8.0
-        Instance ID: gcp-mysql-db
-        Root Password: StrongP@ssword123!
-        Region: us-central1
-        Zonal Availability: Multiple zones (Highly Available)
-        Machine Type: N2 - 4 vCPU, 32 GB RAM
-        Storage Type: SSD
-        Storage Capacity: 250 GB
-        Enable Automatic Storage Increases: Yes
-        Networking:
-            IP Assignment: Private IP
-            VPC Network: ranjitha-tf-vpc
-            Private Services Access: Enabled
-            No Public IP: Yes (for security)
-            Authorized Networks: Enable (for SQL Proxy or private access)
-    Click Create Instance.
-    Note the private IP (e.g., 10.0.3.10) assigned to the Cloud SQL instance.
+  - Go to SQL > Create Instance in the GCP Console.
+  - Choose MySQL.
+  - Fill in:
+     -  **Edition Preset**: Production
+     -  **Database Version**: MySQL 8.0
+     -   **Instance ID**: gcp-mysql-db
+     -   **Root Password**: StrongP@ssword123!
+     -   **Region**: us-central1
+     -   **Zonal Availability**: Multiple zones (Highly Available)
+     -   **Machine Type**: N2 - 4 vCPU, 32 GB RAM
+     -   **Storage Type**: SSD
+     -   **Storage Capacity**: 250 GB
+     -   **Enable Automatic Storage Increases**: Yes
+     -   Networking:
+          -  **IP Assignmen**t: Private IP
+          -  **VPC Network**: ranjitha-tf-vpc
+          -  **Private Services Access**: Enabled
+          -  **No Public IP**: Yes (for security)
+          -  **Authorized Networks**: Enable (for SQL Proxy or private access)
+    - Click Create Instance.
+    - Note the private IP (e.g., 10.0.3.10) assigned to the Cloud SQL instance.
 
 Test Connection:
 
