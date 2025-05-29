@@ -1,6 +1,91 @@
 
+```
 
-The Artifact Registry in Google Cloud Platform (GCP) is a fully managed service that allows you to store, manage, and secure your software artifacts (such as container images, language packages, and other build artifacts) in a central location.
++--------------------+
+|     Internet       |
++---------+----------+
+          |
+          | (Ingress SSH/HTTP)
+          |
+   +------v-------+
+   |     VPC      |
+   | 10.0.0.0/16  |
+   +---+---+---+--+
+       |   |   |
+       |   |   +-------------------------------+
+       |   |                                   |
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |   Cloud Router    |
+       |   |                         +---------+---------+
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |     Cloud NAT     |
+       |   |                         |    (egress only)  |
+       |   |                         +---------+---------+
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |   Private Subnet   |
+       |   |                         |     10.0.2.0/24    |
+       |   |                         +---------+---------+
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |    Private VM     |
+       |   |                         |   Ext IP: No      |
+       |   |                         |   Int IP: 10.0.2.10|
+       |   |                         +---------+---------+
+       |   |                                   |
+       |   |                         Connect via internal IP
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |     DB Subnet     |
+       |   |                         |     10.0.3.0/24    |
+       |   |                         +---------+---------+
+       |   |                                   |
+       |   |                         +---------v---------+
+       |   |                         |   Cloud SQL DB    |
+       |   |                         |   Int IP only     |
+       |   |                         |    10.0.3.10      |
+       |   |                         +-------------------+
+       |   |
+       |   +---------------------------+
+       |                               |
+       |                               |
+       |                   +-----------v-----------+
+       |                   |    Public Subnet       |
+       |                   |     10.0.1.0/24        |
+       |                   +-----------+-----------+
+       |                               |
+       |                   +-----------v-----------+
+       |                   |      Public VM         |
+       |                   |    Ext IP: Yes         |
+       |                   |    Int IP: 10.0.1.10   |
+       |                   +------------------------+
+       |
+       |                   +------------------------+
+       |                   |      VPN Gateway       |
+       |                   +-----------+------------+
+       |                               |
+       |                   +-----------v------------+
+       |                   |      VPN Tunnel        |
+       |                   +-----------+------------+
+       |                               |
+       +------------------+------------+------------+
+                          |   BGP Session           |
+                          |  (Dynamic Routing)     |
+                          +------------+------------+
+                                       |
+                           +-----------v------------+
+                           |    External Network    |
+                           |      (e.g., AWS)       |
+                           +------------------------+
+
+
+```
+
+The
+
+ Artifact Registry in Google Cloud Platform (GCP) is a fully managed service that allows you to store, manage, and secure your software artifacts (such as container images, language packages, and other build artifacts) in a central location.
 
 Use Cases:
 
