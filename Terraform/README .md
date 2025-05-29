@@ -589,33 +589,33 @@ kubectl apply -f deployment.yaml
   - **Cloud Router**: gcp-to-aws-router
 - Click Create.
 
-Step 6: Configure BGP Sessions in GCP
-What is it?
+### Step 5: Configure BGP Sessions in GCP
+#### What is it?
 
-BGP (Border Gateway Protocol) allows your GCP VPC and AWS VPC to dynamically exchange routes, so resources in both networks can communicate seamlessly.
-Steps:
+- BGP (Border Gateway Protocol) allows your GCP VPC and AWS VPC to dynamically exchange routes, so resources in both networks can communicate seamlessly.
 
-    Go to Cloud Routers:
-        Navigate to Hybrid Connectivity > Cloud Routers.
-        Click on gcp-to-aws-router.
-    Add BGP Session for the First Tunnel:
-        Under BGP Sessions, click Add BGP Session.
-        Name: gcp-to-aws-bgp-1
-        Peer ASN: 65001 (AWS default ASN; confirm this in AWS later)
-        Peer IP Address: 169.254.1.2 (AWS side BGP IP)
-        Cloud Router IP Address: 169.254.1.1 (GCP side BGP IP)
-        Advertised Route Priority: 100
-        Click Save.
-    Add BGP Session for the Second Tunnel:
-        Click Add BGP Session again.
-        Name: gcp-to-aws-bgp-2
-        Peer ASN: 65001
-        Peer IP Address: 169.254.2.2 (AWS side BGP IP for second tunnel)
-        Cloud Router IP Address: 169.254.2.1 (GCP side BGP IP)
-        Advertised Route Priority: 100
-        Click Save.
+### Steps in console
 
-Step 7: Configure the AWS Side
+- Navigate to Hybrid Connectivity > Cloud Routers.
+- Click on gcp-to-aws-router.
+- Add BGP Session for the First Tunnel:
+- Under BGP Sessions, click Add BGP Session.
+   - **Name**: gcp-to-aws-bgp-1
+   - **Peer ASN**: 65001 (AWS default ASN; confirm this in AWS later)
+   - **Peer IP Address**: 169.254.1.2 (AWS side BGP IP)
+   - **Cloud Router IP Address**: 169.254.1.1 (GCP side BGP IP)
+   - **Advertised Route Priority**: 100
+ - Click Save.
+ - Add BGP Session for the Second Tunnel:
+ - Click Add BGP Session again.
+   - **Name**: gcp-to-aws-bgp-2
+   - **Peer ASN**: 65001
+   - **Peer IP Address**: 169.254.2.2 (AWS side BGP IP for second tunnel)
+   - **Cloud Router IP Address**: 169.254.2.1 (GCP side BGP IP)
+   - **Advertised Route Priority**: 100
+ - Click Save.
+
+### Step 7: Configure the AWS Side
 
 Now, set up the VPN connection in AWS to connect to the GCP VPN Gateway.
 Step 7.1: Create a Customer Gateway in AWS
