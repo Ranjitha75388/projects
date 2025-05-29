@@ -618,6 +618,13 @@ kubectl apply -f deployment.yaml
 ### Step 6: Configure the AWS Side
 
 Now, set up the VPN connection in AWS to connect to the GCP VPN Gateway.
+AWS prerequesties Setup:
+
+- An AWS account.
+- An AWS VPC (e.g., aws-vpc) with CIDR 172.31.0.0/16.
+- A subnet in AWS (e.g., aws-subnet at 172.31.1.0/24).
+- An EC2 instance in the subnet for testing (e.g., at 172.31.1.10).
+  
 #### Step 6.1: Create a Customer Gateway in AWS
 
 - Go to VPC > Customer Gateways.
