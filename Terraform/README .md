@@ -45,89 +45,6 @@ Google Cloud Platform (GCP) is a powerful suite of cloud computing services prov
 ```
  gcloud init
 ```
-### Basic workflow diagram for vpc
-```
-+--------------------+
-|     Internet       |
-+---------+----------+
-          |
-          | (Ingress SSH/HTTP)
-          |
-   +------v-------+
-   |     VPC      |
-   | 10.0.0.0/16  |
-   +---+---+---+--+
-       |   |   |
-       |   |   +-------------------------------+
-       |   |                                   |
-       |   |                                   |
-       |   |                         +---------v---------+
-       |   |                         |   Cloud Router    |
-       |   |                         +---------+---------+
-       |   |                                   |
-       |   |                         +---------v---------+
-       |   |                         |     Cloud NAT     |
-       |   |                         |    (egress only)  |
-       |   |                         +---------+---------+
-       |   |                                   |
-       |   |                         +---------v---------+
-       |   |                         |   Private Subnet   |
-       |   |                         |     10.0.2.0/24    |
-       |   |                         +---------+---------+
-       |   |                                   |
-       |   |                         +---------v---------+
-       |   |                         |    Private VM     |
-       |   |                         |   Ext IP: No      |
-       |   |                         |   Int IP: 10.0.2.10|
-       |   |                         +---------+---------+
-       |   |                                   |
-       |   |                         Connect via internal IP
-       |   |                                   |
-       |   |                         +---------v---------+
-       |   |                         |     DB Subnet     |
-       |   |                         |     10.0.3.0/24    |
-       |   |                         +---------+---------+
-       |   |                                   |
-       |   |                         +---------v---------+
-       |   |                         |   Cloud SQL DB    |
-       |   |                         |   Int IP only     |
-       |   |                         |    10.0.3.10      |
-       |   |                         +-------------------+
-       |   |
-       |   +---------------------------+
-       |                               |
-       |                               |
-       |                   +-----------v-----------+
-       |                   |    Public Subnet       |
-       |                   |     10.0.1.0/24        |
-       |                   +-----------+-----------+
-       |                               |
-       |                   +-----------v-----------+
-       |                   |      Public VM         |
-       |                   |    Ext IP: Yes         |
-       |                   |    Int IP: 10.0.1.10   |
-       |                   +------------------------+
-       |
-       |                   +------------------------+
-       |                   |      VPN Gateway       |
-       |                   +-----------+------------+
-       |                               |
-       |                   +-----------v------------+
-       |                   |      VPN Tunnel        |
-       |                   +-----------+------------+
-       |                               |
-       +------------------+------------+------------+
-                          |   BGP Session           |
-                          |  (Dynamic Routing)     |
-                          +------------+------------+
-                                       |
-                           +-----------v------------+
-                           |    External Network    |
-                           |      (e.g., AWS)       |
-                           +------------------------+
-```
-
-
 ##  Resource Setup
 ### 1. VPC (Virtual Private Cloud)
    
@@ -139,6 +56,11 @@ Google Cloud Platform (GCP) is a powerful suite of cloud computing services prov
 -  You define an IP range for the VPC (e.g., 10.0.0.0/16), and all resources inside it can communicate securely.
 -  You can create subnets within the VPC for better organization and security.
 -  It isolates your resources from other GCP projects and the public internet unless explicitly allowed.
+
+### Architecture diagram
+
+![image](https://github.com/user-attachments/assets/8d540a82-0b70-445b-b258-0b412b26bb1c)
+
 
 ### Steps to Create in Console:
 
