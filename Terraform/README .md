@@ -675,86 +675,87 @@ Now, set up the VPN connection in AWS to connect to the GCP VPN Gateway.
 
 #### Step 6.4: Update GCP Peer VPN Gateway with AWS IPs
 
-    Go Back to GCP:
-        Navigate to Hybrid Connectivity > VPN.
-        Select gcp-to-aws-vpn-gateway.
-        Edit the Peer VPN Gateway (aws-peer-vpn-gateway).
-    Update IPs:
-        Interface 0 IP address: 203.0.113.10 (AWS Tunnel 1 IP)
-        Interface 1 IP address: 203.0.113.11 (AWS Tunnel 2 IP)
-        Click Save.
-    Update VPN Tunnels:
-        Edit gcp-to-aws-tunnel-1:
-            Remote Peer IP Address: 203.0.113.10
-        Edit gcp-to-aws-tunnel-2:
-            Remote Peer IP Address: 203.0.113.11
-        Click Save for each tunnel.
+- Go Back to GCP:
+- Navigate to Hybrid Connectivity > VPN.
+- Select gcp-to-aws-vpn-gateway.
+- Edit the Peer VPN Gateway (aws-peer-vpn-gateway).
+- Update IPs:
+   - Interface 0 IP address: 203.0.113.10 (AWS Tunnel 1 IP)
+   - Interface 1 IP address: 203.0.113.11 (AWS Tunnel 2 IP)
+   - Click Save.
+- Update VPN Tunnels:
+   - Edit gcp-to-aws-tunnel-1:
+     Remote Peer IP Address: 203.0.113.10
+   - Edit gcp-to-aws-tunnel-2:
+     Remote Peer IP Address: 203.0.113.11
+- Click Save for each tunnel.
 
-Step 8: Configure Firewall Rules and Security Groups
-In GCP:
-Allow Traffic from AWS VPC:
-        Go to VPC network > Firewall.
-        Click Create Firewall Rule.
-        Name: allow-gcp-to-aws
-        Network: ranjitha-tf-vpc
-        Direction: Ingress
-        Action: Allow
-        Targets: All instances in the network
-        Source IPv4 ranges: 172.31.0.0/16 (AWS VPC CIDR)
-        Protocols and ports: All
-        Click Create.
-    Allow VPN Traffic:
-        Create another rule:
-            Name: allow-vpn-traffic
-            Network: ranjitha-tf-vpc
-            Direction: Ingress
-            Action: Allow
-            Source IPv4 ranges: 203.0.113.10, 203.0.113.11 (AWS VPN IPs)
-            Protocols and ports: UDP: 500 (IKE), Protocol 50 (ESP)
-            Click Create.
+### Step 8: Configure Firewall Rules and Security Groups
+### In GCP:
+1.Allow Traffic from AWS VPC:
+- Go to VPC network > Firewall.
+- Click Create Firewall Rule.
+- Name: allow-gcp-to-aws
+- Network: ranjitha-tf-vpc
+- Direction: Ingress
+- Action: Allow
+- Targets: All instances in the network
+- Source IPv4 ranges: 172.31.0.0/16 (AWS VPC CIDR)
+- Protocols and ports: All
+- Click Create.
+2. Allow VPN Traffic:
+- Create another rule:
+- Name: allow-vpn-traffic
+- Network: ranjitha-tf-vpc
+- Direction: Ingress
+- Action: Allow
+- Source IPv4 ranges: 203.0.113.10, 203.0.113.11 (AWS VPN IPs)
+- Protocols and ports: UDP: 500 (IKE), Protocol 50 (ESP)
+- Click Create.
 
-In AWS:
+### In AWS:
 
-    Update Security Group for the EC2 Instance:
-        Go to EC2 > Security Groups.
-        Select the security group for your EC2 instance.
-        Add an inbound rule:
-            Type: All Traffic
-            Source: 10.0.0.0/16 (GCP VPC CIDR)
-            Save.
-    Update Network ACLs (if needed):
-        Go to VPC > Network ACLs.
-        Select the NACL for your AWS VPC.
-        Add inbound and outbound rules:
-            Allow traffic from 10.0.0.0/16 on all ports.
+- Update Security Group for the EC2 Instance:
+-  Go to EC2 > Security Groups.
+- Select the security group for your EC2 instance.
+- Add an inbound rule:
+- Type: All Traffic
+- Source: 10.0.0.0/16 (GCP VPC CIDR)
+- Save.
+- Update Network ACLs (if needed):
+- Go to VPC > Network ACLs.
+- Select the NACL for your AWS VPC.
+- Add inbound and outbound rules:
+- Allow traffic from 10.0.0.0/16 on all ports.
 
-Step 9: Test the VPN Connection
+### Step 9: Test the VPN Connection
 
-    Check VPN Tunnel Status in GCP:
-        Go to Hybrid Connectivity > VPN.
-        Select gcp-to-aws-vpn-gateway.
-        Check the status of gcp-to-aws-tunnel-1 and gcp-to-aws-tunnel-2.
-        Both should show Tunnel Established.
-    Check BGP Status in GCP:
-        Go to Hybrid Connectivity > Cloud Routers.
-        Select gcp-to-aws-router.
-        Check the status of gcp-to-aws-bgp-1 and gcp-to-aws-bgp-2.
-        Both should show BGP Established.
-    Check VPN Status in AWS:
-        Go to VPC > Site-to-Site VPN Connections.
-        Select aws-to-gcp-vpn.
-        Check the status of both tunnels (should be Up).
-    Test Connectivity:
-        From your GCP VM (private-vm at 10.0.2.10):
-        text
-
+1. Check VPN Tunnel Status in GCP:
+  - Go to Hybrid Connectivity > VPN.
+  - Select gcp-to-aws-vpn-gateway.
+  - Check the status of gcp-to-aws-tunnel-1 and gcp-to-aws-tunnel-2.
+  -  Both should show Tunnel Established.
+2. Check BGP Status in GCP:
+  - Go to Hybrid Connectivity > Cloud Routers.
+  - Select gcp-to-aws-router.
+  - Check the status of gcp-to-aws-bgp-1 and gcp-to-aws-bgp-2.
+  - Both should show BGP Established.
+3. Check VPN Status in AWS:
+  - Go to VPC > Site-to-Site VPN Connections.
+  - Select aws-to-gcp-vpn.
+  - Check the status of both tunnels (should be Up).
+4. Test Connectivity:
+-  From your GCP VM (private-vm at 10.0.2.10):
+```
 ping 172.31.1.10
 (Replace 172.31.1.10 with your AWS EC2 instance’s private IP.)
-From your AWS EC2 instance:
-text
+```
+- From your AWS EC2 instance:
+```
 ping 10.0.2.10
+```
 If pings fail, check:
 
-    Firewall rules in GCP and security groups in AWS.
-    Route tables in both GCP and AWS to ensure routes are propagated.
+- Firewall rules in GCP and security groups in AWS.
+- Route tables in both GCP and AWS to ensure routes are propagated.
 
