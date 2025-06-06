@@ -405,3 +405,54 @@ Click Attach policy.
 ```
 aws secretsmanager get-secret-value --secret-id your-secret-name --region us-east-1
 ```
+
+#### Step 3: Create secret.sh Script on EC2
+```
+nano secret.sh
+```
+Paste this:
+```
+#!/bin/bash
+
+# Get secrets from AWS
+SECRET_JSON=$(aws secretsmanager get-secret-value \
+  --secret-id ems-secret-manager \
+  --region us-east-1 \
+  --query SecretString \
+  --output text)
+
+# Parse with jq
+export SPRING_DATASOURCE_URL=$(echo $SECRET_JSON | jq -r .SPRING_DATASOURCE_URL)
+export SPRING_DATASOURCE_USERNAME=$(echo $SECRET_JSON | jq -r .SPRING_DATASOURCE_USERNAME)
+export SPRING_DATASOURCE_PASSWORD=$(echo $SECRET_JSON | jq -r .SPRING_DATASOURCE_PASSWORD)
+
+# Run Docker Compose
+docker compose up -d
+```
+Make it executable:
+```
+chmod +x secret.sh
+```
+✅ Step 4: Update docker-compose.yml
+
+Your docker-compose.yml should have:
+```
+services:
+  backend:
+    image: 179859935027.dkr.ecr.us-east-1.amazonaws.com/ems-backend:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL
+      - SPRING_DATASOURCE_USERNAME
+      - SPRING_DATASOURCE_PASSWORD
+    networks:
+      - ems-ops
+```
+
+✅ Step 5: Ensure jq is Installed
+
+sudo apt update
+sudo apt install jq -y
+
+- Run the docker compose up command without "sudo"
