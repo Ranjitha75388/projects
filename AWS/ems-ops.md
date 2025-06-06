@@ -194,7 +194,47 @@ spring.jpa.hibernate.ddl-auto=${SPRING_JPA_HIBERNATE_DDL_AUTO:update}  # Default
 mysql -h <RDS-endpoint> -P 3306 -u <username> -p
 ```
 9.Create docker-compose.yml file
-``
+```
+version: '3.8'
+ 
+services:
+  frontend:
+    build:
+      context: ./react-hooks-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://54.165.120.121:8080
+    depends_on:
+      - backend
+    networks:
+      - ems-ops
+ 
+  backend:
+    build:
+      context: ./springboot-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database-1.c0n8mseiazqy.us-east-1.rds.amazonaws.com:3306/ems?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin2000
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - ems-ops
+ 
+ 
+networks:
+  ems-ops:  # Let Docker create and manage this network
+    driver: bridge
+```
+10.Build and run the image
+```
+docker compose -f docker-compose.yml build
+docker compose -f docker-compose.yml up -d
+```
 
 
 
