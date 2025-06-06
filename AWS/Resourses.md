@@ -201,79 +201,59 @@ This defines which EC2 instances the ALB will forward traffic to.
 
 - Availability Zones: Select at least 2 subnets in same VPC
 
-Click Next: Configure Security Settings
+- Click Next: Configure Security Settings
 
+#### Configure Security Group for ALB
 
+- Create or select a Security Group for ALB
 
+  - Allow inbound HTTP (port 80) from anywhere (0.0.0.0/0)
 
+  - Click Next: Configure Routing
 
+#### Configure Routing
 
+- Target group: Choose the one you created earlier
 
+- Click Next: Register Targets
 
+- Click Next, then Create
 
+#### Test the Load Balancer
 
+- Go to Load Balancers
 
+- Select your ALB → Description tab → copy the DNS name
 
+- Paste it in your browser:
+```
+http://<your-alb-dns-name>
+```
+![image](https://github.com/user-attachments/assets/3c6ac372-4d08-4514-935f-6b8b6e416455)
 
+### 8.Create RDS Database
 
+-Search for RDS.
+- Click Create database.
+- Under Database creation method, choose:
+    - Standard create
+- Engine options:MySQL.
+- Version:latest MySQL version.
+- Templates: Free tier (if eligible) or Production/Dev.
+- DB Instance Identifier:
+    - Example: RDS-database
+- Credentials:
+   - Master Username: admin
+   - Master Password: yourpassword
+   - Confirm Password
+- DB instance size:Free tier: db.t3.micro
+- Storage:Leave default (e.g., 20 GB)
+- Connectivity:
+    - VPC: Select existing 
+    - Subnet group: auto create
+    - Public access: Yes
+- VPC security group:
+    - Inbound rule allow port 3306 (MySQL) to EC2 instance public IP
 
-
-
-
-
-
-
-
-
-
-Create Application Load Balancer
-Distributes traffic to multiple EC2 instances in your VPC.
-
-#### Steps in console
-
-- Go to EC2 --> Load Balancers → Create
-
-- Name: my-alb
-
-- Scheme: Internet-facing
-
-- VPC: my-vpc
-
-- Select public-subnet
-
-- Security group: Allow HTTP (80)
-
-- Listener: HTTP → Forward to Target Group
-
-🔹 8. 
-
-🔹 9. Create RDS Database
-
-    Go to RDS → Databases → Create database
-
-    Choose:
-
-        Engine: MySQL/PostgreSQL
-
-        DB instance: db.t3.micro
-
-        Storage: 20 GB
-
-    DB name, username, and password
-
-    VPC: my-vpc
-
-    Subnet group: create one using private-subnet
-
-    Public access: NO
-
-    Security group:
-
-        Inbound: allow MySQL/PostgreSQL port (e.g., 3306) from EC2 SG
-
-🔹 10. Test Everything
-
-    Open ALB DNS in browser → should load your EC2 app.
-
-    From EC2, try connecting to RDS (e.g., via MySQL CLI or app).
+- Click Create database
 
