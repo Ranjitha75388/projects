@@ -257,3 +257,24 @@ http://<your-alb-dns-name>
 
 - Click Create database
 
+
+
+IAM permission for ECR 
+
+- Go to EC2 --> Select your instance --> Actions -->Security --> Modify IAM role
+- Create new IAM role --> Create role
+  - Trusted entity type: AWS service
+  - Service or use case : EC2
+  - next
+  - search for EC2 --> click AmazonEC2ContainerRegistryFullAccess --> next
+  - role name: ecr to ec2 connection.
+  - create role.
+- Back to Modify IAM role page.
+- Refresh --> choose "ecr to ec2 connection" -- update an IAM role.
+
+GO to ECR 
+- Create repository :ems-frontend
+- choose repository ems-frontend
+- at top click view push commands.
+- point 1:authentication copy the command and run in ec2 Instance.
+  
