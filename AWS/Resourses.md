@@ -256,8 +256,43 @@ http://<your-alb-dns-name>
     - Inbound rule allow port 3306 (MySQL) to EC2 instance public IP
 
 - Click Create database
-
-
+- Docker compose.yml
+```
+version: '3.8'
+ 
+services:
+  frontend:
+    build:
+      context: ./react-hooks-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://18.204.206.240:8080
+    depends_on:
+      - backend
+    networks:
+      - ems-ops
+ 
+  backend:
+    build:
+      context: ./springboot-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database-2.cpkcgnnx2rja.us-east-1.rds.amazonaws.com:3306/ems?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin12345678
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - ems-ops
+ 
+ 
+networks:
+  ems-ops:  # Let Docker create and manage this network
+    driver: bridge
+```
 
 IAM permission for ECR 
 
@@ -277,4 +312,73 @@ GO to ECR
 - choose repository ems-frontend
 - at top click view push commands.
 - point 1:authentication copy the command and run in ec2 Instance.
+
+- ![image](https://github.com/user-attachments/assets/932bb365-24e4-4450-947f-234fba0e5341)
+
+
+Before that ssh to EC2 instance 
+Install CLI command
+Update the System
+
+sudo apt update -y
+sudo apt upgrade -y
+
+✅ Step 3: Install Required Tools
+Install unzip (required to unzip the CLI installer)
+
+sudo apt install unzip -y
+
+✅ Step 4: Download AWS CLI v2 Installer
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+✅ Step 5: Unzip the Installer
+
+unzip awscliv2.zip
+
+✅ Step 6: Run the Installer
+
+sudo ./aws/install
+
+✅ Step 7: Verify the Installation
+
+aws --version
+
+_ Run the authentication command
+- build the docker image from Dockerfile directory.
+- tag and push the image as command shown in image.
+- And then in docker-complose.yml change to pull image from ECR.
+```
+version: '3.8'
+
+services:
+  frontend:
+    image: 179859935027.dkr.ecr.us-east-1.amazonaws.com/ems-frontend:latest
+    ports:
+      - "5000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://18.204.206.240:8080
+    depends_on:
+      - backend
+    networks:
+      - ems-ops
+
+  backend:
+    image: 179859935027.dkr.ecr.us-east-1.amazonaws.com/ems-backend:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database-2.cpkcgnnx2rja.us-east-1.rds.amazonaws.com:3306/ems?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin12345678
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - ems-ops
+
+networks:
+  ems-ops:
+    driver: bridge
+```
+- by using ALB we access access in browser.
+
   
