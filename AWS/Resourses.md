@@ -381,4 +381,27 @@ networks:
 ```
 - by using ALB we access access in browser.
 
+
+
+
+  ## Secrets manager
+  1.create secrets manager using other type database
+  store
+  2.IAM permission give secrets ec2 -->modify IAM role
   
+  Go to the IAM Console → Roles.
+
+Find and click on the role attached to your EC2 instance.
+
+Go to the Permissions tab.
+
+Click Add permissions > Attach policies.
+
+Search and select SecretsManagerReadWrite (or create a custom policy—see below).
+
+Click Attach policy.
+
+3.verify from ec2
+```
+aws secretsmanager get-secret-value --secret-id your-secret-name --region us-east-1
+```
