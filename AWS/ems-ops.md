@@ -236,15 +236,70 @@ docker compose -f docker-compose.yml build
 docker compose -f docker-compose.yml up -d
 ```
 
+## Create Application Load Balancer
 
+#### 1.Create a Target Group
 
+- Go to EC2 → Load Balancing → Target Groups
 
+- Click Create Target Group
 
+   - Target type: Instances
 
+   - Protocol: HTTP
 
+   - Port: 80
 
+   - VPC: Select same VPC as your EC2(Default VPC)
 
+- Click Next
 
+- In Register Targets, select your EC2 instance
+
+- Click Include as pending below
+
+- Click Create Target Group
+
+#### 2.Create an Application Load Balancer
+
+- Go to EC2 → Load Balancing → Load Balancers
+
+- Click Create Load Balancer → Application Load Balancer
+
+   - Name it (e.g., my-alb)
+
+   - Scheme: Internet-facing (for public)
+
+   - IP type: IPv4
+
+- Network mapping
+
+   - VPC: Select Default VPC.Listeners: HTTP on port 80
+
+   - Availability Zones: Select at least 2 subnets in same VPC
+
+- Create or select a Security Group for ALB
+
+   - Allow inbound HTTP (port 80) from anywhere (0.0.0.0/0)
+
+- Listeners and routing
+   - Listener: HTTP (Port 80)
+   - Default action:Select Target group created above.
+
+- Click create Load Balancer.
+
+#### 3.Test the Load Balancer
+
+- Go to Load Balancers.
+
+- Health checks in the target group must succeed.
+
+- Select the ALB → Description tab → copy the DNS name.
+
+- Paste it in your browser:
+```
+http://<your-alb-dns-name>
+```
 
 
 
