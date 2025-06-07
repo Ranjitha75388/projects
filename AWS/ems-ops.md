@@ -431,13 +431,15 @@ To securely manage your database credentials and other sensitive information, yo
 - **(OPTION-2)** Select secret type
      - choose "**Credential for Amazon RDS Database**"
      - Credentials
-         - Username
+         - Username:admin
          - Password:admin12345678
-      - Database:Select above created RDS database 
+      - Database:Select above created RDS database
+      
 - **(OPTION-3)** Select secret type
      - While creating RDS database
            - **Credentials management** :Selecct Managed in AWS secret manager
      - Automatically new secret add in secrets manager.
+     - To check secret values click created secrets ---> overview--> secret value --> Retrive secret value.
   ![image](https://github.com/user-attachments/assets/0e230c05-f134-41ff-9278-2c20bc4e59c3)
 
 
