@@ -44,7 +44,7 @@
 
 - ####  Network settings
   - Select Default VPC.
-  - Select Default public subnet.
+  - Select Default public subnet-2.
   - **Auto-assign public IP**:Enable.
   - **Firewall**:Select Existing security group --> Default
 
@@ -87,7 +87,15 @@
    - **Public access**: Yes
 - **VPC security group**:
    - Select Default security group ,add allow port 3306 (MySQL) inbound access from Your EC2 instance's public IP
-- Click **create Datebase**.  
+- Click **create Datebase**.
+
+![image](https://github.com/user-attachments/assets/1d2a3e3f-43ae-44bf-b3e5-0a522c90d03c)
+
+
+- Login to MYSQL Database fromEC2 Instance.
+```
+mysql -h <RDS-endpoint> -P 3306 -u <username> -p
+```
 ---------------------------------------------------------------------------------------------------------------------------
 
 ### **Step 7**:Dockeriznig the Application
@@ -240,10 +248,6 @@ networks:
 docker compose -f docker-compose.yml build
 docker compose -f docker-compose.yml up -d
 ```
-10.Login to MYSQL Database
-```
-mysql -h <RDS-endpoint> -P 3306 -u <username> -p
-```
 -------------------------------------------------------------------------------------------------------------------------
 
 ### **Step 8**:Create **Application Load Balancer**
@@ -296,7 +300,7 @@ mysql -h <RDS-endpoint> -P 3306 -u <username> -p
 
    - **VPC**: Select Default VPC.Listeners: HTTP on port 80
 
-   - **Availability Zones**: Select at least 2 subnets in same VPC
+   - **Availability Zones**: Select at least 2 subnets in same VPC 
 
 - Create or select a **Security Group** for ALB
 
@@ -499,7 +503,85 @@ services:
     networks:
       - ems-ops
 ```
+----------------------------------------------------------------------------------------------------------------
 
+### 11.Crete Auto Scaling Group
+
+#### STEP 1: Create an AMI from Your EC2 Instance
+
+This captures your EC2 setup so that Auto Scaling can create identical instances.
+
+- Go to EC2 Dashboard.
+
+- Select your EC2 instance.
+
+- Click Actions > Image and templates > Create Image.
+
+- Name: ems-app-ami) and click Create Image.
+
+- This takes a few minutes. Note the **AMI ID** (e.g., ami-0abcd1234efgh5678).
+
+#### STEP 2: Create a Launch Template (RECOMMENDED)
+
+This template tells ASG how to launch new EC2s.
+
+- Go to EC2 > Launch Templates > Create Launch Template
+
+- Name: ems-launch-template
+
+- AMI ID: Use the one from step 1.
+
+- Instance type: e.g., t3.medium
+
+- Key Pair: Optional for SSH
+
+- Security Group: Same as your current EC2
+
+- IAM Role: Must allow ECR, Secrets Manager, etc.
+
+- Click Create Launch Template
+
+#### STEP 3: Create an Auto Scaling Group (ASG)
+
+- Go to EC2 > Auto Scaling Groups > Create Auto Scaling group
+
+- Name: ems-asg
+
+- Launch template: Select the one you just created
+
+- Network settings: Select VPC and Subnets where the EC2 should be deployed
+
+- Load Balancer:Select Application Load Balancer created above
+        
+- Group size:
+
+    - Min: 1
+
+    - Desired: 2
+
+    - Max: 5
+
+ - Scaling policies:
+
+     - Choose "Target tracking scaling policy"
+
+     - Metric: Average CPU utilization
+
+      - Target value: 50% or based on your need
+
+- Click Create Auto Scaling Group.
+
+#### STEP 4: Test Auto Scaling
+
+- Run the application using Application loadbalancer.
+
+- Check by:
+
+    - Increasing load (CPU stress).
+
+    -  Stopping an instance to see if it auto-replaces.
+
+    - Watching the ASG dashboard.
 
 
 
