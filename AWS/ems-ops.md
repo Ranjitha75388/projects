@@ -393,9 +393,78 @@ networks:
 ```
 - By using ALB we can access application in browser.
 
+--------------------------------------------------------------------------------------------------------------------------------------
 
- 
+### Step 10:Create Secrets in AWS Secrets Manager
+To securely manage your database credentials and other sensitive information, you can use AWS Secrets Manager.
 
+#### 1.IAM permission for Secrets manager.
+
+- Go to EC2 --> Select your instance --> Actions -->Security --> Modify IAM role
+- Create new IAM role --> Create role
+  - **Trusted entity type**: AWS service
+  - **Service or use case** : EC2
+  - Click **Next**
+  - Search for secret --> SecretsManagerReadWrite  --> Next
+  - **Role name**: secrets to ec2 connection.
+  - create role.
+  - Back to Modify IAM role page.
+- Refresh --> choose "secrets to ec2 connection" --> update an IAM role.
+
+#### 2.    Go to AWS Secrets Manager.
+
+    Click "Store a new secret".
+
+2. Select secret type
+
+    Choose "Other type of secret".
+
+    Enter key-value pairs like:
+
+        SPRING_DATASOURCE_URL : jdbc:mysql://database-2.cpkcgnnx2rja.us-east-1.rds.amazonaws.com:3306/ems?useSSL=false&allowPublicKeyRetrieval=true
+
+        SPRING_DATASOURCE_USERNAME : admin
+
+        SPRING_DATASOURCE_PASSWORD : admin12345678
+
+        SPRING_JPA_HIBERNATE_DDL_AUTO : update
+
+3. Secret name
+
+    Example: ems-app/mysql-creds
+
+4. Next steps
+
+    Optionally enable automatic rotation.
+
+    Choose IAM permissions as needed (we’ll cover access in a minute).
+
+    Click Store.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+verify from ec2
+```
+aws secretsmanager get-secret-value --secret-id your-secret-name --region us-east-1
+```
 
 
 
