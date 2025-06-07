@@ -411,65 +411,92 @@ To securely manage your database credentials and other sensitive information, yo
   - Back to Modify IAM role page.
 - Refresh --> choose "secrets to ec2 connection" --> update an IAM role.
 
-#### 2.    Go to AWS Secrets Manager.
+#### 2.Create secret manager
 
-    Click "Store a new secret".
+- Go to **Secrets Manager**.
 
-2. Select secret type
+- Click "**Store a new secret**".
 
-    Choose "Other type of secret".
+- (**OPTION-1**)Select secret type 
 
-    Enter key-value pairs like:
+    - Choose "**Other type of secret**".
 
-        SPRING_DATASOURCE_URL : jdbc:mysql://database-2.cpkcgnnx2rja.us-east-1.rds.amazonaws.com:3306/ems?useSSL=false&allowPublicKeyRetrieval=true
-
-        SPRING_DATASOURCE_USERNAME : admin
-
-        SPRING_DATASOURCE_PASSWORD : admin12345678
-
-        SPRING_JPA_HIBERNATE_DDL_AUTO : update
-
-3. Secret name
-
-    Example: ems-app/mysql-creds
-
-4. Next steps
-
-    Optionally enable automatic rotation.
-
-    Choose IAM permissions as needed (we’ll cover access in a minute).
-
-    Click Store.
-
+    - Enter key-value pairs like:
+```
+ SPRING_DATASOURCE_URL : jdbc:mysql://database-2.cpkcgnnx2rja.us-east-1.rds.amazonaws.com:3306/ems?useSSL=false&allowPublicKeyRetrieval=true
+ SPRING_DATASOURCE_USERNAME : admin
+ SPRING_DATASOURCE_PASSWORD : admin12345678
+ SPRING_JPA_HIBERNATE_DDL_AUTO : update
+```
+- **(OPTION-2)** Select secret type
+     - choose "**Credential for Amazon RDS Database**"
+     - Credentials
+         - Username
+         - Password:admin12345678
+      - Database:Select above created RDS database 
+- **(OPTION-3)** Select secret type
+     - While creating RDS database
+           - **Credentials management** :Selecct Managed in AWS secret manager
+     - Automatically new secret add in secrets manager.
+  ![image](https://github.com/user-attachments/assets/0e230c05-f134-41ff-9278-2c20bc4e59c3)
 
 
+- **Secret name**:ems-app/mysql-creds
 
+- Next : Optionally enable automatic rotation.
+- Click **Store**.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-verify from ec2
+#### 3.verify from ec2
 ```
 aws secretsmanager get-secret-value --secret-id your-secret-name --region us-east-1
 ```
+#### 4.Create Script on EC2
 
+```
+nano secret.sh
+```
+```
+#!/bin/bash
 
+# Get secrets from AWS
+SECRET_JSON=$(aws secretsmanager get-secret-value \
+  --secret-id ems-secret-manager \
+  --region us-east-1 \
+  --query SecretString \
+  --output text)
 
+# Parse with jq
+export SPRING_DATASOURCE_URL=$(echo $SECRET_JSON | jq -r .SPRING_DATASOURCE_URL)
+export SPRING_DATASOURCE_USERNAME=$(echo $SECRET_JSON | jq -r .SPRING_DATASOURCE_USERNAME)
+export SPRING_DATASOURCE_PASSWORD=$(echo $SECRET_JSON | jq -r .SPRING_DATASOURCE_PASSWORD)
 
+# Run Docker Compose
+docker compose up -d
+```
+- Make it executable:
+```
+chmod +x secret.sh
+```
+- Ensure jq is Installed
+```
+sudo apt update
 
+sudo apt install jq -y
+```
+#### 5.Update docker-compose.yml
+```
+services:
+  backend:
+    image: 179859935027.dkr.ecr.us-east-1.amazonaws.com/ems-backend:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL
+      - SPRING_DATASOURCE_USERNAME
+      - SPRING_DATASOURCE_PASSWORD
+    networks:
+      - ems-ops
+```
 
 
 
