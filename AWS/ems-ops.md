@@ -340,7 +340,7 @@ http://<your-alb-dns-name>
 #### 2.GO to ECR 
 - Create repository :ems-frontend,ems-backend
 
- [image](https://github.com/user-attachments/assets/78f2a683-09c9-4884-a142-738e9c1b360c)
+![image](https://github.com/user-attachments/assets/78f2a683-09c9-4884-a142-738e9c1b360c)
 
 - choose repository first ems-frontend
 - At top click view push commands.
