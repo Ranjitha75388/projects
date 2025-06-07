@@ -18,6 +18,7 @@
    - Public subnet-2 : Auto scaling group
  
    - public subnet-3 : Amazon RDS
+------------------------------------------------------------------------------------------------------------------------
 
 ### **Step 5**:Create **EC2 Instance**
 
@@ -57,10 +58,11 @@
 - Once the Instance is create and start **Running** click **connect** at top.
 - Copy the command .3 to give permission for keypair.
 - In terminal paste the command where keypair is downloaded.
-- Copy and paste the command to SSH.
+- Copy and paste the command under **Example** to SSH.
 
 ![Screenshot from 2025-06-06 13-58-59](https://github.com/user-attachments/assets/bdf02954-c8db-47ef-bc79-3538361ac1a4)
 
+-----------------------------------------------------------------------------------------------------------------------------
 
 ### **Step 6**:Create **RDS Database**
 
@@ -242,6 +244,8 @@ docker compose -f docker-compose.yml up -d
 ```
 mysql -h <RDS-endpoint> -P 3306 -u <username> -p
 ```
+-------------------------------------------------------------------------------------------------------------------------
+
 ### **Step 8**:Create **Application Load Balancer**
 
 #### 1.Create a Target Group
@@ -308,7 +312,7 @@ http://<your-alb-dns-name>
 ```
 ![Screenshot from 2025-06-06 14-24-10](https://github.com/user-attachments/assets/0b8826da-592d-432f-8f57-cb978d2524cf)
 
-
+------------------------------------------------------------------------------------------------------------------------------------
 
 
  
