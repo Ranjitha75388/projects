@@ -87,7 +87,7 @@
    - **Public access**: Yes
 - **VPC security group**:
    - Select Default security group ,add allow port 3306 (MySQL) inbound access from Your EC2 instance's public IP
-    
+- Click **create Datebase**.  
 ---------------------------------------------------------------------------------------------------------------------------
 
 ### **Step 7**:Dockeriznig the Application
@@ -339,6 +339,9 @@ http://<your-alb-dns-name>
 
 #### 2.GO to ECR 
 - Create repository :ems-frontend,ems-backend
+
+ [image](https://github.com/user-attachments/assets/78f2a683-09c9-4884-a142-738e9c1b360c)
+
 - choose repository first ems-frontend
 - At top click view push commands.
 
@@ -348,7 +351,14 @@ http://<your-alb-dns-name>
 - Install CLI command
 - In image point 1:authentication copy the command and run in ec2 Instance.
 - Build the docker image from Dockerfile directory.
+```
+docker build -t ems-frontend .
+```
 - Tag and push the image as command shown in image point 3,4.
+```
+docker tag ems-frontend:latest 179859935027.dkr.ecr.us-east-1.amazonaws.com/ems-frontend:latest
+docker push 179859935027.dkr.ecr.us-east-1.amazonaws.com/ems-frontend:latest
+```
 - And then in **docker-compose.yml** change to pull image from ECR.
 ```
 version: '3.8'
