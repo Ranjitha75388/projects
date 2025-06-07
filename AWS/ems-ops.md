@@ -325,6 +325,64 @@ http://<your-alb-dns-name>
 ------------------------------------------------------------------------------------------------------------------------------------
 ### Step 9:Create ECR
 
+#### 1.IAM permission for ECR 
+- Go to EC2 --> Select your instance --> Actions -->Security --> Modify IAM role
+- Create new IAM role --> Create role
+  - **Trusted entity type**: AWS service
+  - **Service or use case** : EC2
+  - Click **Next**
+  - Search for EC2 --> click **AmazonEC2ContainerRegistryFullAccess** --> Next
+  - **Role name**: ecr to ec2 connection.
+  - create role.
+- Back to Modify IAM role page.
+- Refresh --> choose "ecr to ec2 connection" -- update an IAM role.
+
+#### 2.GO to ECR 
+- Create repository :ems-frontend,ems-backend
+- choose repository first ems-frontend
+- At top click view push commands.
+
+ ![image](https://github.com/user-attachments/assets/932bb365-24e4-4450-947f-234fba0e5341)
+
+#### 3.ssh to EC2 instance 
+- Install CLI command
+- In image point 1:authentication copy the command and run in ec2 Instance.
+- Build the docker image from Dockerfile directory.
+- Tag and push the image as command shown in image point 3,4.
+- And then in **docker-compose.yml** change to pull image from ECR.
+```
+version: '3.8'
+
+services:
+  frontend:
+    image: 179859935027.dkr.ecr.us-east-1.amazonaws.com/ems-frontend:latest   
+    ports:
+      - "5000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://18.204.206.240:8080
+    depends_on:
+      - backend
+    networks:
+      - ems-ops
+
+  backend:
+    image: 179859935027.dkr.ecr.us-east-1.amazonaws.com/ems-backend:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database-2.cpkcgnnx2rja.us-east-1.rds.amazonaws.com:3306/ems?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin12345678
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - ems-ops
+
+networks:
+  ems-ops:
+    driver: bridge
+```
+- By using ALB we can access application in browser.
+
 
  
 
