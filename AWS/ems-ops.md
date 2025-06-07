@@ -5,13 +5,13 @@
 
 ## Steps in console
 
-Step1: Login to AWS console  https://console.aws.amazon.com
+**Step1**: Login to AWS console  https://console.aws.amazon.com
 
-Step 2: Select Region : ap-south-1.
+**Step 2**: Select **Region** : ap-south-1.
 
-Step 3:Choose Default VPC.
+**Step 3**:Choose Default **VPC**.
 
-Step 4: Choose 3 public subnets under default vpc.
+**Step 4**: Choose 3 **public subnets** under default vpc.
  
  1.public subnet-1 : Application Load Balancer.
 
@@ -19,25 +19,24 @@ Step 4: Choose 3 public subnets under default vpc.
  
  3.public subnet-3 : Amazon RDS
 
-Step 5:Create EC2 Instance
+**Step 5**:Create **EC2 Instance**
 
 1.Type EC2 in search bar.
 
-2.Select Instance ---> Launch Instance
+2.Select Instance ---> **Launch Instance**
 
 - #### Name and Tags
- - Name:ems-Instance
-
-- #### Application and OS Images 
+ - **Name**:ems-Instance
+ - #### Application and OS Images 
    - Quick start:Ubuntu.
    - Amazon Machine Image (AMI): Ubuntu server 24.04 (Free tier eligible)
-- #### Instance type
+ - #### Instance type
   - t2.micro(Free tier eligible)
-- #### Keypair(Login)
+ - #### Keypair(Login)
   - Create new keypair
-  - Keypair Name:ranjitha-ec2-keypair
-  - Keypair type:RSA
-  - Private key file format: .pem
+  - **Keypair Name**:ranjitha-ec2-keypair
+  - **Keypair type**:RSA
+  - **Private key file format**: .pem
   - create new pair.
   - Key-pair file will be downloaded.
 
@@ -46,45 +45,51 @@ Step 5:Create EC2 Instance
 - ####  Network settings
 - Select Default VPC.
 - Select Default public subnet.
-- Auto-assign public IP:Enable.
-- Firewall:Select Existing security group --> Default
+- **Auto-assign public IP**:Enable.
+- **Firewall**:Select Existing security group --> Default
 
 - #### Configure storage
 - Free tier eligible customers can get up to 30 GB of EBS General Purpose (SSD)
 - Modify as needed.
-
 - Click **Launch Instance** on right side.
 
-3.SSH to EC2 Instance
+3.**SSH** to EC2 Instance
 
 - Once the Instance is create and start **Running** click **connect** at top.
 - Copy the command to authenticate the keypair.
 - In terminal paste the command where keypair is downloaded.
 - Copy and paste the command to SSH.
 
-## Create RDS Database
+![Screenshot from 2025-06-06 13-58-59](https://github.com/user-attachments/assets/bdf02954-c8db-47ef-bc79-3538361ac1a4)
 
-- Search as Aurora and RDS ---> Databases --->Create database.
-- Choose a database creation method :Standard create.
-- Engine options: MYSQL.
-- Version:Latest version.
-- Templates:Free Tier.
-- Availability and durability:Default(1 instance)
-- Settings:
-  - DB instance identifier:Name(Database)
-- Credentials Settings 
-    - Master username: admin
-    - Credentials management:Self managed.
-    - Master password:admin12345678
-    - Confirm master password:admin12345678
-  
-- Instance configuration:db.t3.micro
-- Storage:General purpose SSD (20GB)
+
+**Step 6**:Create **RDS Database**
+
+- Search as **Aurora and RDS** ---> Databases --->**Create database**.
+- Choose a **database creation method** :Standard create.
+- **Engine options**: MYSQL.
+- **Version**:Latest version.
+- **Templates**:Free Tier.
+- **Availability and durability**:Default(1 instance)
+- **Settings**:
+  - **DB instance identifier**:Name(Database)
+- **Credentials Settings** 
+    - **Master username**: admin
+    - **Credentials management**:Self managed.
+    - **Master password**:admin12345678
+    - **Confirm master password**:admin12345678
+- **Instance configuration**:db.t3.micro
+- **Storage**:General purpose SSD (20GB)
 - Connectivity
-     - 
+   - **VPC**:default VPC
+   - **Subnet group**: default public subnet-3
+   - **Public access**: Yes
+- **VPC security group**:
+   - Select Default security group ,add allow port 3306 (MySQL) inbound access from Your EC2 instance's public IP
+    
+---------------------------------------------------------------------------------------------------------------------------
 
-
-## Dockeriznig the Application
+**Step 7**:Dockeriznig the Application
 
 1.SSH into EC2 Instance.
 2.Install Docker.
@@ -189,11 +194,7 @@ spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 spring.jpa.hibernate.ddl-auto=${SPRING_JPA_HIBERNATE_DDL_AUTO:update}  # Default: update
 ```
-8.Login to MYSQL Database
-```
-mysql -h <RDS-endpoint> -P 3306 -u <username> -p
-```
-9.Create docker-compose.yml file
+8.Create docker-compose.yml file
 ```
 version: '3.8'
  
@@ -230,13 +231,16 @@ networks:
   ems-ops:  # Let Docker create and manage this network
     driver: bridge
 ```
-10.Build and run the image
+9.Build and run the image
 ```
 docker compose -f docker-compose.yml build
 docker compose -f docker-compose.yml up -d
 ```
-
-## Create Application Load Balancer
+10.Login to MYSQL Database
+```
+mysql -h <RDS-endpoint> -P 3306 -u <username> -p
+```
+**Step 8**:Create **Application Load Balancer**
 
 #### 1.Create a Target Group
 
@@ -244,13 +248,13 @@ docker compose -f docker-compose.yml up -d
 
 - Click Create Target Group
 
-   - Target type: Instances
+   - **Target type**: Instances
 
-   - Protocol: HTTP
+   - **Protocol**: HTTP
 
-   - Port: 80
+   - **Port**: 80
 
-   - VPC: Select same VPC as your EC2(Default VPC)
+   - **VPC**: Select same VPC as your EC2(Default VPC)
 
 - Click Next
 
@@ -262,31 +266,31 @@ docker compose -f docker-compose.yml up -d
 
 #### 2.Create an Application Load Balancer
 
-- Go to EC2 → Load Balancing → Load Balancers
+- Go to EC2 → Load Balancing → **Load Balancers**
 
-- Click Create Load Balancer → Application Load Balancer
+- Click Create Load Balancer → **Application Load Balancer**
 
-   - Name it (e.g., my-alb)
+   - **Name**:my-alb
 
-   - Scheme: Internet-facing (for public)
+   - **Scheme**: Internet-facing (for public)
 
-   - IP type: IPv4
+   - **IP type**: IPv4
 
-- Network mapping
+- **Network mapping**:
 
-   - VPC: Select Default VPC.Listeners: HTTP on port 80
+   - **VPC**: Select Default VPC.Listeners: HTTP on port 80
 
-   - Availability Zones: Select at least 2 subnets in same VPC
+   - **Availability Zones**: Select at least 2 subnets in same VPC
 
-- Create or select a Security Group for ALB
+- Create or select a **Security Group** for ALB
 
    - Allow inbound HTTP (port 80) from anywhere (0.0.0.0/0)
 
-- Listeners and routing
-   - Listener: HTTP (Port 80)
-   - Default action:Select Target group created above.
+- **Listeners and routing**:
+   - **Listener**: HTTP (Port 80)
+   - **Default action**:Select Target group created above.
 
-- Click create Load Balancer.
+- Click **create** Load Balancer.
 
 #### 3.Test the Load Balancer
 
