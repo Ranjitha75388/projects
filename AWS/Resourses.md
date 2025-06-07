@@ -185,7 +185,7 @@ This defines which EC2 instances the ALB will forward traffic to.
 
 - Click Create Target Group.
 
-### 8.Create an Application Load Balancer
+### 7.1.Create an Application Load Balancer
 
 - Go to EC2 → Load Balancing → Load Balancers
 
@@ -293,7 +293,7 @@ networks:
   ems-ops:  # Let Docker create and manage this network
     driver: bridge
 ```
-### Create ECR
+### 9.Create ECR
 
 #### IAM permission for ECR 
 
@@ -383,7 +383,7 @@ networks:
 - by using ALB we can access application in browser.
 
 
-### Create Secrets manager
+### 10.Create Secrets manager
   1.create secrets manager using other type database
   store
   2.IAM permission give secrets ec2 -->modify IAM role
