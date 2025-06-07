@@ -5,65 +5,64 @@
 
 ## Steps in console
 
-**Step1**: Login to AWS console  https://console.aws.amazon.com
+### **Step1**: Login to AWS console  https://console.aws.amazon.com
 
-**Step 2**: Select **Region** : ap-south-1.
+### **Step 2**: Select **Region** : ap-south-1.
 
-**Step 3**:Choose Default **VPC**.
+### **Step 3**:Choose Default **VPC**.
 
-**Step 4**: Choose 3 **public subnets** under default vpc.
+### **Step 4**: Choose 3 **public subnets** under default vpc.
  
- 1.public subnet-1 : Application Load Balancer.
+   - public subnet-1 : Application Load Balancer.
 
- 2.Public subnet-2 : Auto scaling group
+   - Public subnet-2 : Auto scaling group
  
- 3.public subnet-3 : Amazon RDS
+   - public subnet-3 : Amazon RDS
 
-**Step 5**:Create **EC2 Instance**
+### **Step 5**:Create **EC2 Instance**
 
 1.Type EC2 in search bar.
 
 2.Select Instance ---> **Launch Instance**
 
-- #### Name and Tags
- - **Name**:ems-Instance
- - #### Application and OS Images 
-   - Quick start:Ubuntu.
-   - Amazon Machine Image (AMI): Ubuntu server 24.04 (Free tier eligible)
- - #### Instance type
+- **Name**:ems-Instance
+- #### Application and OS Images 
+   - **Quick start**:Ubuntu.
+   - **Amazon Machine Image (AMI)**: Ubuntu server 24.04 (Free tier eligible)
+- #### Instance type
   - t2.micro(Free tier eligible)
- - #### Keypair(Login)
+- #### Keypair(Login)
   - Create new keypair
   - **Keypair Name**:ranjitha-ec2-keypair
   - **Keypair type**:RSA
   - **Private key file format**: .pem
   - create new pair.
-  - Key-pair file will be downloaded.
+- Key-pair file will be downloaded.
 
 ![image](https://github.com/user-attachments/assets/30c3c912-d50f-48f7-90ac-3c1065ab30a6)
 
 - ####  Network settings
-- Select Default VPC.
-- Select Default public subnet.
-- **Auto-assign public IP**:Enable.
-- **Firewall**:Select Existing security group --> Default
+  - Select Default VPC.
+  - Select Default public subnet.
+  - **Auto-assign public IP**:Enable.
+  - **Firewall**:Select Existing security group --> Default
 
 - #### Configure storage
-- Free tier eligible customers can get up to 30 GB of EBS General Purpose (SSD)
-- Modify as needed.
+   - Free tier eligible customers can get up to 30 GB of EBS General Purpose (SSD)
+   - Modify as needed.
 - Click **Launch Instance** on right side.
 
 3.**SSH** to EC2 Instance
 
 - Once the Instance is create and start **Running** click **connect** at top.
-- Copy the command to authenticate the keypair.
+- Copy the command .3 to give permission for keypair.
 - In terminal paste the command where keypair is downloaded.
 - Copy and paste the command to SSH.
 
 ![Screenshot from 2025-06-06 13-58-59](https://github.com/user-attachments/assets/bdf02954-c8db-47ef-bc79-3538361ac1a4)
 
 
-**Step 6**:Create **RDS Database**
+### **Step 6**:Create **RDS Database**
 
 - Search as **Aurora and RDS** ---> Databases --->**Create database**.
 - Choose a **database creation method** :Standard create.
@@ -89,11 +88,14 @@
     
 ---------------------------------------------------------------------------------------------------------------------------
 
-**Step 7**:Dockeriznig the Application
+### **Step 7**:Dockeriznig the Application
 
 1.SSH into EC2 Instance.
+
 2.Install Docker.
+
 3.Install MYSL client.
+
 4.Clone gitrepo where ems-ops application files located.
 ```
 git clone git@github.com:Ranjitha75388/github-actions.git
@@ -177,7 +179,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 cd react-hooks-frontend/src/service
 nano EmployeeService.js
 ```
-- Change as variablize path to add i docker-compose file
+- Change as variablize path to add in docker-compose file
 ```
 const EMPLOYEE_BASE_REST_API_URL = `${process.env.REACT_APP_BACKEND_URL}/api/v1/employees`;
 ```
@@ -240,7 +242,7 @@ docker compose -f docker-compose.yml up -d
 ```
 mysql -h <RDS-endpoint> -P 3306 -u <username> -p
 ```
-**Step 8**:Create **Application Load Balancer**
+### **Step 8**:Create **Application Load Balancer**
 
 #### 1.Create a Target Group
 
@@ -304,12 +306,12 @@ mysql -h <RDS-endpoint> -P 3306 -u <username> -p
 ```
 http://<your-alb-dns-name>
 ```
+![Screenshot from 2025-06-06 14-24-10](https://github.com/user-attachments/assets/0b8826da-592d-432f-8f57-cb978d2524cf)
 
 
 
 
  
-- 
 
 
 
