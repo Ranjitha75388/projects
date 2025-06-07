@@ -255,20 +255,30 @@ mysql -h <RDS-endpoint> -P 3306 -u <username> -p
 - Click Create Target Group
 
    - **Target type**: Instances
+ 
+   - **Target group name**:ems-target-group.
 
    - **Protocol**: HTTP
 
-   - **Port**: 80
+   - **Port**: 5000
+
+   - **IP address type**:IPv4
 
    - **VPC**: Select same VPC as your EC2(Default VPC)
 
-- Click Next
+- Health check settings:
 
-- In Register Targets, select your EC2 instance
+   - **Protocol**: HTTP
 
-- Click Include as pending below
+   - **Path**: /
 
-- Click Create Target Group
+- Click **Next**
+
+- In **Register Targets**, select your EC2 instance
+
+- Click **Include as pending below**
+
+- Click **Create Target Group**
 
 #### 2.Create an Application Load Balancer
 
@@ -313,6 +323,7 @@ http://<your-alb-dns-name>
 ![Screenshot from 2025-06-06 14-24-10](https://github.com/user-attachments/assets/0b8826da-592d-432f-8f57-cb978d2524cf)
 
 ------------------------------------------------------------------------------------------------------------------------------------
+### Step 9:Create ECR
 
 
  
