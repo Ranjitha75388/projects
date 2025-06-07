@@ -293,8 +293,9 @@ networks:
   ems-ops:  # Let Docker create and manage this network
     driver: bridge
 ```
+### Create ECR
 
-IAM permission for ECR 
+#### IAM permission for ECR 
 
 - Go to EC2 --> Select your instance --> Actions -->Security --> Modify IAM role
 - Create new IAM role --> Create role
@@ -307,7 +308,7 @@ IAM permission for ECR
 - Back to Modify IAM role page.
 - Refresh --> choose "ecr to ec2 connection" -- update an IAM role.
 
-GO to ECR 
+#### GO to ECR 
 - Create repository :ems-frontend
 - choose repository ems-frontend
 - at top click view push commands.
@@ -316,35 +317,35 @@ GO to ECR
 - ![image](https://github.com/user-attachments/assets/932bb365-24e4-4450-947f-234fba0e5341)
 
 
-Before that ssh to EC2 instance 
-Install CLI command
-Update the System
-
+#### Before that ssh to EC2 instance 
+- Install CLI command
+- Update the System
+```
 sudo apt update -y
 sudo apt upgrade -y
-
-✅ Step 3: Install Required Tools
+```
+- Install Required Tools
 Install unzip (required to unzip the CLI installer)
-
+```
 sudo apt install unzip -y
-
-✅ Step 4: Download AWS CLI v2 Installer
-
+```
+- Download AWS CLI v2 Installer
+```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-
-✅ Step 5: Unzip the Installer
-
+```
+- Unzip the Installer
+```
 unzip awscliv2.zip
-
-✅ Step 6: Run the Installer
-
+```
+- Run the Installer
+```
 sudo ./aws/install
-
-✅ Step 7: Verify the Installation
-
+```
+- Verify the Installation
+```
 aws --version
-
-_ Run the authentication command
+```
+_ Run the authentication command shown in image.
 - build the docker image from Dockerfile directory.
 - tag and push the image as command shown in image.
 - And then in docker-complose.yml change to pull image from ECR.
@@ -379,12 +380,10 @@ networks:
   ems-ops:
     driver: bridge
 ```
-- by using ALB we access access in browser.
+- by using ALB we can access application in browser.
 
 
-
-
-  ## Secrets manager
+### Create Secrets manager
   1.create secrets manager using other type database
   store
   2.IAM permission give secrets ec2 -->modify IAM role
