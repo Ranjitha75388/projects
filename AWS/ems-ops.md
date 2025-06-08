@@ -536,6 +536,9 @@ This captures your EC2 setup so that Auto Scaling can create identical instances
 
 - This takes a few minutes. Note the **AMI ID** (e.g., ami-0abcd1234efgh5678).
 
+![image](https://github.com/user-attachments/assets/2d558da8-0b14-4fc9-a082-8b5ac2748ce8)
+
+
 #### STEP 2: Create a Launch Template (RECOMMENDED)
 
 This template tells ASG how to launch new EC2s.
