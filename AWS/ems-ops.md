@@ -222,7 +222,7 @@ services:
     ports:
       - "5000:3000"
     environment:
-      - REACT_APP_BACKEND_URL=http://54.165.120.121:8080
+      - REACT_APP_BACKEND_URL=http://3.92.216.254:8080
     depends_on:
       - backend
     networks:
@@ -235,9 +235,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://database-1.c0n8mseiazqy.us-east-1.rds.amazonaws.com:3306/ems?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database-2.cpkcgnnx2rja.us-east-1.rds.amazonaws.com:3306/ems?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=admin2000
+      - SPRING_DATASOURCE_PASSWORD=admin12345678
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     networks:
       - ems-ops
@@ -246,12 +246,16 @@ services:
 networks:
   ems-ops:  # Let Docker create and manage this network
     driver: bridge
+
+
 ```
 9.Build and run the image
 ```
 docker compose -f docker-compose.yml build
 docker compose -f docker-compose.yml up -d
 ```
+![image](https://github.com/user-attachments/assets/a6f5d06c-e501-4fec-bb14-9d1f6afc9392)
+
 -------------------------------------------------------------------------------------------------------------------------
 
 ### **Step 8**:Create **Application Load Balancer**
