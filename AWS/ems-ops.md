@@ -96,6 +96,10 @@
 ```
 mysql -h <RDS-endpoint> -P 3306 -u <username> -p
 ```
+- Create Database
+```
+CREATE DATABASE emsops;
+```
 ---------------------------------------------------------------------------------------------------------------------------
 
 ### **Step 7**:Dockeriznig the Application
