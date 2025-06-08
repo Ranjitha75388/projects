@@ -188,7 +188,14 @@ EXPOSE 8080
 # Run the jar with env variables
 ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
-7.Change the path to access backend
+7.Create Docker images
+```
+docker build -t frontend .
+docker build -t backend .
+```
+![image](https://github.com/user-attachments/assets/229a4bb3-61df-4c21-816c-ec82c78493c7)
+
+8.Change the path to access backend
 ```
 cd react-hooks-frontend/src/service
 nano EmployeeService.js
