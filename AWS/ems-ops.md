@@ -1,7 +1,8 @@
 
 ## Architecture diagram
 
-![image](https://github.com/user-attachments/assets/6ceba5e3-1072-47f8-8b83-0315f074ded4)
+![image](https://github.com/user-attachments/assets/18158537-d720-4ae1-a550-dabc1ba13d34)
+
 
 ## Steps in console
 
