@@ -101,7 +101,7 @@ packer build -var "region=us-west-2" template.pkr.json
 
 1.Download from:https://developer.hashicorp.com/packer/install 
 
-On Ubuntu:
+**On Ubuntu:**
 ```
 sudo apt-get update && sudo apt-get install -y unzip
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
