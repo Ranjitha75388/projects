@@ -232,7 +232,7 @@ packer build docker-ami.pkr.json
 ```
 ![image](https://github.com/user-attachments/assets/d57a29fd-aa36-4cfe-aec9-e1618079ee73)
 
-**Output**: Packer will create an EC2 instance, run provisioning, then generate an AMI and terminate the EC2 instance.
+**Output**: In **console** Packer will create an EC2 instance, run provisioning, then generate an AMI and terminate the EC2 instance.
 
 - New AMI
 ![image](https://github.com/user-attachments/assets/6fa3ac58-10e8-422a-b8f1-51bfd8dc1394)
