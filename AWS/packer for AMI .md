@@ -219,9 +219,13 @@ packer init .
 packer validate docker-ami.pkr.json
 packer build docker-ami.pkr.json
 ```
+![image](https://github.com/user-attachments/assets/d57a29fd-aa36-4cfe-aec9-e1618079ee73)
+
 After creating AMI Check in console new AMI is added.and EC2 instance created by packer script will be terminated.
 
-![image](https://github.com/user-attachments/assets/d57a29fd-aa36-4cfe-aec9-e1618079ee73)
+![image](https://github.com/user-attachments/assets/6fa3ac58-10e8-422a-b8f1-51bfd8dc1394)
+
+![image](https://github.com/user-attachments/assets/afaa17a5-8473-4b5e-b8d6-2a330b233923)
 
 
 #### Step 7:Create a Launch Template
@@ -273,6 +277,12 @@ ASG needs a Launch Template that tells AWS how to spin up instances.
 
 5.Click Create Auto Scaling Group.
 
+6.Check in console EC2 instance running
+
+![image](https://github.com/user-attachments/assets/757a1c41-d793-46ec-aa1f-f14c49193d43)
+
+
+
 #### Step:9 Check If Docker Is Installed in the EC2 Instance
 
 1.Go to EC2 Console → Instances.
@@ -284,3 +294,7 @@ ASG needs a Launch Template that tells AWS how to spin up instances.
 ssh -i "ranjitha.pem" ubuntu@ec2-54-198-217-92.compute-1.amazonaws.com
 ```
 ![image](https://github.com/user-attachments/assets/8ff36081-5610-404c-942f-4b2f5980ba16)
+
+#### Step 10:Check in browser with ALB
+
+![image](https://github.com/user-attachments/assets/aff4c8e5-1796-4bf9-ae1a-b069f74c7546)
