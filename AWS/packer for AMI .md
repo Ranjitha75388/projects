@@ -1,14 +1,16 @@
 # Packer
-Packer is a popular open-source tool used to automate the creation of machine images, including Amazon Machine Images (AMIs) on AWS. It allows you to build customized AMIs from a single source configuration, which can be very useful for automating deployments and ensuring consistency across different environments
+- Packer is an open-source tool developed by HashiCorp that automates the creation of machine images (like Amazon AMIs).
+- It allows you to build customized AMIs from a single source configuration, which can be very useful for automating deployments and ensuring consistency across different environments
 
-### Packer components
+### Packer components overview
+
 #### 1. Builders (Source Block)
 
 - Defines where and how the machine image is built.
 
 - Responsible for creating a virtual machine, booting it, and taking a snapshot.
 
-- Examples:
+- Examples
 
   - amazon-ebs (for AWS EC2 AMIs)
 
@@ -17,6 +19,8 @@ Packer is a popular open-source tool used to automate the creation of machine im
   - googlecompute (for GCP)
 
   - azure-arm (for Azure)
+ 
+#### Example (JSON format):
 ```
 "builders": [
   {
@@ -32,13 +36,16 @@ Packer is a popular open-source tool used to automate the creation of machine im
 
 #### 2.Provisioners(Build Block)
 
-- Define how to install software or configure the instance after it boots.
+- Define how to customize the instance (e.g., installing software).
 
-  - Shell scripts (shell)
+Types:
+ - **shell**: Bash scripts
 
-  -  Ansible, Chef, Puppet, etc.
+ - **ansible, puppet, chef**: Config management tools
 
-  -  File uploads (file)
+ - **file**: Upload files
+
+#### Example:
 ```
 "provisioners": [
   {
@@ -49,16 +56,9 @@ Packer is a popular open-source tool used to automate the creation of machine im
 ```
 #### 3.Post-Processors 
 
-- Used for actions after image creation (optional).
+- Define what to do after the image is built (e.g., compress, upload, tag).
 
-   - Compress image
-
-   - Upload to S3, GitHub
-
-   - Register with a tool
-
-   - Tag image
-
+#### Example:
 ```
 "post-processors": [
   {
@@ -71,7 +71,9 @@ Packer is a popular open-source tool used to automate the creation of machine im
 
 #### 4.Variables (variables.pkr.hcl)
 
-- Reusable values to avoid hardcoding.
+- Avoid hardcoding values in your templates.
+
+#### Example
 ```
 variable "region" {
   type    = string
@@ -81,16 +83,22 @@ variable "region" {
 
 #### 5.User Variables (*.pkrvars.hcl)
 - You can pass variables at runtime:
+
+#### Example
 ```
 packer build -var "region=us-west-2" template.pkr.json
 ```
-#### Additional Useful Files
+#### File Formats in Packer
+```
+File Name           Description                              
 
-- *.pkr.hcl or *.pkr.json: Main Packer config files(HCL is recommended as it supports better modularity, variable reusability, and plugin declarations.)
+ `*.pkr.hcl`    ---  Main configuration file (recommended)    
+ `*.pkrvars.hcl` --- Variable values at runtime              
+ `*.json`       ---  Legacy template format (still supported) 
+ `*.sh`        ---   Shell scripts used in provisioning phase 
+```
 
-- install.sh, docker.sh, etc.: Provisioning shell scripts
-
-### Packer Workflow to Build Docker-Enabled AMI
+### Step-by-Step Workflow to Create AMI
 
 #### Step 1: Install Packer
 
@@ -107,38 +115,37 @@ sudo apt-get update && sudo apt-get install packer
 
 ![image](https://github.com/user-attachments/assets/5a902118-9591-455c-8f5b-b7ce2cb74230)
 
-#### Step 2: Set Up AWS IAM
-1. Go to IAM > Roles in the AWS Console:
+#### Step 2: Set Up AWS IAM Role for EC2 (Packer Host)
 
-- Click Create role
+1.Create a Role
 
-- Choose Trusted entity type: AWS service
+ - Go to IAM > Roles > Create Role
 
-- Use case: EC2
+ - Choose EC2 as the trusted entity
 
-- Click Next
+  - Attach policy: AmazonEC2FullAccess
 
-2.Attach Required Policies
+2.Attach the Role to the EC2 Instance
 
-- Attach AmazonEC2FullAccess 
-3.Attach Role to Your EC2 Instance
+- Go to EC2 > Instances
 
-- Once the role is created:
+- Select your instance → Actions > Security > Modify IAM Role
 
-- Go to your EC2 instance > Actions > Security > Modify IAM Role
+- Attach the role created above
 
-- Choose the role you just created and attach it
-
-#### Step 3:Create a Folder for Your Packer Build
+#### Step 3:Prepare Directory Structure
 ```
 mkdir packer-docker-ami
 cd packer-docker-ami
 ```
 
-#### Step 4:Create Shell Script: install-docker.sh
+#### Step 4:Create Shell Script to Install Docker
+
+1.Create install-docker.sh:
 ```
 nano install-docker.sh
 ```
+2.Paste it
 ```
 #!/bin/bash
 set -e
@@ -169,11 +176,11 @@ sudo systemctl enable docker
 
 echo "[+] Docker installed successfully!"
 ```
-Make it executable:
+3.Make it executable:
 ```
 chmod +x install-docker.sh
 ```
-#### Step 5:Create Packer Template File:
+#### Step 5:Create Packer JSON Template
 ```
 docker-ami.pkr.json
 ```
@@ -213,7 +220,7 @@ docker-ami.pkr.json
   ]
 }
 ```
-#### Step 6:Build the AMI
+#### Step 6:Validate and Build the Image
 ```
 packer init .
 packer validate docker-ami.pkr.json
@@ -221,35 +228,29 @@ packer build docker-ami.pkr.json
 ```
 ![image](https://github.com/user-attachments/assets/d57a29fd-aa36-4cfe-aec9-e1618079ee73)
 
-After creating AMI Check in console new AMI is added.and EC2 instance created by packer script will be terminated.
+**Output**: Packer will create an EC2 instance, run provisioning, then generate an AMI and terminate the EC2 instance.
 
 ![image](https://github.com/user-attachments/assets/6fa3ac58-10e8-422a-b8f1-51bfd8dc1394)
-
 ![image](https://github.com/user-attachments/assets/afaa17a5-8473-4b5e-b8d6-2a330b233923)
+
+
+## Post-AMI Creation Workflow
 
 
 #### Step 7:Create a Launch Template
 ASG needs a Launch Template that tells AWS how to spin up instances.
 
-1.Go to EC2 Console > Launch Templates.
+1.Go to EC2 > Launch Templates
 
-2.Click “Create launch template”.
+2.Click Create launch template
 
-3.Fill in the following:
+ - Name: docker-ami-template
 
-  - Name: docker-ami-template
+ - AMI ID: (Paste from Packer output)
 
-  - AMI ID: Paste your custom AMI ID here (from Packer).
+ - Instance Type: t2.micro
 
-  - Instance Type: e.g., t3.micro
-
-  - Key pair: Choose your existing key (for SSH access).
-
-  - Security Group: Allow SSH (port 22), HTTP (port 80), or whatever you need.
-
-  - IAM Role: If needed, attach one (e.g., for accessing S3 or ECR).
-
-4.Click Create launch template.
+ - Key pair, IAM Role, and Security Groups as needed
 
 #### Step 8: Create Auto Scaling Group (ASG)
 
@@ -277,24 +278,18 @@ ASG needs a Launch Template that tells AWS how to spin up instances.
 
 5.Click Create Auto Scaling Group.
 
-6.Check in console EC2 instance running
+#### Step:9 Check If Docker Is Installed in the EC2 Instance
+
+1.Go to EC2 Console → Instances(launched by ASG)
 
 ![image](https://github.com/user-attachments/assets/757a1c41-d793-46ec-aa1f-f14c49193d43)
 
-
-
-#### Step:9 Check If Docker Is Installed in the EC2 Instance
-
-1.Go to EC2 Console → Instances.
-
-2.You’ll see the EC2 instance launched via ASG.
-
-3.Connect via SSH:
+2.Connect via SSH:
 ```
 ssh -i "ranjitha.pem" ubuntu@ec2-54-198-217-92.compute-1.amazonaws.com
 ```
 ![image](https://github.com/user-attachments/assets/8ff36081-5610-404c-942f-4b2f5980ba16)
 
-#### Step 10:Check in browser with ALB
+#### Step 10:Access App via Load Balancer
 
 ![image](https://github.com/user-attachments/assets/aff4c8e5-1796-4bf9-ae1a-b069f74c7546)
