@@ -37,13 +37,10 @@
 ### 2.Provisioners(Build Block)
 
 - Define how to customize the instance (e.g., installing software).
-
-Types:
- - **shell**: Bash scripts
-
- - **ansible, puppet, chef**: Config management tools
-
- - **file**: Upload files
+- Types:
+   - **shell**: Bash scripts
+   - **ansible, puppet, chef**: Config management tools
+   - **file**: Upload files
 
 #### Example:
 ```
@@ -90,12 +87,12 @@ packer build -var "region=us-west-2" template.pkr.json
 ```
 #### File Formats in Packer
 ```
-File Name           Description                              
+    File Name           Description                              
 
- `*.pkr.hcl`    ---  Main configuration file (recommended)    
- `*.pkrvars.hcl` --- Variable values at runtime              
- `*.json`       ---  Legacy template format (still supported) 
- `*.sh`        ---   Shell scripts used in provisioning phase 
+ `*.pkr.hcl`       ---   Main configuration file (recommended)    
+ `*.pkrvars.hcl`   ---   Variable values at runtime              
+ `*.json`          ---   Legacy template format (still supported) 
+ `*.sh`            ---   Shell scripts used in provisioning phase 
 ```
 
 ## Step-by-Step Workflow to Create AMI
