@@ -2,9 +2,9 @@
 - Packer is an open-source tool developed by HashiCorp that automates the creation of machine images (like Amazon AMIs).
 - It allows you to build customized AMIs from a single source configuration, which can be very useful for automating deployments and ensuring consistency across different environments
 
-### Packer components overview
+## Packer components overview
 
-#### 1. Builders (Source Block)
+### 1. Builders (Source Block)
 
 - Defines where and how the machine image is built.
 
@@ -34,7 +34,7 @@
 ]
 ```
 
-#### 2.Provisioners(Build Block)
+### 2.Provisioners(Build Block)
 
 - Define how to customize the instance (e.g., installing software).
 
@@ -54,7 +54,7 @@ Types:
   }
 ]
 ```
-#### 3.Post-Processors 
+### 3.Post-Processors 
 
 - Define what to do after the image is built (e.g., compress, upload, tag).
 
@@ -69,7 +69,7 @@ Types:
 ]
 ```
 
-#### 4.Variables (variables.pkr.hcl)
+### 4.Variables (variables.pkr.hcl)
 
 - Avoid hardcoding values in your templates.
 
@@ -81,7 +81,7 @@ variable "region" {
 }
 ```
 
-#### 5.User Variables (*.pkrvars.hcl)
+### 5.User Variables (*.pkrvars.hcl)
 - You can pass variables at runtime:
 
 #### Example
@@ -98,9 +98,9 @@ File Name           Description
  `*.sh`        ---   Shell scripts used in provisioning phase 
 ```
 
-### Step-by-Step Workflow to Create AMI
+## Step-by-Step Workflow to Create AMI
 
-#### Step 1: Install Packer
+### Step 1: Install Packer
 
 1.Download from:https://developer.hashicorp.com/packer/install 
 
@@ -115,7 +115,7 @@ sudo apt-get update && sudo apt-get install packer
 
 ![image](https://github.com/user-attachments/assets/5a902118-9591-455c-8f5b-b7ce2cb74230)
 
-#### Step 2: Set Up AWS IAM Role for EC2 (Packer Host)
+### Step 2: Set Up AWS IAM Role for EC2 (Packer Host)
 
 1.Create a Role
 
@@ -133,54 +133,58 @@ sudo apt-get update && sudo apt-get install packer
 
 - Attach the role created above
 
-#### Step 3:Prepare Directory Structure
+### Step 3:Prepare Directory Structure
 ```
 mkdir packer-docker-ami
 cd packer-docker-ami
 ```
 
-#### Step 4:Create Shell Script to Install Docker
+### Step 4:Create Shell Script to Install Docker Engine
 
-1.Create install-docker.sh:
+#### Create install-docker.sh:
 ```
 nano install-docker.sh
 ```
-2.Paste it
+#### Paste it
 ```
 #!/bin/bash
 set -e
 
-echo "[+] Updating system..."
-sudo apt update
+echo "[+] Updating system packages..."
+sudo apt-get update -y
 
 echo "[+] Installing dependencies..."
-sudo apt install -y apt-transport-https ca-certificates curl software-properties-common gnupg
+sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    software-properties-common \
+    lsb-release
 
-echo "[+] Creating Docker GPG keyring..."
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor | sudo tee /etc/apt/keyrings/docker.gpg > /dev/null
+echo "[+] Adding Docker GPG key..."
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-echo "[+] Adding Docker repo..."
-echo \
-  "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "[+] Adding Docker repository..."
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) stable"
 
-echo "[+] Updating apt index..."
-sudo apt update
+echo "[+] Installing Docker Engine..."
+sudo apt-get update -y
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
-echo "[+] Installing Docker..."
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-echo "[+] Enabling Docker service..."
+echo "[+] Enabling Docker on boot..."
 sudo systemctl enable docker
 
-echo "[+] Docker installed successfully!"
+echo "[+] Docker installation completed."
+docker --version
 ```
-3.Make it executable:
+#### Make it executable:
 ```
 chmod +x install-docker.sh
 ```
-#### Step 5:Create Packer JSON Template
+### Step 5:Create Packer JSON Template
 ```
 docker-ami.pkr.json
 ```
@@ -220,7 +224,7 @@ docker-ami.pkr.json
   ]
 }
 ```
-#### Step 6:Validate and Build the Image
+### Step 6:Validate and Build the Image
 ```
 packer init .
 packer validate docker-ami.pkr.json
@@ -230,53 +234,44 @@ packer build docker-ami.pkr.json
 
 **Output**: Packer will create an EC2 instance, run provisioning, then generate an AMI and terminate the EC2 instance.
 
+- New AMI
 ![image](https://github.com/user-attachments/assets/6fa3ac58-10e8-422a-b8f1-51bfd8dc1394)
+
+- EC2 Instance
 ![image](https://github.com/user-attachments/assets/afaa17a5-8473-4b5e-b8d6-2a330b233923)
 
 
 ## Post-AMI Creation Workflow
 
 
-#### Step 7:Create a Launch Template
+### Step 7:Create a Launch Template
 ASG needs a Launch Template that tells AWS how to spin up instances.
 
 1.Go to EC2 > Launch Templates
 
 2.Click Create launch template
 
- - Name: docker-ami-template
+ - **Name**: docker-ami-template
 
- - AMI ID: (Paste from Packer output)
+ - **AMI ID**: (Paste from Packer output)
 
- - Instance Type: t2.micro
+ - **Instance Type**: t2.micro
 
  - Key pair, IAM Role, and Security Groups as needed
 
-#### Step 8: Create Auto Scaling Group (ASG)
+### Step 8: Create Auto Scaling Group (ASG)
 
-1.Go to EC2 Console > Auto Scaling Groups.
+1.Go to EC2 > Auto Scaling Groups
 
-2.Click “Create Auto Scaling group”.
+2.Click Create Auto Scaling Group
 
-3.Set:
+ - Name: docker-asg
 
-  - Name: frontend-asg or backend-asg
+ - Select launch template created above.
 
-  - Launch template: Select the one you just created.
+ - Set min/max/desired capacity
 
-  - VPC/Subnet: Choose the right VPC and public subnet(s).
-
-  - Load Balancer: Choose exsitinng Load balancer and select it.
-
-4.Set Group size:
-
- - Desired: 1
-
- - Min: 1
-
- - Max: 1 (or more, depending on your needs)
-
-5.Click Create Auto Scaling Group.
+ - Attach to excisting load balancer created previously.
 
 #### Step:9 Check If Docker Is Installed in the EC2 Instance
 
