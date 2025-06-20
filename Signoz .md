@@ -174,7 +174,7 @@ sudo /opt/fluent-bit/bin/fluent-bit -c /etc/fluent-bit/fluent-bit.conf
 ## How to Send Metrics to SigNoz?
 
 There are 2 ways to send metrics to SigNoz:
-1. Using OpenTelemetry SDK (App Level Metrics)
+### 1. Using OpenTelemetry SDK (App Level Metrics)
 
 Install OpenTelemetry SDK in your application.
 
@@ -196,7 +196,7 @@ This allows you to send custom business metrics like:
 
 - Queue lengths
 
-2. Using Node Exporter / Prometheus (System Metrics)
+### 2. Using Node Exporter / Prometheus (System Metrics)
 
 #### Step 1: Install Node Exporter
 ```
@@ -271,41 +271,59 @@ sudo docker compose restart otel-collector
 
   > node_network_receive_bytes_total
 
+![Screenshot from 2025-06-20 13-46-36](https://github.com/user-attachments/assets/52d3dbf1-a683-4299-9a2a-6e9c5ba337c5)
 
 
+## How to Set Alerts in SigNoz 
 
+#### Step 1: Go to the Alerts Section
 
+ - SigNoz --> Alerts --> Create Alert
 
+####  Step 2: Define the Alert
+➤ Choose Metric or Logs/Traces
 
+    Select "Metric Based Alert"
 
-
-
-
-
-
-
-This helps you monitor infrastructure-level metrics.
-
-1.Install node_exporter on your machine:
+➤ Select a PromQL query
 ```
-wget https://github.com/prometheus/node_exporter/releases/...
-./node_exporter
+100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
 ```
+This tracks CPU usage.
+#### Step 3: Set the Alert Condition
+Example:
+If value is greater than 80 for 5 minutes
 
-2.Update otel-collector-config.yaml:
-```
-receivers:
-  prometheus:
-    config:
-      scrape_configs:
-        - job_name: node-exporter
-          static_configs:
-            - targets: ['<SIG_NOZ_EC2_IP>:9100']
-```
+#### Step 4: Add Alert Details
 
-3.Restart collector:
-```
-cd signoz/deploy/docker
-sudo docker-compose restart otel-collector
-```
-Now you get CPU, memory, disk, network metrics.
+- Alert Name: e.g., High CPU Usage
+
+- Description: e.g., CPU usage > 80% for 5 mins
+
+- Severity: Choose Warning, Critical, etc.
+
+#### Step 5: Choose Notification Channel
+
+- Click Notification Channels
+
+- Choose where to send alerts: Email, Slack,Webhook , PagerDuty, etc.
+
+ > If no channel is set yet, go to Settings > Alert Channels and add one.
+
+#### Step 6: Save & Activate
+
+ - Click Create Alert
+
+ - The alert will now be monitored continuously.
+
+
+
+
+
+
+
+
+
+
+
+
