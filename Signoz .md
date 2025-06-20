@@ -4,15 +4,15 @@
 
   -  Logs
 
-  - Metrics (e.g., CPU, memory)
+  - Metrics
 
-  - Traces (e.g., request flow in microservices)
+  - Traces 
 
 - It’s an alternative to tools like DataDog, New Relic.
  
 - SigNoz collects data using **OpenTelemetry (OTel**) and stores it in **ClickHouse**, a high-performance columnar database. We interact with it via a modern UI that offers dashboards, queries, and alerting.
 
-- SigNoz in two ways:
+- Use SigNoz in two ways:
 
   - Cloud	Hosted -By SigNoz team.
   -  Self-hosted - We can install on our server
