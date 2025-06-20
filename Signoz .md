@@ -115,7 +115,13 @@ sudo nano /etc/fluent-bit/fluent-bit.conf
     log_response_payload  false
 
 ```
-> Replace SIGNOZ-IP ip EC2 public-ip
+> Replace SIGNOZ-IP with EC2 public-ip
+
+- **[INPUT]**: Tell Fluent Bit to tail log files from Docker containers.
+
+- **Parser docker**: It knows how to parse Docker JSON logs (those *-json.log files).
+
+- **[OUTPUT]**: Send logs using the OpenTelemetry (OTLP) protocol to SigNoz, which listens on port 4318.
 
 #### 5.Run Fluent Bit:
 ```
@@ -124,7 +130,182 @@ sudo /opt/fluent-bit/bin/fluent-bit -c /etc/fluent-bit/fluent-bit.conf
 ![Screenshot from 2025-06-20 11-49-59](https://github.com/user-attachments/assets/4a555fd3-c32a-482a-bf28-3465e30d1d98)
 
 #### 6.View Logs in Signoz
-- click logs
-- Use filters or search to find  logs (e.g., search for "message" or container_id tags).
-  
+ 
+- opene SigNoz → Logs tab → and saw container logs flowing in!
+
+- We can:
+
+   - Filter logs
+
+   - Search by keyword
+
+   -  Click on individual logs for metadata
+
 ![Screenshot from 2025-06-20 11-27-53](https://github.com/user-attachments/assets/27e7eda3-3c81-4fec-8487-35b9c56f8f08)
+
+## What Are Metrics?
+
+- Metrics are numeric measurements that describe a system's behavior over time.
+
+- Examples:
+
+   - CPU usage (%)
+
+   - Memory used (MB)
+
+   - HTTP request counts
+
+   - Response durations (ms)
+
+   - Error rates
+
+## What Are Dashboards?
+
+- Dashboards are visual panels (charts/graphs) built using metrics.
+
+- Example:
+
+   -  A graph showing CPU usage over time
+
+   -  A pie chart of request statuses (200 vs 500)
+
+   -  A table of most frequent API endpoints
+
+## How to Send Metrics to SigNoz?
+
+There are 2 ways to send metrics to SigNoz:
+1. Using OpenTelemetry SDK (App Level Metrics)
+
+Install OpenTelemetry SDK in your application.
+
+Example (Python):
+```
+pip install opentelemetry-sdk opentelemetry-exporter-otlp
+```
+Then in your app:
+```
+from opentelemetry import metrics
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
+```
+This allows you to send custom business metrics like:
+
+- Number of user signups
+
+- Payment failures
+
+- Queue lengths
+
+2. Using Node Exporter / Prometheus (System Metrics)
+
+#### Step 1: Install Node Exporter
+```
+cd ~
+wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
+tar xvfz node_exporter-1.7.0.linux-amd64.tar.gz
+cd node_exporter-1.7.0.linux-amd64
+./node_exporter &
+```
+- To run it in background permanently:
+```
+nohup ./node_exporter > node_exporter.log 2>&1 &
+```
+- Node Exporter now runs at:
+```
+ http://localhost:9100/metrics
+```
+- Test:
+```
+curl http://localhost:9100/metrics
+```
+#### Step 2: Configure SigNoz Otel Collector to scrape it
+
+- Edit the file:
+```
+cd ~/signoz/deploy/docker
+nano otel-collector-config.yaml
+```
+- Find this section under receivers.prometheus.config.scrape_configs:
+```
+scrape_configs:
+  - job_name: node-exporter
+    static_configs:
+      - targets: ['localhost:9100']    ## node_exporter is installed on the same EC2 instance
+```
+- If it's not there, add this block under receivers.prometheus.config.
+> If node_exporter is on a different EC2 instance, then you must provide that instance's private or public IP:
+```
+targets: ['<EC2-IP>:9100']
+```
+#### Step 3: Restart the otel-collector service
+```
+sudo docker compose restart otel-collector
+```
+#### Step 4: View Metrics in SigNoz
+
+- Go to SigNoz web UI → Dashboards
+
+- Click "+ New Dashboard"
+
+- Give it a name like “SigNoz EC2 Metrics” → Click Create
+
+- Inside the new dashboard, click "Add Panel"
+
+- Choose "Time Series" (or Number / Table)
+
+- In the Query box, enter a metric name, e.g.:
+
+   > node_cpu_seconds_total
+
+- Apply filters like mode=idle or instance=localhost:9100 if needed.
+
+- Click Run Query → can see data.
+
+- Click Save Panel
+
+- Repeat for metrics like:
+
+  > node_memory_MemAvailable_bytes
+
+  > node_filesystem_size_bytes
+
+  > node_network_receive_bytes_total
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This helps you monitor infrastructure-level metrics.
+
+1.Install node_exporter on your machine:
+```
+wget https://github.com/prometheus/node_exporter/releases/...
+./node_exporter
+```
+
+2.Update otel-collector-config.yaml:
+```
+receivers:
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: node-exporter
+          static_configs:
+            - targets: ['<SIG_NOZ_EC2_IP>:9100']
+```
+
+3.Restart collector:
+```
+cd signoz/deploy/docker
+sudo docker-compose restart otel-collector
+```
+Now you get CPU, memory, disk, network metrics.
