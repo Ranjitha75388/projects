@@ -5,10 +5,8 @@
 ### Overview
 
 - AWS Region & Networking
-
    - AWS Region
    - VPCs and Subnets
-
 - Environments
    - Non-Production
    - Production
