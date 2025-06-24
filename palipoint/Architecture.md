@@ -34,7 +34,7 @@ Each VPC contains **public subnets** where services are deployed.
    
    ◦ Backend
 
-- **Dev-Kafka-Server** (t3a.small): Notification processing via Kafka
+- **Dev-Kafka-Server** (t3a.small): Handles message notifications.
 
 - **Amazon RDS** (PostgreSQL 15.8): Application database (db.t3.micro)
 
@@ -42,9 +42,9 @@ Each VPC contains **public subnets** where services are deployed.
 
 - **ElasticSearch**: Application logging and searching
 
-- **S3 Bucket** (palipoint-dev): Hosts static frontend assets
+- **S3 Bucket** (palipoint-dev): Stores static files like images, HTML, CSS
 
-- **CloudFront** Distribution: Speeds up asset delivery from S3
+- **CloudFront**: Delivers content efficiently to users 
 
 ### 2.Production
 
@@ -52,25 +52,21 @@ Each VPC contains **public subnets** where services are deployed.
 
 **Components**:
 
-• **Prod-Server** (t3.large): Runs Docker containers for:
+• **Prod-Server** (t3.large): Runs frontend and backend in Docker.
 
-  ◦ Frontend
-  
-  ◦ Backend
-
-• **prod-kafka-server** (t3.medium): Kafka-based notification processing
+• **prod-kafka-server** (t3.medium): Processes messages/notifications in real-time.
 
 • **Amazon RDS** (PostgreSQL 16.3): Production database (db.t3.medium)
 
 • **ElastiCache** Redis: Shared with Dev for optimized use
 
-• **prod-kibana-server** (t3.large): Kibana instance to monitor logs
+• **prod-kibana-server** (t3.large): Used to monitor logs.
 
-• **ElasticSearch**: Centralized logging
+• **ElasticSearch**: Stores application logs.
 
 • **S3 Bucket** (palipoint-prod): Static frontend files
 
-• **CloudFront** Distribution: Delivers content efficiently to users
+• **CloudFront** : Delivers content efficiently to users
 
 ### 3.CI/CD (GitLab)
 
