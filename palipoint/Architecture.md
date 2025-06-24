@@ -28,19 +28,15 @@ Each VPC contains **public subnets** where services are deployed.
 
 **Components:**
 
-- **Dev-QA-Server** (t3a.large): Runs Docker containers for:
-   
-   ◦ Frontend
-   
-   ◦ Backend
+- **Dev-QA-Server** (t3a.large): Runs frontend and backend in Docker.
 
 - **Dev-Kafka-Server** (t3a.small): Handles message notifications.
 
-- **Amazon RDS** (PostgreSQL 15.8): Application database (db.t3.micro)
+- **Amazon RDS** (PostgreSQL 15.8): Stores application data (development database)(db.t3.micro)
 
 - **ElastiCache** Redis (Serverless 7.1): For caching
 
-- **ElasticSearch**: Application logging and searching
+- **ElasticSearch**: Logs and search functionality.
 
 - **S3 Bucket** (palipoint-dev): Stores static files like images, HTML, CSS
 
@@ -54,11 +50,11 @@ Each VPC contains **public subnets** where services are deployed.
 
 • **Prod-Server** (t3.large): Runs frontend and backend in Docker.
 
-• **prod-kafka-server** (t3.medium): Processes messages/notifications in real-time.
+• **prod-kafka-server** (t3.medium): Processes messages/notifications.
 
 • **Amazon RDS** (PostgreSQL 16.3): Production database (db.t3.medium)
 
-• **ElastiCache** Redis: Shared with Dev for optimized use
+• **ElastiCache** Redis: Shared with Dev.
 
 • **prod-kibana-server** (t3.large): Used to monitor logs.
 
