@@ -86,27 +86,27 @@ Each VPC contains **public subnets** where services are deployed.
 
 ## Application Functionality (User Perspective)
    
-    1. User visits www.palipoint.com or www.palipoint.in
+1. User visits www.palipoint.com or www.palipoint.in
     
-    2. DNS resolves to public IP → handled via CloudFront
+2. DNS resolves to public IP → handled via CloudFront
     
-    3. CloudFront fetches static files from S3 Bucket (frontend)
+3. CloudFront fetches static files from S3 Bucket (frontend)
     
-    4. Frontend loads in browser and calls backend API
+4. Frontend loads in browser and calls backend API
     
-    5. Backend API (Docker) performs:
+5. Backend API (Docker) performs:
     
-    ◦ DB operations using RDS PostgreSQL
+  ◦ DB operations using RDS PostgreSQL
 
-    ◦ Caching with Redis
+  ◦ Caching with Redis
     
-    ◦ Sends messages to Kafka (notifications)
+  ◦ Sends messages to Kafka (notifications)
         
-    ◦ Logs events to ElasticSearch
+  ◦ Logs events to ElasticSearch
 
-    6. Kafka containers process background jobs
+6. Kafka containers process background jobs
     
-    7. Logs are visualized in Kibana (production only)
+7. Logs are visualized in Kibana (production only)
 
 ## Developer Workflow (CI/CD)
   
