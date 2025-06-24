@@ -127,7 +127,8 @@ Frontend (React/HTML) → CloudFront → S3 Bucket → API Calls → Backend Con
 Logs and performance data → ElasticSearch → Kibana Dashboard
 
 ## Security
-    • AWS Secrets Manager: Securely stores database credentials, tokens, and sensitive config
+
+• AWS Secrets Manager: Securely stores database credentials, tokens, and sensitive config
     
 8. **Monitoring & Observability**
 
