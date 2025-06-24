@@ -12,13 +12,13 @@
 
 The infrastructure includes three separate Virtual Private Clouds (VPCs):
    
- 1. Default VPC – for Non-Production (Dev/QA)
+ 1. **Default VPC** – for Non-Production (Dev/QA)
     
- 2. prod-vpc – for Production
+ 2. **prod-vpc** – for Production
     
- 3. Palipoint-VPC – for CI/CD operations (GitLab)
+ 3. **Palipoint-VPC** – for CI/CD operations (GitLab)
 
-Each VPC contains public subnets where services are deployed.
+Each VPC contains **public subnets** where services are deployed.
 
 ## Environments
 
@@ -28,57 +28,57 @@ Each VPC contains public subnets where services are deployed.
 
 **Components:**
 
-- Dev-QA-Server (t3a.large): Runs Docker containers for:
+- **Dev-QA-Server** (t3a.large): Runs Docker containers for:
    
    ◦ Frontend
    
    ◦ Backend
 
-- Dev-Kafka-Server (t3a.small): Notification processing via Kafka
+- **Dev-Kafka-Server** (t3a.small): Notification processing via Kafka
 
-- Amazon RDS (PostgreSQL 15.8): Application database (db.t3.micro)
+- **Amazon RDS** (PostgreSQL 15.8): Application database (db.t3.micro)
 
-- ElastiCache Redis (Serverless 7.1): For caching
+- **ElastiCache** Redis (Serverless 7.1): For caching
 
-- ElasticSearch: Application logging and searching
+- **ElasticSearch**: Application logging and searching
 
-- S3 Bucket (palipoint-dev): Hosts static frontend assets
+- **S3 Bucket** (palipoint-dev): Hosts static frontend assets
 
-- CloudFront Distribution: Speeds up asset delivery from S3
+- **CloudFront** Distribution: Speeds up asset delivery from S3
 
 ### 2.Production
 
-Domain: www.palipoint.com
+**Domain**: www.palipoint.com
 
-Components:
+**Components**:
 
-• Prod-Server (t3.large): Runs Docker containers for:
+• **Prod-Server** (t3.large): Runs Docker containers for:
 
   ◦ Frontend
   
   ◦ Backend
 
-• prod-kafka-server (t3.medium): Kafka-based notification processing
+• **prod-kafka-server** (t3.medium): Kafka-based notification processing
 
-• Amazon RDS (PostgreSQL 16.3): Production database (db.t3.medium)
+• **Amazon RDS** (PostgreSQL 16.3): Production database (db.t3.medium)
 
-• ElastiCache Redis: Shared with Dev for optimized use
+• **ElastiCache** Redis: Shared with Dev for optimized use
 
-• prod-kibana-server (t3.large): Kibana instance to monitor logs
+• **prod-kibana-server** (t3.large): Kibana instance to monitor logs
 
-• ElasticSearch: Centralized logging
+• **ElasticSearch**: Centralized logging
 
-• S3 Bucket (palipoint-prod): Static frontend files
+• **S3 Bucket** (palipoint-prod): Static frontend files
 
-• CloudFront Distribution: Delivers content efficiently to users
+• **CloudFront** Distribution: Delivers content efficiently to users
 
 ### 3.CI/CD (GitLab)
 
-Domain: gitlab.palipoint.com
+**Domain**: gitlab.palipoint.com
 
-Components:
+**Components**:
 
-• GitLab Server (t3a.xlarge): Hosts repositories and CI/CD pipelines
+• **GitLab Server** (t3a.xlarge): Hosts repositories and CI/CD pipelines
 
 • ECR (Elastic Container Registry): Stores built Docker images
 
