@@ -89,9 +89,9 @@ Each VPC contains **public subnets** where services are deployed.
 
 • **ECR** (Elastic Container Registry): Stores built Docker images
 
-### Security
+### 4.Security
 
-**AWS Secrets Manager**: Securely stores database credentials, tokens, and sensitive config
+- **AWS Secrets Manager**: Securely stores database credentials, tokens, and sensitive config
 
 
 ## Application Functionaliy.
