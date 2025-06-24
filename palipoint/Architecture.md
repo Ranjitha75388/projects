@@ -106,7 +106,7 @@ Each VPC contains **public subnets** where services are deployed.
 
 2. GitLab CI/CD pipeline runs:
 
-   ◦ Code is built into Docker images
+   ◦ Code is built into Docker images for palipoint-fe, palipoint-be, and palipoint-notification
 
    ◦ Images pushed to ECR
 
@@ -115,7 +115,8 @@ Each VPC contains **public subnets** where services are deployed.
  3. Secrets Manager provides secure credentials during deployments
 
 ## Data Flow Summary
-Frontend (React/HTML) → CloudFront → S3 Bucket → API Calls → Backend Container → RDS (PostgreSQL), Redis, Kafka, ElasticSearch
+
+Frontend (React/HTML) → CloudFront → S3 Bucket → API Calls to palipoint-be → Backend Container → RDS (PostgreSQL), Redis, Kafka, ElasticSearch
 Logs and performance data → ElasticSearch → Kibana Dashboard
 
 ## Security
