@@ -96,13 +96,13 @@ Each VPC contains **public subnets** where services are deployed.
     
 5. Backend API (Docker) performs:
     
-  ◦ DB operations using RDS PostgreSQL
+    ◦ DB operations using RDS PostgreSQL
 
-  ◦ Caching with Redis
+    ◦ Caching with Redis
     
-  ◦ Sends messages to Kafka (notifications)
+    ◦ Sends messages to Kafka (notifications)
         
-  ◦ Logs events to ElasticSearch
+    ◦ Logs events to ElasticSearch
 
 6. Kafka containers process background jobs
     
