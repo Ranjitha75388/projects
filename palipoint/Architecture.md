@@ -48,7 +48,7 @@ Each VPC contains **public subnets** where services are deployed.
 
 **Components**:
 
-• **Prod-Server** (t3.large): Runs frontend and backend in Docker.
+• **Prod-Server** (t3.xlarge): Runs frontend and backend in Docker.
 
 • **prod-kafka-server** (t3.medium): Processes messages/notifications.
 
