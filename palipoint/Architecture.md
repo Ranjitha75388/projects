@@ -80,7 +80,7 @@ Each VPC contains **public subnets** where services are deployed.
 
 • **GitLab Server** (t3a.xlarge): Hosts repositories and CI/CD pipelines
 
-• ECR (Elastic Container Registry): Stores built Docker images
+• **ECR** (Elastic Container Registry): Stores built Docker images
 
 • GitLab Pipelines: Automate build, test, and deployment
 
@@ -126,14 +126,15 @@ Each VPC contains **public subnets** where services are deployed.
 Frontend (React/HTML) → CloudFront → S3 Bucket → API Calls → Backend Container → RDS (PostgreSQL), Redis, Kafka, ElasticSearch
 Logs and performance data → ElasticSearch → Kibana Dashboard
 
-7. Security
+## Security
     • AWS Secrets Manager: Securely stores database credentials, tokens, and sensitive config
-    • Public Subnets: All servers are in public subnets; proper security groups and IAM policies are assumed to be configured
+    
+8. **Monitoring & Observability**
 
-8. Monitoring & Observability
     • ElasticSearch stores application logs
-    • Kibana (production only) provides a UI to search/view logs
-    • Kafka logs are accessible from Docker logs
 
-9. Conclusion
-This architecture supports a scalable, CI/CD-enabled cloud application, with clear separation of Dev and Prod environments. It uses modern AWS services like RDS, ElastiCache, Kafka, S3, CloudFront, and GitLab CI/CD to ensure secure, fast, and reliable deployments.
+    • Kibana (production only) provides a UI to search/view logs
+
+   • Kafka logs are accessible from Docker logs
+
+
