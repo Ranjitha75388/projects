@@ -2,6 +2,23 @@
 
    This document provides a overview of the cloud architecture and application design of the Palipoint system. 
 
+### Overview
+
+- AWS Region & Networking
+
+   - AWS Region
+   - VPCs and Subnets
+
+- Environments
+   - Non-Production
+   - Production
+   - CI/CD (GitLab)
+   - Security
+- Application Functionaliy
+- CI/CD Workflow
+- Data Flow Summary
+
+
 ## AWS Region & Networking
 
 ### 1.AWS Region
@@ -74,9 +91,12 @@ Each VPC contains **public subnets** where services are deployed.
 
 • **ECR** (Elastic Container Registry): Stores built Docker images
 
-• GitLab Pipelines: Automate build, test, and deployment
+### Security
 
-## Application Functionality (User Perspective)
+**AWS Secrets Manager**: Securely stores database credentials, tokens, and sensitive config
+
+
+## Application Functionaliy.
    
 1. User visits www.palipoint.com or www.palipoint.in
     
@@ -100,7 +120,7 @@ Each VPC contains **public subnets** where services are deployed.
     
 7. Logs are visualized in Kibana (production only)
 
-## Developer Workflow (CI/CD)
+## CI/CD Workflow
   
 1. Developer pushes code to GitLab (gitlab.palipoint.com)
 
@@ -116,19 +136,10 @@ Each VPC contains **public subnets** where services are deployed.
 
 ## Data Flow Summary
 
-Frontend (React/HTML) → CloudFront → S3 Bucket → API Calls to palipoint-be → Backend Container → RDS (PostgreSQL), Redis, Kafka, ElasticSearch
-Logs and performance data → ElasticSearch → Kibana Dashboard
+User → DNS → CloudFront → S3 (frontend files) → Browser (loads app) → Backend API → RDS / Redis / Kafka / ElasticSearch → Kibana (for logs & monitoring)
 
-## Security
 
-• AWS Secrets Manager: Securely stores database credentials, tokens, and sensitive config
     
-8. **Monitoring & Observability**
 
-    • ElasticSearch stores application logs
-
-    • Kibana (production only) provides a UI to search/view logs
-
-   • Kafka logs are accessible from Docker logs
 
 
