@@ -87,7 +87,9 @@ Each VPC contains **public subnets** where services are deployed.
 
 • **GitLab Server** (t3a.xlarge): Hosts repositories and CI/CD pipelines
 
-• **ECR** (Elastic Container Registry): Stores built Docker images
+• **ECR** (Elastic Container Registry): Stores built Docker images.
+
+It communicates with both Dev and Prod environments to deploy apps.
 
 ### 4.Security
 
