@@ -50,7 +50,7 @@ Each VPC contains **public subnets** where services are deployed.
 
 • **Prod-Server** (t3.xlarge): Runs frontend and backend in Docker.
 
-• **prod-kafka-server** (t3.medium): Processes messages/notifications.
+• **prod-kafka-server** (t3a.medium): Processes messages/notifications.
 
 • **Amazon RDS** (PostgreSQL 16.3): Production database (db.t3.medium)
 
