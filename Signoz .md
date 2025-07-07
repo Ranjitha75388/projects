@@ -62,19 +62,36 @@ Fluent Bit is a lightweight log collector. It can:
  - Send logs to tools like SigNoz
 
 #### 1.Install Fluent Bit Manually (App/Frontend EC2)
+
+Step 1: Add Fluent Bit GPG Key
 ```
-# 1. Add the Fluent Bit GPG key
-curl https://packages.fluentbit.io/fluentbit.key | sudo apt-key add -
-
-# 2. Add the official Fluent Bit repository to APT sources
-echo "deb https://packages.fluentbit.io/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/fluentbit.list
-
-# 3. Update package index
+curl https://packages.fluentbit.io/fluentbit.key | sudo gpg --dearmor -o /usr/share/keyrings/fluentbit.gpg
+```
+Step 2: Add Fluent Bit APT Repository (Ubuntu Noble)
+```
+echo "deb [signed-by=/usr/share/keyrings/fluentbit.gpg] https://packages.fluentbit.io/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/fluentbit.list
+```
+Step 3: Install Fluent Bit
+```
 sudo apt-get update
-
-# 4. Install Fluent Bit
 sudo apt-get install -y fluent-bit
 ```
+Step 4: Verify Installation
+```
+/opt/fluent-bit/bin/fluent-bit --version
+```
+Step 5 (Optional): Add to PATH
+Make the binary accessible globally:
+```
+echo 'export PATH=$PATH:/opt/fluent-bit/bin' >> ~/.bashrc
+source ~/.bashrc
+```
+Then verify:
+```
+fluent-bit --version
+```
+![image](https://github.com/user-attachments/assets/93b0d1e1-316b-4cb1-96f6-b717a0f448c7)
+
 #### 2.Version check:
 ```
 fluent-bit --version
