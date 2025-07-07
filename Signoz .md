@@ -64,6 +64,12 @@ Fluent Bit is a lightweight log collector. It can:
 #### 1.Install Fluent Bit Manually (App/Frontend EC2)
  https://docs.fluentbit.io/manual/installation/debian
 
+
+ curl https://packages.fluentbit.io/fluentbit.key | sudo apt-key add -
+echo "deb https://packages.fluentbit.io/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/fluentbit.list
+sudo apt-get update
+sudo apt-get install -y fluent-bit
+
 Step 1: Add Fluent Bit GPG Key
 ```
 curl https://packages.fluentbit.io/fluentbit.key | sudo gpg --dearmor -o /usr/share/keyrings/fluentbit.gpg
