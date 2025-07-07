@@ -92,15 +92,12 @@ fluent-bit --version
 ```
 ![image](https://github.com/user-attachments/assets/93b0d1e1-316b-4cb1-96f6-b717a0f448c7)
 
-#### 2.Version check:
-```
-fluent-bit --version
-```
-#### 3.Create config:
+
+#### 2.Create config:
 ```
 sudo nano /etc/fluent-bit/fluent-bit.conf
 ```
-#### 4.Configure Fluent Bit to read Docker container logs
+#### 3.Configure Fluent Bit to read Docker container logs
 ```
 [SERVICE]
     flush        1
@@ -140,13 +137,13 @@ sudo nano /etc/fluent-bit/fluent-bit.conf
 
 - **[OUTPUT]**: Send logs using the OpenTelemetry (OTLP) protocol to SigNoz, which listens on port 4318.
 
-#### 5.Run Fluent Bit:
+#### 4.Run Fluent Bit:
 ```
 sudo /opt/fluent-bit/bin/fluent-bit -c /etc/fluent-bit/fluent-bit.conf
 ```
 ![Screenshot from 2025-06-20 11-49-59](https://github.com/user-attachments/assets/4a555fd3-c32a-482a-bf28-3465e30d1d98)
 
-#### 6.View Logs in Signoz
+#### 5.View Logs in Signoz
  
 - opene SigNoz → Logs tab → and saw container logs flowing in!
 
