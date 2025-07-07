@@ -62,6 +62,7 @@ Fluent Bit is a lightweight log collector. It can:
  - Send logs to tools like SigNoz
 
 #### 1.Install Fluent Bit Manually (App/Frontend EC2)
+ https://docs.fluentbit.io/manual/installation/debian
 
 Step 1: Add Fluent Bit GPG Key
 ```
