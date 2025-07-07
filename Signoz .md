@@ -62,7 +62,7 @@ Fluent Bit is a lightweight log collector. It can:
  - Send logs to tools like SigNoz
 
 #### 1.Install Fluent Bit Manually (App/Frontend EC2)
- https://docs.fluentbit.io/manual/installation/debian
+
 1.Add the Fluent Bit repository: 
 ```
 sudo wget -qO /etc/apt/keyrings/fluentbit.asc https://packages.fluentbit.io/fluentbit.key
@@ -86,8 +86,7 @@ sudo systemctl start fluent-bit
 /opt/fluent-bit/bin/fluent-bit --version
 sudo service fluent-bit status
 ```
-![image](https://github.com/user-attachments/assets/93b0d1e1-316b-4cb1-96f6-b717a0f448c7)
-
+![image](https://github.com/user-attachments/assets/108af645-ef97-49c0-b82a-a21e9177d1ae)
 
 #### 2.Create config:
 ```
