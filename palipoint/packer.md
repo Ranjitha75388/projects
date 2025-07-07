@@ -94,6 +94,45 @@ sudo apt-get install -y openjdk-17-jdk
 echo "[+] Verifying Java installation..."
 java -version
 
+-------------------------------
+# Install Node Exporter (Official)
+-------------------------------
+echo "[+] Installing Prometheus Node Exporter..."
+
+NODE_EXPORTER_VERSION="1.8.1"
+
+sudo useradd --no-create-home --shell /bin/false node_exporter
+
+cd /tmp
+curl -LO https://github.com/prometheus/node_exporter/releases/download/v${NODE_EXPORTER_VERSION}/node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz
+tar xvf node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz
+
+sudo cp node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64/node_exporter /usr/local/bin/
+sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
+rm -rf node_exporter-${NODE_EXPORTER_VERSION}*
+
+# Create systemd service
+sudo tee /etc/systemd/system/node_exporter.service > /dev/null <<EOF
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+
+[Install]
+WantedBy=default.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable node_exporter
+sudo systemctl start node_exporter
+
+
 ```
 
 
