@@ -63,39 +63,28 @@ Fluent Bit is a lightweight log collector. It can:
 
 #### 1.Install Fluent Bit Manually (App/Frontend EC2)
  https://docs.fluentbit.io/manual/installation/debian
-
-
- curl https://packages.fluentbit.io/fluentbit.key | sudo apt-key add -
-echo "deb https://packages.fluentbit.io/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/fluentbit.list
-sudo apt-get update
-sudo apt-get install -y fluent-bit
-
-Step 1: Add Fluent Bit GPG Key
+1.Add the Fluent Bit repository: 
 ```
-curl https://packages.fluentbit.io/fluentbit.key | sudo gpg --dearmor -o /usr/share/keyrings/fluentbit.gpg
+sudo wget -qO /etc/apt/keyrings/fluentbit.asc https://packages.fluentbit.io/fluentbit.key
+echo "deb [signed-by=/etc/apt/keyrings/fluentbit.asc] https://packages.fluentbit.io/ubuntu/$(lsb_release -sc) $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/fluentbit.list
 ```
-Step 2: Add Fluent Bit APT Repository (Ubuntu Noble)
+2. Update the package lists:
 ```
-echo "deb [signed-by=/usr/share/keyrings/fluentbit.gpg] https://packages.fluentbit.io/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/fluentbit.list
+sudo apt update
 ```
-Step 3: Install Fluent Bit
+3.Install Fluent Bit:
 ```
-sudo apt-get update
-sudo apt-get install -y fluent-bit
+sudo apt install -y fluent-bit
 ```
-Step 4: Verify Installation
+4. Enable and start the Fluent Bit service: 
+```
+sudo systemctl enable fluent-bit
+sudo systemctl start fluent-bit
+```
+5.Verify the installation:
 ```
 /opt/fluent-bit/bin/fluent-bit --version
-```
-Step 5 (Optional): Add to PATH
-Make the binary accessible globally:
-```
-echo 'export PATH=$PATH:/opt/fluent-bit/bin' >> ~/.bashrc
-source ~/.bashrc
-```
-Then verify:
-```
-fluent-bit --version
+sudo service fluent-bit status
 ```
 ![image](https://github.com/user-attachments/assets/93b0d1e1-316b-4cb1-96f6-b717a0f448c7)
 
