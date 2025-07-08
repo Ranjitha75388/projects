@@ -95,26 +95,35 @@ echo "[+] Verifying Java installation..."
 java -version
 
 -------------------------------
-# Install Node Exporter (Official)
+# Install Prometheus Node Exporter 
 -------------------------------
-echo "[+] Installing Prometheus Node Exporter..."
+echo "[+] Installing Prometheus Node Exporter ..."
 
+# Variables
 NODE_EXPORTER_VERSION="1.8.1"
+OS="linux"
+ARCH="amd64"
 
+# Create user for Node Exporter
 sudo useradd --no-create-home --shell /bin/false node_exporter
 
+# Download and extract the binary 
 cd /tmp
-curl -LO https://github.com/prometheus/node_exporter/releases/download/v${NODE_EXPORTER_VERSION}/node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz
-tar xvf node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz
+wget https://github.com/prometheus/node_exporter/releases/download/v${NODE_EXPORTER_VERSION}/node_exporter-${NODE_EXPORTER_VERSION}.${OS}-${ARCH}.tar.gz
 
-sudo cp node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64/node_exporter /usr/local/bin/
+tar xvfz node_exporter-${NODE_EXPORTER_VERSION}.${OS}-${ARCH}.tar.gz
+
+# Move binary to /usr/local/bin
+sudo cp node_exporter-${NODE_EXPORTER_VERSION}.${OS}-${ARCH}/node_exporter /usr/local/bin/
 sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
-rm -rf node_exporter-${NODE_EXPORTER_VERSION}*
 
-# Create systemd service
+# Clean up
+rm -rf node_exporter-${NODE_EXPORTER_VERSION}.${OS}-${ARCH}*
+
+# Set up as systemd service 
 sudo tee /etc/systemd/system/node_exporter.service > /dev/null <<EOF
 [Unit]
-Description=Node Exporter
+Description=Prometheus Node Exporter
 Wants=network-online.target
 After=network-online.target
 
@@ -125,13 +134,18 @@ Type=simple
 ExecStart=/usr/local/bin/node_exporter
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
 EOF
 
+# Enable and start the service
 sudo systemctl daemon-reload
 sudo systemctl enable node_exporter
 sudo systemctl start node_exporter
 
+# Confirm status
+echo "[+] Node Exporter version and status:"
+/usr/local/bin/node_exporter --version
+systemctl status node_exporter --no-pager
 
 ```
 
