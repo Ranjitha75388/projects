@@ -69,24 +69,20 @@ docker --version
 ----------------------
 #  Install Fluent Bit 
 ----------------------
-echo "[+] Installing Fluent Bit manually..."
+echo "[+] Installing Fluent Bit ..."
 
 # 1.Add the Fluent Bit repository:
 
  sudo wget -qO /etc/apt/keyrings/fluentbit.asc https://packages.fluentbit.io/fluentbit.key
  echo "deb [signed-by=/etc/apt/keyrings/fluentbit.asc] https://packages.fluentbit.io/ubuntu/$(lsb_release -sc) $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/fluentbit.list
 
-
 # 2.Update the package lists:
-
  sudo apt update
 
 # 3.Install Fluent Bit:
-
 sudo apt install -y fluent-bit
 
 # 4.Add Fluent Bit Configuration
-
 echo "[+] Creating Fluent Bit config files..."
 
 sudo mkdir -p /etc/fluent-bit/
