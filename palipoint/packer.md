@@ -74,6 +74,46 @@ echo "[+] Installing Fluent Bit manually..."
 
 sudo apt install -y fluent-bit
 
+# 4.Add Fluent Bit Configuration
+
+echo "[+] Creating Fluent Bit config files..."
+
+sudo mkdir -p /etc/fluent-bit/
+
+# Main config
+sudo tee /etc/fluent-bit/fluent-bit.conf > /dev/null <<EOF
+[SERVICE]
+    Flush        1
+    Daemon       Off
+    Log_Level    info
+    Parsers_File parsers.conf
+
+[INPUT]
+    Name        tail
+    Path        /var/log/syslog
+    Parser      syslog
+    Tag         syslog
+
+[OUTPUT]
+    Name  opentelemetry
+    Match *
+    Host  <SIGNOZ_EC2_IP>           ###### Signoz EC2 IP
+    Port  4318
+    Format  json
+    TLS    Off
+
+EOF
+
+# Parser config
+sudo tee /etc/fluent-bit/parsers.conf > /dev/null <<EOF
+[PARSER]
+    Name        syslog
+    Format      regex
+    Regex       ^(?<time>[^ ]+ [^ ]+ [^ ]+) (?<log>.*)$
+    Time_Key    time
+    Time_Format %b %d %H:%M:%S
+EOF
+
 # 4.Enable and start the Fluent Bit service
 
 sudo systemctl enable fluent-bit
