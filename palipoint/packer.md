@@ -24,6 +24,17 @@ sudo apt-get install -y \
   iptables \
   unzip \
   git
+
+-------------------------------
+# Install Java JDK (OpenJDK 17)
+-------------------------------
+
+echo "[+] Installing OpenJDK 17..."
+sudo apt-get install -y openjdk-17-jdk
+
+echo "[+] Verifying Java installation..."
+java -version
+
 ------------------
 #  Install Docker
 ------------------
@@ -114,25 +125,15 @@ sudo tee /etc/fluent-bit/parsers.conf > /dev/null <<EOF
     Time_Format %b %d %H:%M:%S
 EOF
 
-# 4.Enable and start the Fluent Bit service
+# 5.Enable and start the Fluent Bit service
 
 sudo systemctl enable fluent-bit
 sudo systemctl start fluent-bit
 
-# 5.Verify the installation:
+# 6.Verify the installation:
 
 /opt/fluent-bit/bin/fluent-bit --version
-sudo service fluent-bit status
-
--------------------------------
-# Install Java JDK (OpenJDK 17)
--------------------------------
-
-echo "[+] Installing OpenJDK 17..."
-sudo apt-get install -y openjdk-17-jdk
-
-echo "[+] Verifying Java installation..."
-java -version
+sudo systemctl status fluent-bit
 
 -------------------------------
 # Install Prometheus Node Exporter 
