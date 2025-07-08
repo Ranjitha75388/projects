@@ -104,7 +104,7 @@ sudo tee /etc/fluent-bit/fluent-bit.conf > /dev/null <<EOF
 [OUTPUT]
     Name  opentelemetry
     Match *
-    Host  <SIGNOZ_EC2_IP>           ###### Signoz EC2 IP
+    Host  <44.203.180.83>           ###### Signoz EC2 IP
     Port  4318
     Format  json
     TLS    Off
