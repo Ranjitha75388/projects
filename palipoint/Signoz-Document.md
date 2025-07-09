@@ -15,7 +15,17 @@ docker compose up -d --remove-orphans
 ```
 docker ps
 ```
-## 
+## Collect Logs and Metrics using OpenTelemetry binary as an agent in VM
+
+1.Downloading OpenTelemetry Collector .deb
+```
+wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.116.0/otelcol-contrib_0.116.0_linux_amd64.deb
+```
+2.Installing OpenTelemetry Collector
+```
+sudo dpkg -i otelcol-contrib_0.116.0_linux_amd64.deb
+```
+3.download the standalone configuration for the otelcol binary running in the VM
 
 
 
