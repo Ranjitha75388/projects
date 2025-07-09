@@ -153,3 +153,45 @@ exporters:
   debug:
     verbosity: normal
 ```
+## 2. No container logs running
+![image](https://github.com/user-attachments/assets/d5604125-1738-42ca-a10a-f1fa6e2f2d8e)
+
+```
+nano /etc/systemd/system/otelcol-contrib.service
+```
+```
+cat /etc/systemd/system/otelcol-contrib.service
+[Unit]
+Description=OpenTelemetry Collector Contrib
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/otelcol-contrib/otelcol-contrib.conf
+ExecStart=/usr/bin/otelcol-contrib $OTELCOL_OPTIONS
+KillMode=mixed
+Restart=on-failure
+Type=simple
+User=otelcol-contrib
+Group=otelcol-contrib
+
+[Install]
+WantedBy=multi-user.target
+```
+To root user
+```
+[Unit]
+Description=OpenTelemetry Collector Contrib
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/otelcol-contrib/otelcol-contrib.conf
+ExecStart=/usr/bin/otelcol-contrib $OTELCOL_OPTIONS
+KillMode=mixed
+Restart=on-failure
+Type=simple
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+```
