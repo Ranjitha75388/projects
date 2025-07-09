@@ -74,7 +74,7 @@ extensions:
   zpages: {}
 exporters:
   otlp:
-    endpoint: "<IP of machine hosting SigNoz>:4317"
+    endpoint: "<IP of machine hosting SigNoz>:4317"       ### Added signoz ec2 -IP
     tls:
       insecure: true
   logging:
@@ -138,4 +138,18 @@ receivers:
         from: attributes.log
         to: body
 ```
+## issue
+![image](https://github.com/user-attachments/assets/ca62bf25-4676-4e74-b6ab-a01365f197a3)
 
+Replace this part of config:
+```
+exporters:
+  logging:
+    verbosity: normal
+
+With:
+
+exporters:
+  debug:
+    verbosity: normal
+```
