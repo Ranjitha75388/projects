@@ -27,11 +27,7 @@ sudo dpkg -i otelcol-contrib_0.116.0_linux_amd64.deb
 ```
 3.download the standalone configuration for the otelcol binary running in the VM
 
-
-
-
 ```
-ubuntu@ip-10-0-11-109:~$ cat config.yaml
 receivers:
   otlp:
     protocols:
@@ -107,5 +103,39 @@ service:
       processors: [batch]
       exporters: [otlp]
 ```
+### Systemd
+1.To copy the updated config.yaml file:
+```
+sudo cp config.yaml /etc/otelcol-contrib/config.yaml
+```
+2.To restart otelcol with updated config:
+```
+sudo systemctl restart otelcol-contrib.service
+```
+3.To check the status of otelcol
+```
+sudo systemctl status otelcol-contrib.service
+```
+![image](https://github.com/user-attachments/assets/4614d151-763d-4fc9-8f45-7e1ec2794684)
 
-  
+## Added filelog for container log
+```
+receivers:
+  filelog/containers:
+    include: [ /var/lib/docker/containers/*/*.log ]
+    start_at: beginning
+    multiline:
+      line_start_pattern: '^\{'
+    operators:
+      - type: json_parser
+        id: parse-docker
+        timestamp:
+          parse_from: attributes.time
+          layout: '%Y-%m-%dT%H:%M:%S.%LZ'
+        severity:
+          parse_from: attributes.level
+      - type: move
+        from: attributes.log
+        to: body
+```
+
