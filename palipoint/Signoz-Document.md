@@ -195,3 +195,4 @@ Group=root
 [Install]
 WantedBy=multi-user.target
 ```
+![image](https://github.com/user-attachments/assets/74c2a5a2-fa16-4ea4-8c09-5afb3e6187ac)
