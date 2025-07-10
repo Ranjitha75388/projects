@@ -120,6 +120,10 @@ sudo systemctl status otelcol-contrib.service
 
 ## Added filelog for container log
 ```
+sudo nano /etc/otelcol-contrib/config.yaml
+```
+
+```
 receivers:
   filelog/containers:
     include: [ /var/lib/docker/containers/*/*.log ]
