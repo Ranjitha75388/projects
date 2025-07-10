@@ -200,3 +200,82 @@ Group=root
 WantedBy=multi-user.target
 ```
 ![image](https://github.com/user-attachments/assets/74c2a5a2-fa16-4ea4-8c09-5afb3e6187ac)
+
+
+
+## Single otel agent
+```
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4326
+      http:
+        endpoint: 0.0.0.0:4327
+
+  hostmetrics:
+    collection_interval: 10s
+    scrapers:
+      cpu: {}
+      memory: {}
+      disk: {}
+      filesystem: {}
+      load: {}
+      network: {}
+      paging: {}
+      processes: {}
+
+  filelog/system:
+    include:
+      - /var/log/syslog
+      - /var/log/auth.log
+      - /var/log/kern.log
+    start_at: end
+
+  filelog/containers:
+    include: ["/var/lib/docker/containers/*/*-json.log"]
+    start_at: end
+    operators:
+      - type: json_parser
+        id: parser-docker
+      - type: move
+        from: attributes.log
+        to: body
+
+processors:
+  batch:
+    send_batch_size: 1000
+    timeout: 10s
+
+  resourcedetection:
+    detectors: [system, ec2]
+    override: true
+
+  resource:
+    attributes:
+      - key: log.source
+        value: "host"
+        action: insert
+
+exporters:
+  otlp:
+    endpoint: "52.5.140.96:4317"
+    tls:
+      insecure: true
+
+service:
+  telemetry:
+    metrics:
+      address: 0.0.0.0:8888
+
+  pipelines:
+    metrics:
+      receivers: [otlp, hostmetrics]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+
+    logs:
+      receivers: [filelog/system, filelog/containers]
+      processors: [batch, resource]
+      exporters: [otlp]
+```
