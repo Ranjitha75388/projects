@@ -279,3 +279,92 @@ service:
       processors: [batch, resource]
       exporters: [otlp]
 ```
+### syslog with all
+```
+ubuntu@ip-10-0-9-104:~$ cat /etc/otelcol-contrib/config.yaml
+receivers:
+  syslog:
+    tcp:
+      listen_address: "0.0.0.0:2255"
+    protocol: rfc5424
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4332
+      http:
+        endpoint: 0.0.0.0:4333
+
+  hostmetrics:
+    collection_interval: 10s
+    scrapers:
+      cpu: {}
+      memory: {}
+      disk: {}
+      filesystem: {}
+      load: {}
+      network: {}
+      paging: {}
+      processes: {}
+
+  filelog/system:
+    include:
+      - /var/log/syslog
+      - /var/log/auth.log
+      - /var/log/kern.log
+    start_at: end
+
+  filelog/containers:
+    include: ["/var/lib/docker/containers/*/*.log"]
+    start_at: beginning
+    operators:
+      - type: json_parser
+        id: parser-docker
+      - type: move
+        from: attributes.log
+        to: body
+
+processors:
+  batch:
+    send_batch_size: 1000
+    send_batch_max_size: 11000
+    timeout: 10s
+
+  resourcedetection:
+    detectors: [system, ec2]
+    override: true
+
+  resource:
+    attributes:
+      - key: log.source
+        value: "host"
+        action: insert
+
+exporters:
+  otlp:
+    endpoint: "52.5.140.96:4317"
+    tls:
+      insecure: true
+
+  otlp/log:
+    endpoint: "52.5.140.96:4317"
+    tls:
+      insecure: true
+
+service:
+  telemetry:
+    metrics:
+      address: 0.0.0.0:8888
+
+  pipelines:
+    metrics:
+      receivers: [otlp, hostmetrics]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+
+    logs:
+      receivers: [filelog/system, filelog/containers,syslog,otlp]
+      processors: [batch, resource]
+      exporters: [otlp/log]
+
+
+```
