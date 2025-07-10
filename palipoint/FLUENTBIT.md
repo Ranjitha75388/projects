@@ -1,3 +1,4 @@
+```
 [SERVICE]
     Flush        1
     Daemon       Off
@@ -33,3 +34,4 @@
     logs_uri              /v1/logs
     log_response_payload  false
 
+```
