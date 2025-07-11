@@ -162,3 +162,121 @@ tar -xvzf otelcol-contrib_0.96.0_linux_amd64.tar.gz
 ./otelcol-contrib --config=config.yaml
 
 Where config.yaml sends metrics to http://52.5.140.96:4317.
+
+
+
+
+---------------------------------------------
+
+To get metrics from the same app server along with logs, you need to run an OpenTelemetry Collector or Agent on the app server that sends metrics to your SigNoz server. The logspout-signoz container is only for logs — it does not collect metrics.
+✅ Goal
+
+You want:
+
+    Logs → collected via logspout-signoz ✅
+
+    Metrics → collected via otel-collector binary or agent 🧭
+
+✅ Final Architecture Overview
+
+APP SERVER (Docker Host)
+├── Application containers (frontend, backend, etc.)
+├── logspout-signoz     ---> forwards logs to SigNoz (http://<signoz-ip>:8082)
+└── otel-collector (binary or agent)
+     └── collects metrics and sends to SigNoz (http://<signoz-ip>:4317)
+
+SIGNOZ SERVER (Docker)
+└── OpenTelemetry Collector (configured with receivers for logs + metrics + traces)
+
+✅ Steps to Enable Metrics on App Server
+1. Install OpenTelemetry Collector (binary) on the App Server
+
+You can use the contrib distribution or download the binary:
+```
+wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.102.1/otelcol-contrib_0.102.1_linux_amd64.tar.gz
+tar -xvf otelcol-contrib_0.102.1_linux_amd64.tar.gz
+sudo mv otelcol-contrib /usr/local/bin/
+```
+2. Create config.yaml for App Server Otel Agent
+
+Create this file as /etc/otelcol-contrib/config.yaml:
+```
+receivers:
+  hostmetrics:
+    collection_interval: 30s
+    scrapers:
+      cpu:
+      memory:
+      disk:
+      filesystem:
+      load:
+      network:
+      paging:
+      processes:
+
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+processors:
+  batch:
+  resourcedetection:
+    detectors: [env, system]
+    timeout: 2s
+
+exporters:
+  otlp:
+    endpoint: <SIGNOZ_SERVER_IP>:4317
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    metrics:
+      receivers: [hostmetrics]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+```
+Replace <SIGNOZ_SERVER_IP> with your actual SigNoz server’s IP (e.g., 52.5.140.96).
+3. Run the Otel Agent
+
+otelcol-contrib --config /etc/otelcol-contrib/config.yaml
+
+You can also run this as a systemd service or use Docker if preferred.
+✅ Result
+
+You will now have:
+
+    Logs: via logspout-signoz → http://<sigz-ip>:8082
+
+    Metrics: via otelcol-contrib → grpc://<signoz-ip>:4317
+
+These will show up in the SigNoz Metrics dashboard and under the Hosts tab.
+❓ Want to monitor container metrics too?
+
+If you want container-level metrics (CPU/memory per container), then add the docker_stats scraper like this:
+
+  hostmetrics:
+    collection_interval: 30s
+    scrapers:
+      cpu:
+      memory:
+      disk:
+      filesystem:
+      docker_stats:  # Add this
+
+You must run the agent with access to Docker:
+
+docker run \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /:/hostfs:ro \
+  otel/opentelemetry-collector-contrib \
+  --config /etc/otelcol-contrib/config.yaml
+
+✅ Summary
+Component	Purpose	How
+logspout-signoz	Collect Docker container logs	Sends to http://<signoz-ip>:8082
+otelcol-contrib	Collect host & container metrics	Sends to grpc://<signoz-ip>:4317
+otel-collector-config.yaml (SigNoz server)	Handles log, metrics, trace ingestion	Already configured
+Let me know if you want a full docker run example for the Otel agent as a container.
