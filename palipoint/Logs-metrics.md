@@ -275,13 +275,13 @@ The pre-defined Container Metrics enables you to select the Docker host from a d
 
 
 
-## Error 2
+## Error 2:Logs
 <img width="1919" height="531" alt="image" src="https://github.com/user-attachments/assets/1b1b0cff-401c-4971-8f82-753ad451eb4b" />
 ## Solution:
 
 #### Tried `sudo otelcol-contrib --config /etc/otelcol-contrib/config.yaml`
 
-<img width="1919" height="436" alt="image" src="https://github.com/user-attachments/assets/1090551d-8cd5-4c3d-a9d6-00e9b3f87904" />
+<img width="1917" height="403" alt="image" src="https://github.com/user-attachments/assets/2f1b5982-9006-4e4a-9d9e-3ae369c11a62" />
 
 -------------------------------------------
  ## Step 2: Create the config file
