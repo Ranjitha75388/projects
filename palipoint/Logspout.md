@@ -391,3 +391,29 @@ Checked user
 
 <img width="665" height="294" alt="image" src="https://github.com/user-attachments/assets/d2306797-76ce-4aae-b84f-d1a89810011f" />
 
+
+
+
+------------------------------------------------------------------------
+1..logspout-signoz
+```
+docker run -d \
+    --volume=/var/run/docker.sock:/var/run/docker.sock \
+    -e 'SIGNOZ_LOG_ENDPOINT=http://52.5.140.96:8082' \
+    -e 'ENV=prod' \
+    pavanputhra/logspout-signoz \
+    signoz://52.5.140.96:8082
+```
+
+
+<img width="272" height="264" alt="image" src="https://github.com/user-attachments/assets/009eca54-017d-44c2-ad9c-0b1a8eccfc71" />
+
+
+
+
+
+
+
+
+
+
