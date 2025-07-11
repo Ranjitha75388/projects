@@ -252,9 +252,29 @@ Then restart your machine or the collector:
 ```
 sudo reboot
 ```
+### Output
+
+The pre-defined Container Metrics enables you to select the Docker host from a dropdown list and visualize the following groups of metrics:
+
+    CPU
+    Memory
+    Network
+    Disk
+
+## Container Memory Metrics:search `container_memory_usage_total`
+<img width="1862" height="622" alt="image" src="https://github.com/user-attachments/assets/f834c76c-d3b6-4c43-b80c-6ce07825afc9" />
+
+
+
+
+
 ## Error 2
 <img width="1919" height="531" alt="image" src="https://github.com/user-attachments/assets/1b1b0cff-401c-4971-8f82-753ad451eb4b" />
+## Solution:
 
+#### Tried `sudo otelcol-contrib --config /etc/otelcol-contrib/config.yaml`
+
+<img width="1919" height="436" alt="image" src="https://github.com/user-attachments/assets/1090551d-8cd5-4c3d-a9d6-00e9b3f87904" />
 
 -------------------------------------------
  ## Step 2: Create the config file
