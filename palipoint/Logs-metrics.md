@@ -134,114 +134,7 @@ exporters: [otlp, debug]
 ## No log exists
 
 ## modify file with system log,container logs,sysyem metrics,docker metris
-------------------------------------------------------------------------------------- noooooooooooooooooo
-```
-receivers:
-  otlp:
-    protocols:
-      grpc:
-        endpoint: 0.0.0.0:4317
-      http:
-        endpoint: 0.0.0.0:4318
 
-  hostmetrics:
-    collection_interval: 30s
-    scrapers:
-      cpu: {}
-      disk: {}
-      load: {}
-      filesystem: {}
-      memory: {}
-      network: {}
-      paging: {}
-      process:
-        mute_process_name_error: true
-        mute_process_exe_error: true
-        mute_process_io_error: true
-      processes: {}
-
-  docker_stats:
-    collection_interval: 30s
-
-  filelog:
-    include: [ /var/lib/docker/containers/*/*.log ]
-    include_file_path: true
-    include_file_name: true
-    start_at: beginning
-    operators:
-      - type: json_parser
-        id: parse_docker_json
-        parse_from: body
-        timestamp:
-          parse_from: attributes.time
-          layout: '%Y-%m-%dT%H:%M:%S.%fZ'
-        severity:
-          parse_from: attributes.stream
-
-  syslog:
-    tcp:
-      listen_address: "0.0.0.0:2255"
-    protocol: rfc5424
-
-  prometheus:
-    config:
-      global:
-        scrape_interval: 30s
-      scrape_configs:
-        - job_name: otel-collector
-          static_configs:
-            - targets: ['localhost:8888']
-
-processors:
-  batch:
-    send_batch_size: 1000
-    timeout: 10s
-
-  resourcedetection:
-    detectors: [system]
-    timeout: 2s
-    system:
-      hostname_sources: [os]
-
-extensions:
-  health_check: {}
-  zpages: {}
-
-exporters:
-  otlp:
-    endpoint: "52.5.140.96:4317"
-    tls:
-      insecure: true
-
-  debug:
-    verbosity: normal
-
-service:
-  telemetry:
-    metrics:
-      address: 0.0.0.0:8888
-
-  extensions: [health_check, zpages]
-
-  pipelines:
-    metrics:
-      receivers: [otlp]
-      processors: [batch]
-      exporters: [otlp]
-
-    metrics/internal:
-      receivers: [prometheus, hostmetrics, docker_stats]
-      processors: [resourcedetection, batch]
-      exporters: [otlp]
-
-    logs:
-      receivers: [otlp, filelog, syslog]
-      processors: [batch]
-      exporters: [otlp]
-````
-
-<img width="1909" height="248" alt="image" src="https://github.com/user-attachments/assets/86c7bb37-92e7-4774-adfe-788c0cbe6943" />
---------------------------------------------------------------------------------------------------------------------------------------------wrong without document
 ```
 receivers:
   otlp:
@@ -266,8 +159,27 @@ receivers:
       processes: {}
 
   docker_stats:
-    # Collects metrics directly from Docker daemon via socket (no endpoint needed on same host)
+    endpoint: unix:///var/run/docker.sock
     collection_interval: 30s
+    metrics:
+      container.cpu.utilization:
+        enabled: true
+      container.memory.percent:
+        enabled: true
+      container.network.io.usage.rx_bytes:
+        enabled: true
+      container.network.io.usage.tx_bytes:
+        enabled: true
+      container.network.io.usage.rx_dropped:
+        enabled: true
+      container.network.io.usage.tx_dropped:
+        enabled: true
+      container.memory.usage.limit:
+        enabled: true
+      container.memory.usage.total:
+        enabled: true
+      container.blockio.io_service_bytes_recursive:
+        enabled: true
 
   filelog/docker:
     include: ["/var/lib/docker/containers/*/*.log"]
@@ -279,9 +191,11 @@ receivers:
 
 processors:
   batch:
+
   resourcedetection:
-    detectors: [system]
+    detectors: [env, docker, system]
     timeout: 2s
+    override: false
 
 exporters:
   otlp:
@@ -306,6 +220,8 @@ service:
       processors: [resourcedetection, batch]
       exporters: [otlp]
 ```
+<img width="1909" height="248" alt="image" src="https://github.com/user-attachments/assets/c4af68e1-a0c2-4718-acf6-3166aa861abe" />
+
 
 
 
