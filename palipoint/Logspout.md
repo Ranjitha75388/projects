@@ -280,3 +280,109 @@ logspout-signoz	Collect Docker container logs	Sends to http://<signoz-ip>:8082
 otelcol-contrib	Collect host & container metrics	Sends to grpc://<signoz-ip>:4317
 otel-collector-config.yaml (SigNoz server)	Handles log, metrics, trace ingestion	Already configured
 Let me know if you want a full docker run example for the Otel agent as a container.
+
+----------------------------------------------------------------------------------------------------
+while using opentelementry agent for Logs and Metrics
+```
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4320       ## changed port from 4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+  hostmetrics:
+    collection_interval: 10s
+    scrapers:
+      cpu: {}
+      disk: {}
+      load: {}
+      filesystem: {}
+      memory: {}
+      network: {}
+      paging: {}
+      process:
+        mute_process_name_error: true
+        mute_process_exe_error: true
+        mute_process_io_error: true
+      processes: {}
+
+  prometheus:
+    config:
+      global:
+        scrape_interval: 30s
+      scrape_configs:
+        - job_name: otel-collector-binary
+          static_configs:
+            - targets: ['localhost:8888']
+
+  filelog/containers:
+    include: [ /var/lib/docker/containers/*/*.log ]
+    start_at: beginning
+    multiline:
+      line_start_pattern: '^\{'
+    operators:
+      - type: json_parser
+        id: parse-docker
+        timestamp:
+          parse_from: attributes.time
+          layout: '%Y-%m-%dT%H:%M:%S.%LZ'
+      - type: move
+        from: attributes.log
+        to: body
+
+processors:
+  batch:
+    send_batch_size: 1000
+    timeout: 10s
+
+  resourcedetection:
+    detectors: [ec2, system]
+    timeout: 2s
+    system:
+      hostname_sources: [os]
+
+extensions:
+#  health_check: {}
+#  zpages: {}
+
+exporters:
+  otlp:
+    endpoint: "52.5.140.96:4317"  # Replace with actual SigNoz OTLP IP if needed
+    tls:
+      insecure: true
+
+  debug:
+    verbosity: normal
+
+service:
+  telemetry:
+    metrics:
+      address: 0.0.0.0:8888
+
+  extensions: []
+
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]
+
+    metrics/internal:
+      receivers: [otlp, prometheus, hostmetrics]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]
+
+    logs:
+      receivers: [otlp, filelog/containers]
+      processors: [batch]
+      exporters: [otlp]
+```
+
+<img width="1913" height="401" alt="image" src="https://github.com/user-attachments/assets/6203779b-19ca-4b0e-a92f-81af7d0417e9" />
