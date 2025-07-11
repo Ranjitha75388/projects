@@ -386,3 +386,8 @@ service:
 ```
 
 <img width="1913" height="401" alt="image" src="https://github.com/user-attachments/assets/6203779b-19ca-4b0e-a92f-81af7d0417e9" />
+
+Checked user
+
+<img width="665" height="294" alt="image" src="https://github.com/user-attachments/assets/d2306797-76ce-4aae-b84f-d1a89810011f" />
+
