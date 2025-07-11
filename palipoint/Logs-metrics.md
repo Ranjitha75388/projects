@@ -283,6 +283,30 @@ The pre-defined Container Metrics enables you to select the Docker host from a d
 
 <img width="1917" height="403" alt="image" src="https://github.com/user-attachments/assets/2f1b5982-9006-4e4a-9d9e-3ae369c11a62" />
 
+#### Tried:otlphttp/logs insted of OTLP
+```
+exporters:
+  otlphttp/logs:  ### For Logs
+    endpoint: "http://52.5.140.96:4318"
+    tls:
+      insecure: true
+.
+.
+.
+service:
+  pipelines:
+.
+.
+   logs:
+      receivers: [filelog/docker, filelog/syslog]
+      processors: [resourcedetection, batch]
+      exporters: [otlphttp/logs]
+```
+### ERROR
+<img width="1917" height="423" alt="image" src="https://github.com/user-attachments/assets/0cc87b93-775d-4f8d-be55-5d8e6fcd4961" />
+
+                   
+
 -------------------------------------------
  ## Step 2: Create the config file
  ```
