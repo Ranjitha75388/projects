@@ -390,9 +390,55 @@ service:
 Checked user
 
 <img width="665" height="294" alt="image" src="https://github.com/user-attachments/assets/d2306797-76ce-4aae-b84f-d1a89810011f" />
+so for metrics
+```
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4326
+      http:
+        endpoint: 0.0.0.0:4327
+  hostmetrics:
+    collection_interval: 10s
+    scrapers:
+      cpu: {}
+      memory: {}
+      disk: {}
+      filesystem: {}
+      load: {}
+      network: {}
+      paging: {}
+      processes: {}
+
+processors:
+  batch:
+    send_batch_size: 1000
+    timeout: 10s
+  resourcedetection:
+    detectors: [system, ec2]
+    override: true
+
+exporters:
+  otlp:
+    endpoint: "52.5.140.96:4317"
+    tls:
+      insecure: true
+
+service:
+  telemetry:
+    metrics:
+      address: 0.0.0.0:8888
+  pipelines:
+    metrics:
+      receivers: [otlp, hostmetrics]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+
+```
 
 
-
+<img width="1909" height="388" alt="image" src="https://github.com/user-attachments/assets/5c775156-be78-4107-8f47-b868c66b4f73" />
 
 ------------------------------------------------------------------------
 1..logspout-signoz
