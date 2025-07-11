@@ -134,6 +134,7 @@ exporters: [otlp, debug]
 ## No log exists
 
 ## modify file with system log,container logs,sysyem metrics,docker metris
+------------------------------------------------------------------------------------- noooooooooooooooooo
 ```
 receivers:
   otlp:
@@ -240,6 +241,72 @@ service:
 ````
 
 <img width="1909" height="248" alt="image" src="https://github.com/user-attachments/assets/86c7bb37-92e7-4774-adfe-788c0cbe6943" />
+--------------------------------------------------------------------------------------------------------------------------------------------wrong without document
+```
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+  hostmetrics:
+    collection_interval: 30s
+    scrapers:
+      cpu: {}
+      memory: {}
+      disk: {}
+      filesystem: {}
+      network: {}
+      load: {}
+      paging: {}
+      process:
+        mute_process_name_error: true
+        mute_process_exe_error: true
+        mute_process_io_error: true
+      processes: {}
+
+  docker_stats:
+    # Collects metrics directly from Docker daemon via socket (no endpoint needed on same host)
+    collection_interval: 30s
+
+  filelog/docker:
+    include: ["/var/lib/docker/containers/*/*.log"]
+    start_at: beginning
+
+  filelog/syslog:
+    include: ["/var/log/syslog", "/var/log/messages"]
+    start_at: beginning
+
+processors:
+  batch:
+  resourcedetection:
+    detectors: [system]
+    timeout: 2s
+
+exporters:
+  otlp:
+    endpoint: "52.5.140.96:4317"
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]
+
+    metrics/internal:
+      receivers: [hostmetrics, docker_stats]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+
+    logs:
+      receivers: [filelog/docker, filelog/syslog]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+```
+
 
 
  ## Step 2: Create the config file
