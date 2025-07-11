@@ -110,9 +110,26 @@ service:
       exporters: [otlp]
 ```
 
-<img width="1909" height="388" alt="image" src="https://github.com/user-attachments/assets/a0665fb9-acdf-4b94-893e-e26352b1766c" />
+<img width="1909" height="229" alt="image" src="https://github.com/user-attachments/assets/47c31436-e362-430c-b16e-d01a98a3afd8" />
 
+` Replace logging with debug Exporter `
+exporters:
+  logging:
+    verbosity: normal
 
+To:
+
+exporters:
+  debug:
+    verbosity: normal
+
+And also update all pipelines that say:
+
+exporters: [otlp, logging]
+
+To:
+
+exporters: [otlp, debug]
 
 
 
