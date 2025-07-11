@@ -220,6 +220,13 @@ service:
       processors: [resourcedetection, batch]
       exporters: [otlp]
 ```
+
+### Error 1
+
+### By default, when you install SigNoz, only the Hostmetric receiver is enabled.
+
+https://signoz.io/docs/metrics-management/docker-container-metrics/
+
 <img width="1909" height="248" alt="image" src="https://github.com/user-attachments/assets/c4af68e1-a0c2-4718-acf6-3166aa861abe" />
 
 ## SOlution
