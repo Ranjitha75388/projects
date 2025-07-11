@@ -110,6 +110,11 @@ service:
       exporters: [otlp]
 ```
 
+<img width="1909" height="388" alt="image" src="https://github.com/user-attachments/assets/a0665fb9-acdf-4b94-893e-e26352b1766c" />
+
+
+
+
 
  ## Step 2: Create the config file
  ```
