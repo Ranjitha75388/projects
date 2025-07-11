@@ -222,9 +222,41 @@ service:
 ```
 <img width="1909" height="248" alt="image" src="https://github.com/user-attachments/assets/c4af68e1-a0c2-4718-acf6-3166aa861abe" />
 
+## SOlution
+
+<img width="682" height="327" alt="image" src="https://github.com/user-attachments/assets/99019dd2-189d-40fd-8cd8-fe6a68b901f9" />
+
+Step 2: Check Docker socket permissions
+
+Run this:
+
+ls -l /var/run/docker.sock
+
+It should return something like:
+
+srw-rw---- 1 root docker 0 Jul 11 16:00 /var/run/docker.sock
+
+Make sure:
+
+    The group is docker
+
+    And the user running the collector (e.g., otelcol) is in that group
+
+✅ Step 3: If the service runs as otelcol or another user
+
+If you find User=otelcol in the service file, then add that user to the docker group:
+```
+sudo usermod -aG docker otelcol
+```
+Then restart your machine or the collector:
+```
+sudo reboot
+```
+## Error 2
+<img width="1919" height="531" alt="image" src="https://github.com/user-attachments/assets/1b1b0cff-401c-4971-8f82-753ad451eb4b" />
 
 
-
+-------------------------------------------
  ## Step 2: Create the config file
  ```
 nano otel-collector-config.yaml
