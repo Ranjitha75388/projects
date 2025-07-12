@@ -490,7 +490,7 @@ service:
       exporters: [otlp]
 ```
 #### ERROR:
-<img width="1902" height="112" alt="image" src="https://github.com/user-attachments/assets/c19c0861-d82c-40e7-b3df-74e3e2703975" />
+<img width="1919" height="256" alt="image" src="https://github.com/user-attachments/assets/669ed5f2-5182-40af-980c-c0cb09f33dec" />
 
 #### Action:
 1.Checked in signoz ec2,SigNoz collector logs pipeline is NOT configured to receive OTLP logs
