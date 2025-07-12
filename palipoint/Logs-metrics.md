@@ -345,7 +345,86 @@ Signoz ---> Dashboard --->New panel --->Query Builder --->Metrics ---> `containe
 
 <img width="1862" height="622" alt="image" src="https://github.com/user-attachments/assets/f834c76c-d3b6-4c43-b80c-6ce07825afc9" />
 
+### Final config file for Host Metrics,Docker container Metrics
+```
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4326
+      http:
+        endpoint: 0.0.0.0:4327
 
+# Docker container Metrics
+
+  docker_stats:
+    endpoint: unix:///var/run/docker.sock
+    collection_interval: 30s
+    metrics:
+      container.cpu.utilization:
+        enabled: true
+      container.memory.percent:
+        enabled: true
+      container.network.io.usage.rx_bytes:
+        enabled: true
+      container.network.io.usage.tx_bytes:
+        enabled: true
+
+# Host Metrics
+
+  hostmetrics:
+    collection_interval: 10s
+    scrapers:
+      cpu:
+        metrics:
+          system.cpu.utilization:
+            enabled: true
+      memory:
+        metrics:
+          system.memory.utilization:
+            enabled: true
+      disk:
+        metrics:
+          system.disk.io:
+            enabled: true
+      filesystem: {}
+      load: {}
+      network:
+        metrics:
+          system.network.io:
+            enabled: true
+      paging: {}
+      processes: {}
+
+processors:
+  resourcedetection:
+    detectors: [system, ec2, docker, env]
+    override: true
+    timeout: 2s
+
+  batch:
+    send_batch_size: 1024
+    timeout: 10s
+
+exporters:
+  otlp:
+    endpoint: "52.5.140.96:4317"
+    tls:
+      insecure: true
+
+service:
+  telemetry:
+    metrics:
+      address: 0.0.0.0:8888
+
+  pipelines:
+    metrics:
+      receivers: [otlp, hostmetrics, docker_stats]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+
+```
+`Added ec2 in processor to get instance Details in signoz UI` 
 
 
 
