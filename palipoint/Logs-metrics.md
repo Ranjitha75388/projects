@@ -463,7 +463,7 @@ service:
 
 <img width="1920" height="296" alt="image" src="https://github.com/user-attachments/assets/fe1745dd-f316-44dc-bc34-420bd13c1bf3" />
 
-#### Action:
+#### Action:Gave Read permission to file 
 <img width="603" height="91" alt="image" src="https://github.com/user-attachments/assets/48329a2a-352b-4429-a921-8d532bf44a53" />
 
 
