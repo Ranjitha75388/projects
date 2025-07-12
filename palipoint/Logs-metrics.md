@@ -269,10 +269,25 @@ service:
         enabled: true
       container.blockio.io_service_bytes_recursive:
         enabled: true
+.
+.
+processors:
+  resourcedetection/docker:
+    detectors: [env, docker]
+    timeout: 2s
+    override: false
+.
+.
+service:
+  pipelines:
+    metrics:
+      receivers: [docker_stats]
+      processors: [resourcedetection/docker]
+      exporters: [otlp]
 ```
-(refer)[https://signoz.io/docs/metrics-management/docker-container-metrics/]
+[refer](https://signoz.io/docs/metrics-management/docker-container-metrics/)
 
-#### ERROR:a permissions problem with accessing the Docker socket `(/var/run/docker.sock)`.
+#### ERROR:Permissions problem with accessing the Docker socket `(/var/run/docker.sock)`.
 
 <img width="1909" height="248" alt="image" src="https://github.com/user-attachments/assets/c4af68e1-a0c2-4718-acf6-3166aa861abe" />
 
@@ -324,16 +339,10 @@ sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl restart otelcol-contrib
 ```
-### Output
+### Output In Signoz UI 
 
-The pre-defined Container Metrics enables you to select the Docker host from a dropdown list and visualize the following groups of metrics:
+Signoz ---> Dashboard --->New panel --->Query Builder --->Metrics ---> `container_memory_usage_total` ---> Stage and Run Query
 
-    CPU
-    Memory
-    Network
-    Disk
-
-## Container Memory Metrics:search `container_memory_usage_total`
 <img width="1862" height="622" alt="image" src="https://github.com/user-attachments/assets/f834c76c-d3b6-4c43-b80c-6ce07825afc9" />
 
 
