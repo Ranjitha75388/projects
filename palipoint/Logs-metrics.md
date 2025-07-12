@@ -1,37 +1,55 @@
-1.signoz installed
+## Signoz
 
-## Step 2otel agent installed
+### Step 1:Install SigNoz Using Docker Compose in one EC2
 
-1.Downloading OpenTelemetry Collector .deb
+#### 1.In a directory :
+```
+git clone -b main https://github.com/SigNoz/signoz.git && cd signoz/deploy/
+```
+#### 2.To install signoz
+```
+cd docker
+docker compose up -d --remove-orphans
+```
+#### 3.Verify the Installation
+```
+docker ps
+```
+## Collect Logs and Metrics using OpenTelemetry binary as an agent in another EC2.
+
+#### 1.Downloading OpenTelemetry Collector .deb
 ```
 wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.116.0/otelcol-contrib_0.116.0_linux_amd64.deb
 ```
-2.Installing OpenTelemetry Collector
+#### 2.Installing OpenTelemetry Collector
 ```
 sudo dpkg -i otelcol-contrib_0.116.0_linux_amd64.deb
 ```
-3.Download the standalone configuration
+#### 3.Download the standalone configuration
 ```
 wget https://raw.githubusercontent.com/SigNoz/benchmark/main/docker/standalone/config.yaml
 ```
-4.To copy the updated config.yaml file
+### Systemd service
+
+#### 4.To copy the updated config.yaml file
 ```
 sudo cp config.yaml /etc/otelcol-contrib/config.yaml
 ```
-5.To restart otelcol with updated config:
+#### 5.To restart otelcol with updated config:
 ```
 sudo systemctl restart otelcol-contrib.service
 ```
-6.To check the status of otelcol:
+#### 6.To check the status of otelcol:
 ```
 sudo systemctl status otelcol-contrib.service
 ```
-7.To view logs of otelcol:
+#### 7.To view logs of otelcol:
 ```
 sudo journalctl -u otelcol-contrib.service
 ```
+### Downloaded config file looks
 ```
-nano nano /etc/otelcol-contrib/config.yaml
+nano /etc/otelcol-contrib/config.yaml
 ```
 ```
 receivers:
@@ -109,10 +127,14 @@ service:
       processors: [batch]
       exporters: [otlp]
 ```
+#### ERROR:
 
 <img width="1909" height="229" alt="image" src="https://github.com/user-attachments/assets/47c31436-e362-430c-b16e-d01a98a3afd8" />
 
-` Replace logging with debug Exporter `
+#### Action
+
+- Replace logging with debug Exporter
+```
 exporters:
   logging:
     verbosity: normal
@@ -122,18 +144,18 @@ To:
 exporters:
   debug:
     verbosity: normal
-
-And also update all pipelines that say:
-
+```
+- And also update all pipelines 
+```
 exporters: [otlp, logging]
 
 To:
 
 exporters: [otlp, debug]
+```
+#### ERROR: No log exists in Signoz UI
 
-## No log exists
-
-## modify file with system log,container logs,sysyem metrics,docker metris
+## Modified file to collect system logs,container logs,system metrics,docker metrics
 
 ```
 receivers:
@@ -141,7 +163,7 @@ receivers:
     protocols:
       grpc:
       http:
-
+# Host Metrics
   hostmetrics:
     collection_interval: 30s
     scrapers:
@@ -157,7 +179,7 @@ receivers:
         mute_process_exe_error: true
         mute_process_io_error: true
       processes: {}
-
+# Docker Metrics
   docker_stats:
     endpoint: unix:///var/run/docker.sock
     collection_interval: 30s
@@ -180,11 +202,11 @@ receivers:
         enabled: true
       container.blockio.io_service_bytes_recursive:
         enabled: true
-
+# Docker Logs
   filelog/docker:
     include: ["/var/lib/docker/containers/*/*.log"]
     start_at: beginning
-
+# System Logs
   filelog/syslog:
     include: ["/var/log/syslog", "/var/log/messages"]
     start_at: beginning
@@ -223,41 +245,84 @@ service:
 
 ### Error 1
 
-### By default, when you install SigNoz, only the Hostmetric receiver is enabled.
+### By default, while installing SigNoz, only the Hostmetric receiver is enabled.To collect Docker Metrics,
+```
+ docker_stats:
+    endpoint: unix:///var/run/docker.sock
+    collection_interval: 30s
+    metrics:
+      container.cpu.utilization:
+        enabled: true
+      container.memory.percent:
+        enabled: true
+      container.network.io.usage.rx_bytes:
+        enabled: true
+      container.network.io.usage.tx_bytes:
+        enabled: true
+      container.network.io.usage.rx_dropped:
+        enabled: true
+      container.network.io.usage.tx_dropped:
+        enabled: true
+      container.memory.usage.limit:
+        enabled: true
+      container.memory.usage.total:
+        enabled: true
+      container.blockio.io_service_bytes_recursive:
+        enabled: true
+```
+(refer)[https://signoz.io/docs/metrics-management/docker-container-metrics/]
 
-https://signoz.io/docs/metrics-management/docker-container-metrics/
+#### ERROR:a permissions problem with accessing the Docker socket `(/var/run/docker.sock)`.
 
 <img width="1909" height="248" alt="image" src="https://github.com/user-attachments/assets/c4af68e1-a0c2-4718-acf6-3166aa861abe" />
 
-## SOlution
+#### ACTION:
 
 <img width="682" height="327" alt="image" src="https://github.com/user-attachments/assets/99019dd2-189d-40fd-8cd8-fe6a68b901f9" />
 
-Step 2: Check Docker socket permissions
-
-Run this:
-
+- Check Docker socket permissions
+```
 ls -l /var/run/docker.sock
+```
+<img width="550" height="45" alt="image" src="https://github.com/user-attachments/assets/20f6066a-1718-4489-9090-ad759205d02a" />
 
-It should return something like:
-
-srw-rw---- 1 root docker 0 Jul 11 16:00 /var/run/docker.sock
-
-Make sure:
-
-    The group is docker
-
-    And the user running the collector (e.g., otelcol) is in that group
-
-✅ Step 3: If the service runs as otelcol or another user
-
-If you find User=otelcol in the service file, then add that user to the docker group:
+- **Option 1**: Add `otelcol-contrib` user to the `docker` group
 ```
 sudo usermod -aG docker otelcol
 ```
-Then restart your machine or the collector:
+- Then restart the machine or the collector:
 ```
 sudo reboot
+or
+sudo systemctl restart otelcol-contrib
+
+```
+- **Option 2**: Run the service as `root` 
+```
+sudo nano /lib/systemd/system/otelcol-contrib.service
+```
+```
+[Unit]
+Description=OpenTelemetry Collector Contrib
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/otelcol-contrib/otelcol-contrib.conf
+ExecStart=/usr/bin/otelcol-contrib $OTELCOL_OPTIONS
+KillMode=mixed
+Restart=on-failure
+Type=simple
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+```
+- Then:
+```
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl restart otelcol-contrib
 ```
 ### Output
 
