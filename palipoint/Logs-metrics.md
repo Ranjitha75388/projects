@@ -512,6 +512,20 @@ logs:
   
 <img width="1528" height="303" alt="Screenshot from 2025-07-12 17-57-20" src="https://github.com/user-attachments/assets/7fe73e79-5a75-4f01-8de3-db7d1c15188e" />
 
+#### Permission for docker files
+
+<img width="1496" height="366" alt="image" src="https://github.com/user-attachments/assets/b0586b2a-e181-4b76-9b43-38e718fec762" />
+
+### Fix all Docker directory permissions
+```
+sudo chmod 755 /var/lib/docker/
+sudo chmod 755 /var/lib/docker/containers/
+sudo chmod -R 755 /var/lib/docker/containers/
+```
+### Output
+
+<img width="1912" height="291" alt="image" src="https://github.com/user-attachments/assets/adedd4f0-7af5-4e49-82d5-e268bff8a07b" />
+<img width="1558" height="541" alt="image" src="https://github.com/user-attachments/assets/ee67799a-c038-4511-ab89-5984eae83800" />
 
 
 
