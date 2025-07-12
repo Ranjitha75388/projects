@@ -429,72 +429,44 @@ service:
 ## For collecting logs
 ```
 receivers:
-  filelog/application:
-    include:
-      - /var/log/myapp/*.log
-      - /home/ubuntu/app/logs/*.log
-    start_at: end
-    operators:
-      - type: move
-        from: attributes.log
-        to: body
-      - type: add
-        field: attributes.log_type
-        value: "application"
-      - type: add
-        field: attributes.service_name
-        value: "my-application"
-
   filelog/system:
     include:
       - /var/log/syslog
-      - /var/log/messages
-      - /var/log/kern.log
-      - /var/log/auth.log
-    start_at: end
-    operators:
-      - type: move
-        from: attributes.log
-        to: body
-      - type: add
-        field: attributes.log_type
-        value: "system"
+    start_at: beginning
 
   filelog/containers:
     include:
       - /var/lib/docker/containers/*/*.log
-    start_at: end
+    start_at: beginning
     operators:
       - type: json_parser
-        id: parser-docker
-      - type: move
-        from: attributes.log
-        to: body
-      - type: add
-        field: attributes.log_type
-        value: "container"
-
-processors:
-  batch:
-    timeout: 1s
-    send_batch_size: 1024
+        timestamp:
+          parse_from: attributes.time
+          layout: '%Y-%m-%dT%H:%M:%S.%fZ'
+        severity:
+          parse_from: attributes.level
 
 exporters:
-  otlp:
-    endpoint: "http://52.5.140.96:4317"
-    tls:
-      insecure: true
+  debug:
+    verbosity: detailed
+  file:
+    path: /tmp/otel-logs.json
 
 service:
   pipelines:
     logs:
-      receivers: [filelog/application, filelog/system, filelog/containers]
-      processors: [batch]
-      exporters: [otlp]
+      receivers: [filelog/system, filelog/containers]
+      exporters: [debug, file]
+
 ```
 #### ERROR:Permission Denied for /var/log/syslog,/var/log/auth.log,/var/log/kern.log
 
 <img width="1920" height="296" alt="image" src="https://github.com/user-attachments/assets/fe1745dd-f316-44dc-bc34-420bd13c1bf3" />
+
+#### Action:
+<img width="603" height="91" alt="image" src="https://github.com/user-attachments/assets/48329a2a-352b-4429-a921-8d532bf44a53" />
+
+
 
 
 
