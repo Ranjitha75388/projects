@@ -161,7 +161,8 @@ exporters:
 ![image](https://github.com/user-attachments/assets/d5604125-1738-42ca-a10a-f1fa6e2f2d8e)
 
 ```
-nano /etc/systemd/system/otelcol-contrib.service
+sudo nano /lib/systemd/system/otelcol-contrib.service
+
 ```
 ```
 cat /etc/systemd/system/otelcol-contrib.service
