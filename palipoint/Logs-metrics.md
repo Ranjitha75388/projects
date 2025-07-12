@@ -426,8 +426,88 @@ service:
 ```
 `Added ec2 in processor to get instance Details in signoz UI` 
 
+## For collecting logs
+```
+receivers:
+  filelog/application:
+    include:
+      - /var/log/myapp/*.log
+      - /home/ubuntu/app/logs/*.log
+    start_at: end
+    operators:
+      - type: move
+        from: attributes.log
+        to: body
+      - type: add
+        field: attributes.log_type
+        value: "application"
+      - type: add
+        field: attributes.service_name
+        value: "my-application"
+
+  filelog/system:
+    include:
+      - /var/log/syslog
+      - /var/log/messages
+      - /var/log/kern.log
+      - /var/log/auth.log
+    start_at: end
+    operators:
+      - type: move
+        from: attributes.log
+        to: body
+      - type: add
+        field: attributes.log_type
+        value: "system"
+
+  filelog/containers:
+    include:
+      - /var/lib/docker/containers/*/*.log
+    start_at: end
+    operators:
+      - type: json_parser
+        id: parser-docker
+      - type: move
+        from: attributes.log
+        to: body
+      - type: add
+        field: attributes.log_type
+        value: "container"
+
+processors:
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+
+exporters:
+  otlp:
+    endpoint: "http://52.5.140.96:4317"
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    logs:
+      receivers: [filelog/application, filelog/system, filelog/containers]
+      processors: [batch]
+      exporters: [otlp]
+```
+#### ERROR:Permission Denied for /var/log/syslog,/var/log/auth.log,/var/log/kern.log
+
+<img width="1920" height="296" alt="image" src="https://github.com/user-attachments/assets/fe1745dd-f316-44dc-bc34-420bd13c1bf3" />
 
 
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------
 ## Error 2:Logs
 <img width="1919" height="531" alt="image" src="https://github.com/user-attachments/assets/1b1b0cff-401c-4971-8f82-753ad451eb4b" />
 ## Solution:
