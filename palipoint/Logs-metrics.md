@@ -466,7 +466,34 @@ service:
 #### Action:Gave Read permission to file 
 <img width="603" height="91" alt="image" src="https://github.com/user-attachments/assets/48329a2a-352b-4429-a921-8d532bf44a53" />
 
+### Tried HTTP insteed of grtp
+```
+receivers:
+  filelog:
+    include: ["/var/log/syslog"]
+    start_at: end
 
+processors:
+  batch:
+    timeout: 2s
+    send_batch_size: 50
+
+exporters:
+  otlphttp:
+    endpoint: "http://10.0.15.188:4318"  
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    logs:
+      receivers: [filelog]
+      processors: [batch]
+      exporters: [otlphttp]
+
+```
+#### ERROR:
+<img width="1909" height="327" alt="image" src="https://github.com/user-attachments/assets/9b5cfc72-cbd3-424f-8097-1a8ab91fea66" />
 
 
 
