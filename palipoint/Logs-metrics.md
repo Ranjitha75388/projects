@@ -466,7 +466,7 @@ service:
 #### Action:Gave Read permission to file 
 <img width="603" height="91" alt="image" src="https://github.com/user-attachments/assets/48329a2a-352b-4429-a921-8d532bf44a53" />
 
-### Tried HTTP insteed of grtp
+### Collect system log
 ```
 receivers:
   filelog:
@@ -475,12 +475,10 @@ receivers:
 
 processors:
   batch:
-    timeout: 2s
-    send_batch_size: 50
 
 exporters:
-  otlphttp:
-    endpoint: "http://10.0.15.188:4318"  
+  otlp:
+    endpoint: "10.0.15.188:4317"
     tls:
       insecure: true
 
@@ -489,13 +487,30 @@ service:
     logs:
       receivers: [filelog]
       processors: [batch]
-      exporters: [otlphttp]
-
+      exporters: [otlp]
 ```
 #### ERROR:
-<img width="1909" height="327" alt="image" src="https://github.com/user-attachments/assets/9b5cfc72-cbd3-424f-8097-1a8ab91fea66" />
+<img width="1902" height="112" alt="image" src="https://github.com/user-attachments/assets/c19c0861-d82c-40e7-b3df-74e3e2703975" />
 
+#### Action:
+1.Checked in signoz ec2,SigNoz collector logs pipeline is NOT configured to receive OTLP logs
 
+<img width="1287" height="652" alt="image" src="https://github.com/user-attachments/assets/95d412fc-8878-4074-886a-8f9b4ecb8899" />
+
+```
+logs:
+  receivers: [httplogreceiver/json]  
+  processors: [resourcedetection, batch]
+  exporters: [clickhouselogsexporter]
+
+Should be:
+
+logs:
+  receivers: [otlp, httplogreceiver/json
+```
+- Got system log
+  
+<img width="1528" height="303" alt="Screenshot from 2025-07-12 17-57-20" src="https://github.com/user-attachments/assets/7fe73e79-5a75-4f01-8de3-db7d1c15188e" />
 
 
 
